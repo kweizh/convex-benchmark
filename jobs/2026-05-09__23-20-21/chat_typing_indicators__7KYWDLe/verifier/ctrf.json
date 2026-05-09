@@ -1,0 +1,47 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778340501.0955718,
+            "stop": 1778340502.656612
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_file_exists_and_contains_table",
+                "status": "passed",
+                "duration": 0.000519647030159831,
+                "start": 1778340501.1092536,
+                "stop": 1778340501.109973,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_typing_file_exists_and_contains_functions",
+                "status": "passed",
+                "duration": 0.00043106195516884327,
+                "start": 1778340501.1101675,
+                "stop": 1778340501.1107285,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_convex_codegen_succeeds",
+                "status": "passed",
+                "duration": 1.5452982760034502,
+                "start": 1778340501.1108935,
+                "stop": 1778340502.6564338,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

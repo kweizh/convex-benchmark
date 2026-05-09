@@ -1,0 +1,1418 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo circular_dependencies_schema__Cx7KH3o > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Fix Circular Dependencies in Convex
+
+## Background
+In Convex projects, cross-file function calls using `internal` or `api` from `_generated/api` can trigger TypeScript circularity limits (e.g., `Type instantiation is excessively deep and possibly infinite`), because the generated API depends on the files, and the files depend on the generated API.
+
+## Requirements
+You have a Convex project at `/home/user/convex-project` with three files: `convex/users.ts`, `convex/posts.ts`, and `convex/comments.ts`. They have queries that call each other using `ctx.runQuery(internal...)`. Currently, running `npx tsc` fails due to circular dependencies.
+Your task is to refactor these files to resolve the TypeScript error without changing the runtime behavior.
+
+## Implementation Guide
+1. Navigate to `/home/user/convex-project`.
+2. Run `npx tsc` to see the circular dependency error.
+3. Refactor `convex/users.ts`, `convex/posts.ts`, and `convex/comments.ts` to break the type circularity. You can do this by using `makeFunctionReference` from `convex/server` (e.g., `makeFunctionReference("posts:getPostsByUser")`) instead of importing `internal` from `_generated/api`, or by adding explicit return types to the handlers so TypeScript doesn't need to infer them circularly.
+4. Ensure `npx tsc` passes successfully with 0 exit code.
+
+## Constraints
+- Project path: `/home/user/convex-project`
+- Do not change the runtime behavior or the database schema.
+- The functions must still call each other as originally intended.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo chat_typing_indicators__7KYWDLe > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Chat Typing Indicators
+
+## Background
+You are building the backend for a real-time chat application using Convex. You need to implement a "typing indicator" feature so users can see when others are typing.
+
+## Requirements
+1. Initialize a Convex project in `/home/user/chat-app`.
+2. Define a Convex schema in `convex/schema.ts` with a `typing_indicators` table containing:
+   - `user`: string
+   - `isTyping`: boolean
+   - `updatedAt`: number
+3. Add an index `by_user` on the `user` field in the schema.
+4. Create a file `convex/typing.ts` with two functions:
+   - A mutation named `setTyping` that takes `user` (string) and `isTyping` (boolean). It should update the existing record for that user or insert a new one if it doesn't exist, setting `updatedAt` to `Date.now()`.
+   - A query named `getTypingUsers` that returns an array of `user` strings who are currently typing (`isTyping` is true).
+
+## Implementation Guide
+1. Create the project directory `/home/user/chat-app`.
+2. Initialize a Node project and install `convex`.
+3. Write the schema in `convex/schema.ts`.
+4. Write the functions in `convex/typing.ts`.
+5. Run `npx convex codegen` to generate the TypeScript types.
+
+## Constraints
+- Project path: /home/user/chat-app
+- Do not use a frontend, just the Convex backend files.
+- You must ensure `npx convex codegen` runs successfully to generate the `_generated` folder.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo paginated_full_text_search__gBZBQ8a > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Paginated Full-Text Search in Convex
+
+## Background
+Convex supports powerful full-text search directly within its database. You need to implement a paginated search query for a chat application's messages.
+
+## Requirements
+- Define a `messages` table in `convex/schema.ts` with `body` (string) and `channel` (string) fields.
+- Add a search index named `search_body` on the `messages` table. The index should search the `body` field and filter on the `channel` field.
+- Create a public query named `searchMessages` in `convex/messages.ts`.
+- The query must accept `paginationOpts` (using Convex's `paginationOptsValidator`), a `query` string, and a `channel` string.
+- The query must use `.withSearchIndex` to search the `body` field for the `query` string and filter by the `channel`.
+- The query must return paginated results using `.paginate(args.paginationOpts)`.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/convex-app`.
+2. Install the `convex` package.
+3. Create `convex/schema.ts` and define the schema with the `messages` table and `search_body` index.
+4. Create `convex/messages.ts` and implement the `searchMessages` query.
+
+## Constraints
+- Project path: `/home/user/convex-app`
+- Do not run `npx convex dev` as it requires cloud authentication. Just write the code correctly.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo aggregate_data_cron__gg44Q9c > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Cron Job for Data Aggregation
+
+## Background
+You have a Convex project initialized in `/home/user/project`. The `convex/schema.ts` file defines an `events` table (with `type` and `value` fields) and an `aggregations` table (with a `totalValue` field).
+Your task is to create a scheduled background job that aggregates data from the `events` table every hour.
+
+## Requirements
+1. **Create `convex/aggregate.ts`**:
+   - Define and export an internal mutation named `run`.
+   - The mutation takes no arguments.
+   - It should query all documents from the `events` table, calculate the total sum of the `value` field across all events, and insert a new document into the `aggregations` table with `totalValue` set to the calculated sum.
+
+2. **Create `convex/crons.ts`**:
+   - Initialize a `crons` object using `cronJobs()`.
+   - Schedule the `internal.aggregate.run` mutation to run every 1 hour using `crons.interval`.
+   - Name the interval job `"aggregate events"`.
+   - Export the `crons` object as the default export.
+
+## Implementation Guide
+- In `convex/aggregate.ts`, import `internalMutation` from `./_generated/server` and use the object syntax (`internalMutation({ args: {}, handler: async (ctx, args) => { ... } })`).
+- In `convex/crons.ts`, import `cronJobs` from `convex/server` and `internal` from `./_generated/api`.
+- Do not use the deprecated `crons.hourly` helper. Use `crons.interval("aggregate events", { hours: 1 }, internal.aggregate.run, {})`.
+
+## Constraints
+- Project path: `/home/user/project`
+- You do not need to run the project. Just create the correct files.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo cron_jobs_cleanup__CZTS9Cs > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Cron Job Cleanup
+
+## Background
+You need to set up a Convex project that includes a cron job to clean up expired session data every hour.
+
+## Requirements
+- Initialize a Node.js project in `/home/user/convex-cron`.
+- Install `convex`.
+- Create a Convex schema with a `sessions` table containing `expiresAt` (number).
+- Create an internal mutation in `convex/sessions.ts` named `cleanupExpired` that deletes all sessions where `expiresAt` is less than the current time (passed as an argument or using `Date.now()`).
+- Create a cron job in `convex/crons.ts` that runs `cleanupExpired` every hour using `crons.hourly()`.
+
+## Implementation Guide
+1. `mkdir -p /home/user/convex-cron && cd /home/user/convex-cron`
+2. `npm init -y`
+3. `npm install convex`
+4. Create `convex/schema.ts` defining the `sessions` table.
+5. Create `convex/sessions.ts` with the `cleanupExpired` internal mutation.
+6. Create `convex/crons.ts` defining the hourly cron job.
+
+## Constraints
+- Project path: /home/user/convex-cron
+- The mutation must be exported as `cleanupExpired` and use `internalMutation`.
+- The cron job must use `crons.hourly()`.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: echo error_retries_actions__fG9Z2gR > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Fix Convex Mutation with External API Call
+
+## Background
+In a Convex project at `/home/user/myproject`, there is a mutation `sendMessage` in `convex/messages.ts` that incorrectly tries to call an external API using `fetch`. This is an anti-pattern because mutations must be deterministic and have no side effects.
+
+## Requirements
+- Refactor the external API call into a new Action named `sendMessageAction` in `convex/messages.ts`.
+- The action should accept a `text` argument (string).
+- The action should call `fetch('https://httpstat.us/200', { method: 'POST', body: JSON.stringify({text: args.text}) })`.
+- Implement a simple retry loop in the action: if the `fetch` fails (throws or returns non-ok status), retry up to 3 times (i.e., 4 attempts total) before throwing an error.
+- If the fetch succeeds, the action should call a mutation `saveMessage` to save the message to the database.
+- Create the `saveMessage` mutation in the same file, which accepts `text` (string) and inserts into the `messages` table.
+- Remove the original `sendMessage` mutation.
+- Ensure the code passes `npx tsc` (type checks).
+
+## Constraints
+- Project path: `/home/user/myproject`
+- Use `https://httpstat.us/200` for the external API call to avoid real side effects while still performing a real fetch.
+- Do not use `use node` directive, keep it in the default Convex runtime.
+- Use Convex `v` validator for arguments.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo relational_queries__ChWge4n > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Relational Queries
+
+## Background
+Convex is a reactive database where queries are written in TypeScript. In this task, you will implement a relational query that joins data from two tables: `users` and `messages`.
+
+## Requirements
+- Define a schema in `convex/schema.ts` with two tables: `users` (has a `name` string field) and `messages` (has a `text` string field, and an `authorId` field referencing `users`).
+- Implement a query `listMessages` in `convex/messages.ts` that fetches all messages and also fetches the author for each message, returning an array of objects containing the message and its author's name.
+
+## Implementation Guide
+1. The project is already initialized at `/home/user/project` with `convex` and `typescript` installed. The `convex` folder exists.
+2. Create `convex/schema.ts` defining the `users` and `messages` tables.
+3. Create `convex/messages.ts` and implement the `listMessages` query.
+   - The query should take no arguments.
+   - It should return an array of objects, each containing the `_id` of the message, the `text` of the message, and the `authorName` (the name of the user referenced by `authorId`).
+
+## Constraints
+- Project path: `/home/user/project`
+- Use the new function syntax for Convex functions.
+- Ensure `convex/schema.ts` and `convex/messages.ts` are syntactically correct TypeScript.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo data_migration_script__8C7g3L2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Data Migration Script
+
+## Background
+You have a Convex project initialized at `/home/user/project`. You need to write a migration script as a Convex mutation to seed the database with initial tasks.
+
+## Requirements
+- Create a new file `convex/migration.ts`.
+- In this file, export a mutation named `seedTasks`.
+- The mutation should insert three records into the `tasks` table:
+  1. `text`: "Buy milk", `status`: "todo"
+  2. `text`: "Read book", `status`: "todo"
+  3. `text`: "Write code", `status`: "done"
+- After creating the mutation, deploy it and run it using the Convex CLI.
+
+## Implementation Guide
+1. Create `convex/migration.ts` and define the `seedTasks` mutation using `mutation` from `./_generated/server`.
+2. Use `ctx.db.insert("tasks", { ... })` to insert the records.
+3. Run `npx convex deploy` to push your functions to Convex.
+4. Run `npx convex run migration:seedTasks` to execute the migration.
+
+## Constraints
+- Project path: `/home/user/project`
+- The project is already initialized and the `tasks` table is defined in `convex/schema.ts`.
+- Use the provided `CONVEX_DEPLOY_KEY` environment variable.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo http_endpoint_webhooks__NWZfFoJ > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex HTTP Webhooks
+
+## Background
+Convex allows you to define HTTP actions to handle incoming webhooks from external services. In this task, you will create a Convex backend that receives a POST request and stores the data.
+
+## Requirements
+- Initialize a Convex project in `/home/user/project`.
+- Define a schema (`convex/schema.ts`) with a `messages` table containing `author` (string) and `body` (string).
+- Create a mutation `sendMessage` in `convex/messages.ts` that inserts a message into the `messages` table.
+- Create an HTTP action at `POST /webhook` in `convex/http.ts` that reads a JSON payload containing `author` and `body`, calls the `sendMessage` mutation, and returns a 200 response.
+- Save the Convex site URL (e.g., `https://<deployment-name>.convex.site`) to `/home/user/project/convex_site_url.txt`.
+
+## Implementation Guide
+1. The project directory `/home/user/project` is already created with `package.json` and `convex` installed.
+2. Write `convex/schema.ts` to define the `messages` table.
+3. Write `convex/messages.ts` defining the `sendMessage` mutation.
+4. Write `convex/http.ts` defining the HTTP action and routing `POST /webhook` to it.
+5. Deploy the Convex functions using `npx convex deploy`.
+6. Determine your deployment's site URL and save it to `/home/user/project/convex_site_url.txt`.
+
+## Constraints
+- Project path: `/home/user/project`
+- You must use `npx convex deploy` to push your code. The `CONVEX_DEPLOY_KEY` is already provided in the environment.
+- The payload format for the webhook is `{"author": "Alice", "body": "Hello"}`.
+- Do not use `npx convex dev` as it is interactive.
+- The file `/home/user/project/convex_site_url.txt` must contain exactly the base URL (no trailing slash, e.g., `https://happy-animal-123.convex.site`).
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo optimistic_updates_react__iLhHvMr > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Optimistic Updates in React
+
+## Background
+Convex provides a powerful `.withOptimisticUpdate` feature to update the UI instantly before a mutation completes. This makes applications feel extremely fast and responsive.
+
+## Requirements
+You have a Vite React project set up at `/home/user/project` with Convex installed and initialized.
+- The schema (`convex/schema.ts`) has a `counter` table with a `value` (number).
+- There is a query `get` in `convex/counter.ts` to get the counter value.
+- There is a mutation `increment` in `convex/counter.ts` to increment the counter.
+- Your task is to update `src/App.tsx` to display the counter and have an "Increment" button.
+- You MUST configure the mutation with `.withOptimisticUpdate` to immediately update the local query result before the server responds.
+
+## Implementation Guide
+1. Review `convex/schema.ts` and `convex/counter.ts` to understand the backend.
+2. In `src/App.tsx`, use `useQuery` to fetch the counter and `useMutation` for the increment.
+3. Configure the mutation with `.withOptimisticUpdate` to update the `localStore` immediately.
+
+## Constraints
+- Project path: /home/user/project
+- The UI must render the counter value and an increment button.
+EOF
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo rbac_mutations__mmptMQn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex RBAC Mutation
+
+## Background
+Implement a simple Role-Based Access Control (RBAC) system in a Convex backend to restrict who can delete tasks.
+
+## Requirements
+1. Define a schema in `convex/schema.ts` with two tables:
+   - `users`: `{ name: v.string(), role: v.string() }`
+   - `tasks`: `{ text: v.string(), status: v.string() }`
+2. Create the following mutations in `convex/tasks.ts`:
+   - `createUser`: accepts `name: v.string()` and `role: v.string()`, inserts a user, and returns the user ID.
+   - `createTask`: accepts `text: v.string()` and `status: v.string()`, inserts a task, and returns the task ID.
+   - `deleteTask`: accepts `taskId: v.id("tasks")` and `userId: v.id("users")`. Inside the mutation, fetch the user. If the user does not exist or their `role` is not `"admin"`, it must throw an Error with the exact message `"Unauthorized"`. If the user is an admin, delete the task using `ctx.db.delete(args.taskId)`.
+
+## Implementation Guide
+1. Initialize a Convex project in `/home/user/project` if not already initialized.
+2. Write the schema in `convex/schema.ts`.
+3. Write the mutations in `convex/tasks.ts`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Use `v.id("tasks")` and `v.id("users")` for the arguments.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo soft_delete_pattern__cUSTeg4 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Soft Delete Pattern in Convex
+
+## Background
+Implement a soft delete pattern in a Convex project to keep data for auditing while hiding it from normal queries.
+
+## Requirements
+- Define a schema for a `documents` table that supports soft deletion.
+- Implement a mutation to create a document.
+- Implement a mutation to soft delete a document.
+- Implement a query to list only active (non-deleted) documents using an index.
+
+## Implementation Guide
+1. In `/home/user/project/convex/schema.ts`, define a `documents` table with `title` (v.string()) and `isDeleted` (v.boolean()). Add an index named `by_deleted` on `["isDeleted"]`.
+2. In `/home/user/project/convex/documents.ts`, export a `create` mutation that takes `title` (v.string()) and inserts a document with `title` and `isDeleted: false`. Return the ID.
+3. Export a `softDelete` mutation that takes `id` (v.id("documents")) and updates `isDeleted` to `true`.
+4. Export a `listActive` query that uses the `by_deleted` index to return all documents where `isDeleted` is `false`.
+
+## Constraints
+- Project path: /home/user/project
+- Use `v.string()`, `v.boolean()`, and `v.id("documents")` for validation.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo realtime_collaborative_cursor__caJJPDi > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Real-time Collaborative Cursor with Convex
+
+## Background
+Create a real-time collaborative cursor application using Convex and React (Vite).
+
+## Requirements
+- Define a `cursors` table in `convex/schema.ts` with `id` (string), `x` (number), `y` (number), and `color` (string).
+- Create a mutation `update` in `convex/cursors.ts` that takes `id`, `x`, `y`, and `color`. It should update the cursor if `id` exists, or insert it if not.
+- Create a query `get` in `convex/cursors.ts` that returns all cursors.
+- In `src/App.jsx`, render a full-screen `div` that listens to `onMouseMove`. Call the `update` mutation with a unique ID (e.g., 'user1'), the mouse `x` and `y`, and a color (e.g., 'red').
+- Fetch all cursors using the `get` query and render them as `div` elements with `class="cursor"` at their respective `x` and `y` coordinates.
+
+## Implementation Guide
+1. The project at `/home/user/cursor-app` is a Vite React app with Convex installed.
+2. Run `npx convex deploy` to deploy your Convex backend (the `CONVEX_DEPLOY_KEY` is provided in the environment).
+3. Implement the schema and functions in the `convex/` directory.
+4. Update `src/main.jsx` to wrap the app in `ConvexProvider` using `import { ConvexProvider, ConvexReactClient } from "convex/react";` and `new ConvexReactClient(import.meta.env.VITE_CONVEX_URL)`.
+5. Update `src/App.jsx` to implement the frontend logic.
+6. Ensure `npm run dev` starts the frontend on port 5173.
+
+## Constraints
+- Project path: `/home/user/cursor-app`
+- Start command: `npm run dev`
+- Port: 5173
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Running command: apt-get update && apt-get install -y curl ripgrep
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo rate_limiting_actions__3gKppyF > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Rate Limiting Convex Actions
+
+## Background
+Implement a rate-limited action in a Convex backend. Convex actions are used for side effects (like calling external APIs), but we want to limit how often a user can trigger an action using the database.
+
+## Requirements
+- Create a Convex project in `/home/user/project`.
+- Define a schema with a `rateLimits` table containing `userId` (string) and `count` (number). Add an index on `userId` named `by_userId`.
+- Create a mutation `checkAndIncrement` in `convex/rateLimit.ts` that takes a `userId` (string). It should find the user's rate limit record using the index. If it doesn't exist, create it with count 1 and return `true`. If it exists and count is < 3, increment count by 1 and return `true`. If count is >= 3, return `false`.
+- Create an action `doWork` in `convex/actions.ts` that takes a `userId` (string). It calls the `checkAndIncrement` mutation. If the mutation returns `false`, throw an Error with message "Rate limit exceeded". If `true`, return "Work completed".
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project` and install `convex`.
+2. Create `convex/schema.ts` defining the `rateLimits` table with the required index.
+3. Create `convex/rateLimit.ts` with the `checkAndIncrement` mutation.
+4. Create `convex/actions.ts` with the `doWork` action.
+
+## Constraints
+- Project path: /home/user/project
+- Do not use external rate limiting services, use the Convex database.
+- The action must be defined using the new function syntax.
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo cursor_based_pagination__sVpCHyE > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Cursor-Based Pagination
+
+## Background
+Convex provides a built-in `paginate` method on database queries to fetch data in chunks using a cursor. This is essential for building scalable lists and feeds.
+
+## Requirements
+- Initialize a Convex project in `/home/user/project`.
+- Define a schema with a `messages` table containing `text` (string) and `author` (string).
+- Create a mutation to send messages.
+- Create a paginated query to list messages in descending order.
+- Write a Node.js script that populates the database and tests the pagination, saving the results to a JSON file.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project` and install `convex` and `dotenv`.
+2. Create `convex/schema.ts` defining a `messages` table with `text: v.string()` and `author: v.string()`.
+3. Create `convex/messages.ts` with:
+   - A `send` mutation taking `text` and `author`.
+   - A `list` query taking `paginationOpts: paginationOptsValidator` and returning `ctx.db.query("messages").order("desc").paginate(args.paginationOpts)`.
+4. Create `/home/user/project/test_pagination.js` that uses `ConvexHttpClient` to:
+   - Call the `send` mutation 5 times with different messages.
+   - Call the `list` query with `paginationOpts: { numItems: 2, cursor: null }`.
+   - Call the `list` query again using the `continueCursor` from the first result and `numItems: 2`.
+   - Write an object containing `page1` (first result page array) and `page2` (second result page array) to `/home/user/project/output.json`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Log file: `/home/user/project/output.json`
+- You must deploy your Convex functions using `npx convex deploy`.
+- Ensure you configure the client in your script with the `CONVEX_URL` environment variable.
+
+## Integrations
+- None
+EOF
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo vector_search_filtering__LjW6mf9 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Vector Search with Filtering
+
+## Background
+Convex supports vector search with the ability to filter results based on additional fields. This is useful for finding similar items within a specific category, such as finding similar foods within a specific cuisine.
+
+## Requirements
+- Define a `foods` table schema in `convex/schema.ts` with:
+  - `description`: string
+  - `cuisine`: string
+  - `embedding`: array of float64
+  - A vector index named `by_embedding` on the `embedding` field with 4 dimensions and filtering on `cuisine`.
+- Create an internal query `fetchResults` in `convex/foods.ts` that takes an array of `foods` IDs (`ids: v.array(v.id("foods"))`) and returns the corresponding documents.
+- Create an action `similarFoods` in `convex/foods.ts` that takes a `vector` (array of float64) and a `cuisine` (string), performs a vector search on the `by_embedding` index using `ctx.vectorSearch` with the provided vector and filters by the provided cuisine (exact match), and then fetches the full documents using the `fetchResults` query.
+
+## Implementation Guide
+1. Initialize a Node.js project in `/home/user/project`.
+2. Install `convex`.
+3. Create `convex/schema.ts` and define the `foods` table and vector index.
+4. Create `convex/foods.ts` and implement the `fetchResults` internal query and `similarFoods` action.
+
+## Constraints
+- Project path: `/home/user/project`
+- The `similarFoods` action should accept the vector directly as an argument `args: { vector: v.array(v.float64()), cuisine: v.string() }`.
+- Do not call any external embedding API in the action.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

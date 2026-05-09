@@ -1,0 +1,47 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778340450.0396905,
+            "stop": 1778340450.051816
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_migration_file_exists",
+                "status": "passed",
+                "duration": 0.00047880085185170174,
+                "start": 1778340450.0495026,
+                "stop": 1778340450.0501814,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_migration_exports_seedTasks",
+                "status": "passed",
+                "duration": 0.0004338938742876053,
+                "start": 1778340450.05037,
+                "stop": 1778340450.0509374,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_migration_inserts_tasks",
+                "status": "passed",
+                "duration": 0.00044569093734025955,
+                "start": 1778340450.0511072,
+                "stop": 1778340450.0516725,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

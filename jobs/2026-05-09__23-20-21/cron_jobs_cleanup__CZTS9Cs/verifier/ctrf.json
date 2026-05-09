@@ -1,0 +1,47 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 3,
+            "passed": 3,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778340274.609755,
+            "stop": 1778340274.6227598
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_schema_exists",
+                "status": "passed",
+                "duration": 0.0005156139377504587,
+                "start": 1778340274.6202037,
+                "stop": 1778340274.6209195,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_sessions_mutation_exists",
+                "status": "passed",
+                "duration": 0.0005297188181430101,
+                "start": 1778340274.6211054,
+                "stop": 1778340274.6217752,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_crons_exists",
+                "status": "passed",
+                "duration": 0.00046214787289500237,
+                "start": 1778340274.6219554,
+                "stop": 1778340274.6225958,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

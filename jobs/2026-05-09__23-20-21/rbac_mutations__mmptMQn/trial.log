@@ -1,0 +1,86 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo rbac_mutations__mmptMQn > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex RBAC Mutation
+
+## Background
+Implement a simple Role-Based Access Control (RBAC) system in a Convex backend to restrict who can delete tasks.
+
+## Requirements
+1. Define a schema in `convex/schema.ts` with two tables:
+   - `users`: `{ name: v.string(), role: v.string() }`
+   - `tasks`: `{ text: v.string(), status: v.string() }`
+2. Create the following mutations in `convex/tasks.ts`:
+   - `createUser`: accepts `name: v.string()` and `role: v.string()`, inserts a user, and returns the user ID.
+   - `createTask`: accepts `text: v.string()` and `status: v.string()`, inserts a task, and returns the task ID.
+   - `deleteTask`: accepts `taskId: v.id("tasks")` and `userId: v.id("users")`. Inside the mutation, fetch the user. If the user does not exist or their `role` is not `"admin"`, it must throw an Error with the exact message `"Unauthorized"`. If the user is an admin, delete the task using `ctx.db.delete(args.taskId)`.
+
+## Implementation Guide
+1. Initialize a Convex project in `/home/user/project` if not already initialized.
+2. Write the schema in `convex/schema.ts`.
+3. Write the mutations in `convex/tasks.ts`.
+
+## Constraints
+- Project path: `/home/user/project`
+- Use `v.id("tasks")` and `v.id("users")` for the arguments.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

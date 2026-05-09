@@ -1,0 +1,90 @@
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash  && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo aggregate_data_cron__gg44Q9c > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" -e "s/ANTHROPIC_API_KEY/${ANTHROPIC_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "anthropic": {
+      "kind": "openai",
+      "baseURL": "https://api.anthropic.com/v1",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": {
+        "claude-opus-4-6": {
+          "name": "claude-opus-4-6"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: mkdir -p /logs/artifacts
+Command outputs captured
+Running command: export PATH="$HOME/.pochi/bin:$PATH"; pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Preserving your work
+
+Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable.
+
+---
+
+# Convex Cron Job for Data Aggregation
+
+## Background
+You have a Convex project initialized in `/home/user/project`. The `convex/schema.ts` file defines an `events` table (with `type` and `value` fields) and an `aggregations` table (with a `totalValue` field).
+Your task is to create a scheduled background job that aggregates data from the `events` table every hour.
+
+## Requirements
+1. **Create `convex/aggregate.ts`**:
+   - Define and export an internal mutation named `run`.
+   - The mutation takes no arguments.
+   - It should query all documents from the `events` table, calculate the total sum of the `value` field across all events, and insert a new document into the `aggregations` table with `totalValue` set to the calculated sum.
+
+2. **Create `convex/crons.ts`**:
+   - Initialize a `crons` object using `cronJobs()`.
+   - Schedule the `internal.aggregate.run` mutation to run every 1 hour using `crons.interval`.
+   - Name the interval job `"aggregate events"`.
+   - Export the `crons` object as the default export.
+
+## Implementation Guide
+- In `convex/aggregate.ts`, import `internalMutation` from `./_generated/server` and use the object syntax (`internalMutation({ args: {}, handler: async (ctx, args) => { ... } })`).
+- In `convex/crons.ts`, import `cronJobs` from `convex/server` and `internal` from `./_generated/api`.
+- Do not use the deprecated `crons.hourly` helper. Use `crons.interval("aggregate events", { hours: 1 }, internal.aggregate.run, {})`.
+
+## Constraints
+- Project path: `/home/user/project`
+- You do not need to run the project. Just create the correct files.
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

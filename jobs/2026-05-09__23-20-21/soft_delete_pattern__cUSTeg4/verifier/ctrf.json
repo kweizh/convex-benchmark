@@ -1,0 +1,56 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778340717.8143938,
+            "stop": 1778340725.0841067
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_convex_deploy_succeeds",
+                "status": "passed",
+                "duration": 7.251918768044561,
+                "start": 1778340717.8288677,
+                "stop": 1778340725.0811062,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_schema_has_soft_delete",
+                "status": "passed",
+                "duration": 0.0005990727804601192,
+                "start": 1778340725.081406,
+                "stop": 1778340725.0821872,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_documents_functions_exist",
+                "status": "passed",
+                "duration": 0.0005123051814734936,
+                "start": 1778340725.0824175,
+                "stop": 1778340725.0830863,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_list_active_uses_index",
+                "status": "passed",
+                "duration": 0.00046905316412448883,
+                "start": 1778340725.0833235,
+                "stop": 1778340725.083932,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

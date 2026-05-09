@@ -1,0 +1,32 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "8.4.1"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1778340826.219345,
+            "stop": 1778340831.3509374
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_rate_limiting_action",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 5.103090483928099,
+                "start": 1778340826.229285,
+                "stop": 1778340831.3506982,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_rate_limiting_action():\n        \"\"\"Verify that the action is rate limited to 3 calls per user.\"\"\"\n        user_id = \"test_user_1\"\n    \n        # First 3 calls should succeed\n        for i in range(3):\n            res = run_action(user_id)\n>           assert res.returncode == 0, f\"Call {i+1} failed: {res.stderr}\"\nE           AssertionError: Call 1 failed: \u2716 Failed to run function \"actions:doWork\":\nE             Error: [Request ID: 55d08e1f98d17b38] Server Error\nE             Could not find function for 'actions:doWork'. Did you forget to run `npx convex dev`?\nE             \nE             Available functions:\nE             \u2022 cursors:update\nE             \u2022 cursors:get\nE             \nE           assert 1 == 0\nE            +  where 1 = CompletedProcess(args=['npx', 'convex', 'run', 'actions:doWork', '{\"userId\": \"test_user_1\"}'], returncode=1, stdout=''...'actions:doWork\\'. Did you forget to run `npx convex dev`?\\n\\nAvailable functions:\\n\u2022 cursors:update\\n\u2022 cursors:get\\n').returncode\n\ntests/test_final_state.py:23: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

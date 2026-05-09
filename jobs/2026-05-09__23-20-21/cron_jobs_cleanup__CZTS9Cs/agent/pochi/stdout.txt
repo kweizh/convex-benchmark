@@ -1,0 +1,40 @@
+- Initializing MCP connections...
+You
+# Preserving your work Save a copy of files you create during this task to `/logs/artifacts/`. This directory is preserved after the run so outputs can be inspected. Organize with subdirectories if helpful (e.g., `/logs/artifacts/code/`, `/logs/artifacts/reports/`). The directory already exists and is writable. *** # Convex Cron Job Cleanup ## Background You need to set up a Convex project that includes a cron job to clean up expired session data every hour. ## Requirements * Initialize a Node.js project in `/home/user/convex-cron`. * Install `convex`. * Create a Convex schema with a `sessions` table containing `expiresAt` (number). * Create an internal mutation in `convex/sessions.ts` named `cleanupExpired` that deletes all sessions where `expiresAt` is less than the current time (passed as an argument or using `Date.now()`). * Create a cron job in `convex/crons.ts` that runs `cleanupExpired` every hour using `crons.hourly()`. ## Implementation Guide 1. `mkdir -p /home/user/convex-cron && cd /home/user/convex-cron` 2. `npm init -y` 3. `npm install convex` 4. Create `convex/schema.ts` defining the `sessions` table. 5. Create `convex/sessions.ts` with the `cleanupExpired` internal mutation. 6. Create `convex/crons.ts` defining the hourly cron job. ## Constraints * Project path: /home/user/convex-cron * The mutation must be exported as `cleanupExpired` and use `internalMutation`. * The cron job must use `crons.hourly()`.   
+
+Pochi
+💭 Thinking for 282 characters   
+📋 Updating todo list (6 items) ✔ 
+💫 Executing mkdir -p /home/user/convex-cron && cd /home/user/convex-cron && npm init -y ✔ 
+📋 Updating todo list (6 items) ✔ 
+💫 Executing cd /home/user/convex-cron && npm install convex ✔ 
+📋 Updating todo list (6 items) ✔ 
+✏️  Writing /home/user/convex-cron/convex/schema.ts ✔ 
+📋 Updating todo list (6 items) ✔ 
+💭 Thinking for 254 characters   
+✏️  Writing /home/user/convex-cron/convex/sessions.ts ✔ 
+📋 Updating todo list (6 items) ✔ 
+✏️  Writing /home/user/convex-cron/convex/crons.ts ✔ 
+💭 Thinking for 321 characters   
+✏️  Writing /home/user/convex-cron/convex/crons.ts ✔ 
+📋 Updating todo list (6 items) ✔ 
+💫 Executing mkdir -p /logs/artifacts/convex && cp /home/user/convex-cron/convex/schema.ts /logs/artifacts/convex/ && cp /home/user/convex-cron/convex/sessions.ts /logs/artifacts/convex/ && cp /home/user/convex-cron/convex/crons.ts /logs/artifacts/convex/ && cp /home/user/convex-cron/package.json /logs/artifacts/ ✔ 
+💭 Thinking for 530 characters   
+📋 Updating todo list (6 items) ✔ 
+🎉 Task Completed
+I have successfully set up the Convex project in `/home/user/convex-cron` and configured the hourly cron job for session cleanup.
+
+### Changes implemented:
+1.  **Project Initialization**: Created the directory, initialized a Node.js project, and installed the `convex` dependency.
+2.  **Schema Definition**: Created `convex/schema.ts` with a `sessions` table including an `expiresAt` field.
+3.  **Cleanup Mutation**: Created `convex/sessions.ts` with an `internalMutation` named `cleanupExpired` that identifies and deletes sessions where `expiresAt` is less than the current timestamp.
+4.  **Cron Job Configuration**: Created `convex/crons.ts` using `crons.hourly()` to schedule the `cleanupExpired` mutation every hour.
+5.  **Artifacts**: Saved copies of the configuration and source files to `/logs/artifacts/`.
+
+### File Summary:
+- `/home/user/convex-cron/convex/schema.ts`: Defines the database structure.
+- `/home/user/convex-cron/convex/sessions.ts`: Contains the deletion logic.
+- `/home/user/convex-cron/convex/crons.ts`: Schedules the hourly task.
+
+Copies of these files can also be found in `/logs/artifacts/convex/`.   
+  
