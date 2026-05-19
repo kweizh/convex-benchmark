@@ -4,11 +4,12 @@
 4:I[63155,["/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js"],"ThemeToggle"]
 5:I[36064,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 6:I[81497,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
-7:I[42654,["/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/convex-benchmark/_next/static/chunks/8963fe5b24686989.js","/convex-benchmark/_next/static/chunks/be08138953094657.js"],"TasksPageClient"]
-1c:I[9986,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+7:"$Sreact.suspense"
+8:I[42654,["/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/convex-benchmark/_next/static/chunks/d6890805f2484beb.js","/convex-benchmark/_next/static/chunks/ab9c434cfac62bb4.js"],"TasksPageClient"]
+1d:I[9986,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 :HL["/convex-benchmark/_next/static/chunks/b9bb09f8019c4011.css","style"]
 :HL["/convex-benchmark/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-8:T63a,# Convex Cron Job for Data Aggregation
+9:T63a,# Convex Cron Job for Data Aggregation
 
 ## Background
 You have a Convex project initialized in `/home/user/project`. The `convex/schema.ts` file defines an `events` table (with `type` and `value` fields) and an `aggregations` table (with a `totalValue` field).
@@ -33,7 +34,7 @@ Your task is to create a scheduled background job that aggregates data from the 
 
 ## Constraints
 - Project path: `/home/user/project`
-- You do not need to run the project. Just create the correct files.9:T56f,# Convex Chat Typing Indicators
+- You do not need to run the project. Just create the correct files.a:T56f,# Convex Chat Typing Indicators
 
 ## Background
 You are building the backend for a real-time chat application using Convex. You need to implement a "typing indicator" feature so users can see when others are typing.
@@ -59,7 +60,7 @@ You are building the backend for a real-time chat application using Convex. You 
 ## Constraints
 - Project path: /home/user/chat-app
 - Do not use a frontend, just the Convex backend files.
-- You must ensure `npx convex codegen` runs successfully to generate the `_generated` folder.a:T603,# Fix Circular Dependencies in Convex
+- You must ensure `npx convex codegen` runs successfully to generate the `_generated` folder.b:T603,# Fix Circular Dependencies in Convex
 
 ## Background
 In Convex projects, cross-file function calls using `internal` or `api` from `_generated/api` can trigger TypeScript circularity limits (e.g., `Type instantiation is excessively deep and possibly infinite`), because the generated API depends on the files, and the files depend on the generated API.
@@ -80,7 +81,7 @@ Your task is to refactor these files to resolve the TypeScript error without cha
 - The functions must still call each other as originally intended.
 
 ## Integrations
-- Noneb:T469,# Convex Cron Job Cleanup
+- Nonec:T469,# Convex Cron Job Cleanup
 
 ## Background
 You need to set up a Convex project that includes a cron job to clean up expired session data every hour.
@@ -103,7 +104,7 @@ You need to set up a Convex project that includes a cron job to clean up expired
 ## Constraints
 - Project path: /home/user/convex-cron
 - The mutation must be exported as `cleanupExpired` and use `internalMutation`.
-- The cron job must use `crons.hourly()`.c:T710,# Convex Cursor-Based Pagination
+- The cron job must use `crons.hourly()`.d:T710,# Convex Cursor-Based Pagination
 
 ## Background
 Convex provides a built-in `paginate` method on database queries to fetch data in chunks using a cursor. This is essential for building scalable lists and feeds.
@@ -134,7 +135,7 @@ Convex provides a built-in `paginate` method on database queries to fetch data i
 - Ensure you configure the client in your script with the `CONVEX_URL` environment variable.
 
 ## Integrations
-- Noned:T46a,# Convex Data Migration Script
+- Nonee:T46a,# Convex Data Migration Script
 
 ## Background
 You have a Convex project initialized at `/home/user/project`. You need to write a migration script as a Convex mutation to seed the database with initial tasks.
@@ -157,7 +158,7 @@ You have a Convex project initialized at `/home/user/project`. You need to write
 ## Constraints
 - Project path: `/home/user/project`
 - The project is already initialized and the `tasks` table is defined in `convex/schema.ts`.
-- Use the provided `CONVEX_DEPLOY_KEY` environment variable.e:T580,# Fix Convex Mutation with External API Call
+- Use the provided `CONVEX_DEPLOY_KEY` environment variable.f:T580,# Fix Convex Mutation with External API Call
 
 ## Background
 In a Convex project at `/home/user/myproject`, there is a mutation `sendMessage` in `convex/messages.ts` that incorrectly tries to call an external API using `fetch`. This is an anti-pattern because mutations must be deterministic and have no side effects.
@@ -176,7 +177,7 @@ In a Convex project at `/home/user/myproject`, there is a mutation `sendMessage`
 - Project path: `/home/user/myproject`
 - Use `https://httpstat.us/200` for the external API call to avoid real side effects while still performing a real fetch.
 - Do not use `use node` directive, keep it in the default Convex runtime.
-- Use Convex `v` validator for arguments.f:T6f5,# Convex HTTP Webhooks
+- Use Convex `v` validator for arguments.10:T6f5,# Convex HTTP Webhooks
 
 ## Background
 Convex allows you to define HTTP actions to handle incoming webhooks from external services. In this task, you will create a Convex backend that receives a POST request and stores the data.
@@ -201,7 +202,7 @@ Convex allows you to define HTTP actions to handle incoming webhooks from extern
 - You must use `npx convex deploy` to push your code. The `CONVEX_DEPLOY_KEY` is already provided in the environment.
 - The payload format for the webhook is `{"author": "Alice", "body": "Hello"}`.
 - Do not use `npx convex dev` as it is interactive.
-- The file `/home/user/project/convex_site_url.txt` must contain exactly the base URL (no trailing slash, e.g., `https://happy-animal-123.convex.site`).10:T4c4,# Convex Optimistic Updates in React
+- The file `/home/user/project/convex_site_url.txt` must contain exactly the base URL (no trailing slash, e.g., `https://happy-animal-123.convex.site`).11:T4c4,# Convex Optimistic Updates in React
 
 ## Background
 Convex provides a powerful `.withOptimisticUpdate` feature to update the UI instantly before a mutation completes. This makes applications feel extremely fast and responsive.
@@ -221,7 +222,7 @@ You have a Vite React project set up at `/home/user/project` with Convex install
 
 ## Constraints
 - Project path: /home/user/project
-- The UI must render the counter value and an increment button.11:T53b,# Paginated Full-Text Search in Convex
+- The UI must render the counter value and an increment button.12:T53b,# Paginated Full-Text Search in Convex
 
 ## Background
 Convex supports powerful full-text search directly within its database. You need to implement a paginated search query for a chat application's messages.
@@ -245,7 +246,7 @@ Convex supports powerful full-text search directly within its database. You need
 - Do not run `npx convex dev` as it requires cloud authentication. Just write the code correctly.
 
 ## Integrations
-- None12:T5f6,# Rate Limiting Convex Actions
+- None13:T5f6,# Rate Limiting Convex Actions
 
 ## Background
 Implement a rate-limited action in a Convex backend. Convex actions are used for side effects (like calling external APIs), but we want to limit how often a user can trigger an action using the database.
@@ -265,7 +266,7 @@ Implement a rate-limited action in a Convex backend. Convex actions are used for
 ## Constraints
 - Project path: /home/user/project
 - Do not use external rate limiting services, use the Convex database.
-- The action must be defined using the new function syntax.13:T4de,# Convex RBAC Mutation
+- The action must be defined using the new function syntax.14:T4de,# Convex RBAC Mutation
 
 ## Background
 Implement a simple Role-Based Access Control (RBAC) system in a Convex backend to restrict who can delete tasks.
@@ -286,7 +287,7 @@ Implement a simple Role-Based Access Control (RBAC) system in a Convex backend t
 
 ## Constraints
 - Project path: `/home/user/project`
-- Use `v.id("tasks")` and `v.id("users")` for the arguments.14:T606,# Real-time Collaborative Cursor with Convex
+- Use `v.id("tasks")` and `v.id("users")` for the arguments.15:T606,# Real-time Collaborative Cursor with Convex
 
 ## Background
 Create a real-time collaborative cursor application using Convex and React (Vite).
@@ -309,7 +310,7 @@ Create a real-time collaborative cursor application using Convex and React (Vite
 ## Constraints
 - Project path: `/home/user/cursor-app`
 - Start command: `npm run dev`
-- Port: 517315:T544,# Convex Relational Queries
+- Port: 517316:T544,# Convex Relational Queries
 
 ## Background
 Convex is a reactive database where queries are written in TypeScript. In this task, you will implement a relational query that joins data from two tables: `users` and `messages`.
@@ -328,7 +329,7 @@ Convex is a reactive database where queries are written in TypeScript. In this t
 ## Constraints
 - Project path: `/home/user/project`
 - Use the new function syntax for Convex functions.
-- Ensure `convex/schema.ts` and `convex/messages.ts` are syntactically correct TypeScript.16:T489,# Soft Delete Pattern in Convex
+- Ensure `convex/schema.ts` and `convex/messages.ts` are syntactically correct TypeScript.17:T489,# Soft Delete Pattern in Convex
 
 ## Background
 Implement a soft delete pattern in a Convex project to keep data for auditing while hiding it from normal queries.
@@ -347,7 +348,7 @@ Implement a soft delete pattern in a Convex project to keep data for auditing wh
 
 ## Constraints
 - Project path: /home/user/project
-- Use `v.string()`, `v.boolean()`, and `v.id("documents")` for validation.17:T633,# Convex Vector Search with Filtering
+- Use `v.string()`, `v.boolean()`, and `v.id("documents")` for validation.18:T633,# Convex Vector Search with Filtering
 
 ## Background
 Convex supports vector search with the ability to filter results based on additional fields. This is useful for finding similar items within a specific category, such as finding similar foods within a specific cuisine.
@@ -370,15 +371,14 @@ Convex supports vector search with the ability to filter results based on additi
 ## Constraints
 - Project path: `/home/user/project`
 - The `similarFoods` action should accept the vector directly as an argument `args: { vector: v.array(v.float64()), cuisine: v.string() }`.
-- Do not call any external embedding API in the action.0:{"P":null,"b":"xQJsDV-zj3MhX1ivaZU7N","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/convex-benchmark/_next/static/chunks/b9bb09f8019c4011.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$L7",null,{"tasksData":[{"taskName":"aggregate_data_cron","instruction":"$8","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"aggregate_data_cron__gg44Q9c","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":198.143,"latency_breakdown":{"env_setup":17.24,"agent_setup":99.588,"agent_exec":60.245,"verifier":7.799},"taskName":"aggregate_data_cron","jobId":"gg44Q9c","exec_duration":60.245}]},{"taskName":"chat_typing_indicators","instruction":"$9","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"chat_typing_indicators__7KYWDLe","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":531.536,"latency_breakdown":{"env_setup":17.45,"agent_setup":72.224,"agent_exec":363.774,"verifier":21.462},"taskName":"chat_typing_indicators","jobId":"7KYWDLe","exec_duration":363.774}]},{"taskName":"circular_dependencies_schema","instruction":"$a","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"circular_dependencies_schema__Cx7KH3o","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":174.612,"latency_breakdown":{"env_setup":21.345,"agent_setup":43.559,"agent_exec":87.997,"verifier":9.088},"taskName":"circular_dependencies_schema","jobId":"Cx7KH3o","exec_duration":87.997}]},{"taskName":"cron_jobs_cleanup","instruction":"$b","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"cron_jobs_cleanup__CZTS9Cs","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":269.524,"latency_breakdown":{"env_setup":17.446,"agent_setup":119.485,"agent_exec":101.022,"verifier":8.954},"taskName":"cron_jobs_cleanup","jobId":"CZTS9Cs","exec_duration":101.022}]},{"taskName":"cursor_based_pagination","instruction":"$c","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"cursor_based_pagination__sVpCHyE","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":361.021,"latency_breakdown":{"env_setup":8.332,"agent_setup":54.026,"agent_exec":278.728,"verifier":8.543},"taskName":"cursor_based_pagination","jobId":"sVpCHyE","exec_duration":278.728}]},{"taskName":"data_migration_script","instruction":"$d","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"data_migration_script__8C7g3L2","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":238.902,"latency_breakdown":{"env_setup":28.436,"agent_setup":97.296,"agent_exec":90.802,"verifier":8.137},"taskName":"data_migration_script","jobId":"8C7g3L2","exec_duration":90.802}]},{"taskName":"error_retries_actions","instruction":"$e","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"error_retries_actions__fG9Z2gR","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":227.517,"latency_breakdown":{"env_setup":28.376,"agent_setup":52.598,"agent_exec":118.921,"verifier":8.853},"taskName":"error_retries_actions","jobId":"fG9Z2gR","exec_duration":118.921}]},{"taskName":"http_endpoint_webhooks","instruction":"$f","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"http_endpoint_webhooks__NWZfFoJ","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":261.391,"latency_breakdown":{"env_setup":8.544,"agent_setup":83.603,"agent_exec":123.154,"verifier":16.073},"taskName":"http_endpoint_webhooks","jobId":"NWZfFoJ","exec_duration":123.154}]},{"taskName":"optimistic_updates_react","instruction":"$10","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"optimistic_updates_react__iLhHvMr","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":228.436,"latency_breakdown":{"env_setup":15.027,"agent_setup":98.972,"agent_exec":89.285,"verifier":10.786},"taskName":"optimistic_updates_react","jobId":"iLhHvMr","exec_duration":89.285}]},{"taskName":"paginated_full_text_search","instruction":"$11","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"paginated_full_text_search__gBZBQ8a","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":197.644,"latency_breakdown":{"env_setup":17.223,"agent_setup":82.58,"agent_exec":73.068,"verifier":8.126},"taskName":"paginated_full_text_search","jobId":"gBZBQ8a","exec_duration":73.068}]},{"taskName":"rate_limiting_actions","instruction":"$12","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"rate_limiting_actions__3gKppyF","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":284.739,"latency_breakdown":{"env_setup":28.043,"agent_setup":133.601,"agent_exec":97.372,"verifier":13.699},"taskName":"rate_limiting_actions","jobId":"3gKppyF","exec_duration":97.372}]},{"taskName":"rbac_mutations","instruction":"$13","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"rbac_mutations__mmptMQn","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":228.133,"latency_breakdown":{"env_setup":5.709,"agent_setup":123.973,"agent_exec":74.081,"verifier":12.12},"taskName":"rbac_mutations","jobId":"mmptMQn","exec_duration":74.081}]},{"taskName":"realtime_collaborative_cursor","instruction":"$14","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"realtime_collaborative_cursor__caJJPDi","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":527.75,"latency_breakdown":{"env_setup":115.558,"agent_setup":75.174,"agent_exec":251.327,"verifier":73.203},"taskName":"realtime_collaborative_cursor","jobId":"caJJPDi","exec_duration":251.327}]},{"taskName":"relational_queries","instruction":"$15","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"relational_queries__ChWge4n","model":"gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":262.568,"latency_breakdown":{"env_setup":28.344,"agent_setup":91.261,"agent_exec":116.881,"verifier":10.371},"taskName":"relational_queries","jobId":"ChWge4n","exec_duration":116.881}]},{"taskName":"soft_delete_pattern","instruction":"$16","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"soft_delete_pattern__cUSTeg4","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":177.536,"latency_breakdown":{"env_setup":32.584,"agent_setup":31.828,"agent_exec":85.214,"verifier":16.199},"taskName":"soft_delete_pattern","jobId":"cUSTeg4","exec_duration":85.214}]},{"taskName":"vector_search_filtering","instruction":"$17","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"vector_search_filtering__LjW6mf9","model":"gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":222.537,"latency_breakdown":{"env_setup":9.54,"agent_setup":97.363,"agent_exec":78.205,"verifier":26},"taskName":"vector_search_filtering","jobId":"LjW6mf9","exec_duration":78.205}]}]}]]}],["$L18","$L19"],"$L1a"]}],{},null,false,false]},null,false,false]},null,false,false],"$L1b",false]],"m":"$undefined","G":["$1c",[]],"S":true}
-1d:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-1e:"$Sreact.suspense"
+- Do not call any external embedding API in the action.0:{"P":null,"b":"LRlTFbLSOg_Y6I6lT_gNg","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/convex-benchmark/_next/static/chunks/b9bb09f8019c4011.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$7",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L8",null,{"tasksData":[{"taskName":"aggregate_data_cron","instruction":"$9","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"aggregate_data_cron__gg44Q9c","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":198.143,"latency_breakdown":{"env_setup":17.24,"agent_setup":99.588,"agent_exec":60.245,"verifier":7.799},"taskName":"aggregate_data_cron","jobId":"gg44Q9c","exec_duration":60.245}]},{"taskName":"chat_typing_indicators","instruction":"$a","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"chat_typing_indicators__7KYWDLe","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":531.536,"latency_breakdown":{"env_setup":17.45,"agent_setup":72.224,"agent_exec":363.774,"verifier":21.462},"taskName":"chat_typing_indicators","jobId":"7KYWDLe","exec_duration":363.774}]},{"taskName":"circular_dependencies_schema","instruction":"$b","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"circular_dependencies_schema__Cx7KH3o","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":174.612,"latency_breakdown":{"env_setup":21.345,"agent_setup":43.559,"agent_exec":87.997,"verifier":9.088},"taskName":"circular_dependencies_schema","jobId":"Cx7KH3o","exec_duration":87.997}]},{"taskName":"cron_jobs_cleanup","instruction":"$c","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"cron_jobs_cleanup__CZTS9Cs","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":269.524,"latency_breakdown":{"env_setup":17.446,"agent_setup":119.485,"agent_exec":101.022,"verifier":8.954},"taskName":"cron_jobs_cleanup","jobId":"CZTS9Cs","exec_duration":101.022}]},{"taskName":"cursor_based_pagination","instruction":"$d","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"cursor_based_pagination__sVpCHyE","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":361.021,"latency_breakdown":{"env_setup":8.332,"agent_setup":54.026,"agent_exec":278.728,"verifier":8.543},"taskName":"cursor_based_pagination","jobId":"sVpCHyE","exec_duration":278.728}]},{"taskName":"data_migration_script","instruction":"$e","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"data_migration_script__8C7g3L2","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":238.902,"latency_breakdown":{"env_setup":28.436,"agent_setup":97.296,"agent_exec":90.802,"verifier":8.137},"taskName":"data_migration_script","jobId":"8C7g3L2","exec_duration":90.802}]},{"taskName":"error_retries_actions","instruction":"$f","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"error_retries_actions__fG9Z2gR","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":227.517,"latency_breakdown":{"env_setup":28.376,"agent_setup":52.598,"agent_exec":118.921,"verifier":8.853},"taskName":"error_retries_actions","jobId":"fG9Z2gR","exec_duration":118.921}]},{"taskName":"http_endpoint_webhooks","instruction":"$10","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"http_endpoint_webhooks__NWZfFoJ","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":261.391,"latency_breakdown":{"env_setup":8.544,"agent_setup":83.603,"agent_exec":123.154,"verifier":16.073},"taskName":"http_endpoint_webhooks","jobId":"NWZfFoJ","exec_duration":123.154}]},{"taskName":"optimistic_updates_react","instruction":"$11","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"optimistic_updates_react__iLhHvMr","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":228.436,"latency_breakdown":{"env_setup":15.027,"agent_setup":98.972,"agent_exec":89.285,"verifier":10.786},"taskName":"optimistic_updates_react","jobId":"iLhHvMr","exec_duration":89.285}]},{"taskName":"paginated_full_text_search","instruction":"$12","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"paginated_full_text_search__gBZBQ8a","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":197.644,"latency_breakdown":{"env_setup":17.223,"agent_setup":82.58,"agent_exec":73.068,"verifier":8.126},"taskName":"paginated_full_text_search","jobId":"gBZBQ8a","exec_duration":73.068}]},{"taskName":"rate_limiting_actions","instruction":"$13","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"rate_limiting_actions__3gKppyF","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":284.739,"latency_breakdown":{"env_setup":28.043,"agent_setup":133.601,"agent_exec":97.372,"verifier":13.699},"taskName":"rate_limiting_actions","jobId":"3gKppyF","exec_duration":97.372}]},{"taskName":"rbac_mutations","instruction":"$14","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"rbac_mutations__mmptMQn","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":228.133,"latency_breakdown":{"env_setup":5.709,"agent_setup":123.973,"agent_exec":74.081,"verifier":12.12},"taskName":"rbac_mutations","jobId":"mmptMQn","exec_duration":74.081}]},{"taskName":"realtime_collaborative_cursor","instruction":"$15","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"realtime_collaborative_cursor__caJJPDi","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":527.75,"latency_breakdown":{"env_setup":115.558,"agent_setup":75.174,"agent_exec":251.327,"verifier":73.203},"taskName":"realtime_collaborative_cursor","jobId":"caJJPDi","exec_duration":251.327}]},{"taskName":"relational_queries","instruction":"$16","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"relational_queries__ChWge4n","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":262.568,"latency_breakdown":{"env_setup":28.344,"agent_setup":91.261,"agent_exec":116.881,"verifier":10.371},"taskName":"relational_queries","jobId":"ChWge4n","exec_duration":116.881}]},{"taskName":"soft_delete_pattern","instruction":"$17","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"soft_delete_pattern__cUSTeg4","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":177.536,"latency_breakdown":{"env_setup":32.584,"agent_setup":31.828,"agent_exec":85.214,"verifier":16.199},"taskName":"soft_delete_pattern","jobId":"cUSTeg4","exec_duration":85.214}]},{"taskName":"vector_search_filtering","instruction":"$18","trials":[{"job_name":"2026-05-09__23-20-21","trial_name":"vector_search_filtering__LjW6mf9","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":222.537,"latency_breakdown":{"env_setup":9.54,"agent_setup":97.363,"agent_exec":78.205,"verifier":26},"taskName":"vector_search_filtering","jobId":"LjW6mf9","exec_duration":78.205}]}]}]}]]}],["$L19","$L1a"],"$L1b"]}],{},null,false,false]},null,false,false]},null,false,false],"$L1c",false]],"m":"$undefined","G":["$1d",[]],"S":true}
+1e:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
 20:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
 22:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
-18:["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/8963fe5b24686989.js","async":true,"nonce":"$undefined"}]
-19:["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/be08138953094657.js","async":true,"nonce":"$undefined"}]
-1a:["$","$L1d",null,{"children":["$","$1e",null,{"name":"Next.MetadataOutlet","children":"$@1f"}]}]
-1b:["$","$1","h",{"children":[null,["$","$L20",null,{"children":"$L21"}],["$","div",null,{"hidden":true,"children":["$","$L22",null,{"children":["$","$1e",null,{"name":"Next.Metadata","children":"$L23"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+19:["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/d6890805f2484beb.js","async":true,"nonce":"$undefined"}]
+1a:["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/ab9c434cfac62bb4.js","async":true,"nonce":"$undefined"}]
+1b:["$","$L1e",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@1f"}]}]
+1c:["$","$1","h",{"children":[null,["$","$L20",null,{"children":"$L21"}],["$","div",null,{"hidden":true,"children":["$","$L22",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$L23"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
 21:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 1f:null
 23:[["$","title","0",{"children":"Convex Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Convex tasks, measuring success rate and execution time with high precision."}]]
