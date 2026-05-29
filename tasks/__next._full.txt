@@ -6,107 +6,15 @@
 6:I[81497,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
 7:"$Sreact.suspense"
 8:I[42654,["/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","/convex-benchmark/_next/static/chunks/d6890805f2484beb.js","/convex-benchmark/_next/static/chunks/f9f579c42c486944.js"],"TasksPageClient"]
-10:I[9986,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
-:HL["/convex-benchmark/_next/static/chunks/62e71ca786b4fc97.css","style"]
+b:I[9986,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"default"]
+:HL["/convex-benchmark/_next/static/chunks/29c80e0ec759ef35.css","style"]
 :HL["/convex-benchmark/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-9:T76f,# Scheduled Cleanup in Convex
-
-## Background
-Convex allows scheduling functions to run on a recurring basis using cron jobs. You need to implement a scheduled cleanup job to delete expired session data.
-
-## Requirements
-- Initialize a Convex project in `/home/user/project`.
-- Define a `sessions` table in `convex/schema.ts` with fields: `sessionId` (string) and `expiresAt` (number).
-- Create a mutation named `insertSession` in `convex/sessions.ts` that takes `sessionId` and `expiresAt` as arguments and inserts a new session.
-- Create a query named `getSessions` in `convex/sessions.ts` that returns all sessions.
-- Create a mutation named `clearExpired` in `convex/sessions.ts` that deletes all sessions where `expiresAt` is less than the current time (`Date.now()`).
-- Define a cron job in `convex/crons.ts` named `clear expired sessions` that runs the `clearExpired` mutation every hour.
-- Deploy the Convex functions to the cloud using `npx convex deploy`.
-
-## Implementation Hints
-- Set up a basic Node.js project and install `convex`.
-- You can configure the project by manually creating `convex.json` and the `convex/` folder.
-- Use `CONVEX_DEPLOY_KEY` in your environment to authenticate for `npx convex deploy`.
-- In `convex/sessions.ts`, write the mutations and queries.
-- In `convex/crons.ts`, use `crons.hourly()` to schedule the mutation.
-
-## Acceptance Criteria
-- Project path: `/home/user/project`
-- The cloud instance must have the `sessions` table, the `insertSession` mutation, the `getSessions` query, the `clearExpired` mutation, and the cron job deployed.
-- The `insertSession` mutation must successfully insert a session.
-- The `getSessions` query must return all inserted sessions.
-- The `clearExpired` mutation must successfully delete sessions with `expiresAt < Date.now()` and leave other sessions intact.
-- The cron job must be defined in `convex/crons.ts` to run hourly.
-a:T73b,# Convex Basic CRUD
-
-## Background
-Convex is a reactive backend-as-a-service. In this task, you will create a simple task manager backend using Convex, define a schema with validation and indexes, and deploy it.
-
-## Requirements
-- Create a Node.js project in `/home/user/myproject` and install `convex`.
-- Read the `run-id` from the `ZEALT_RUN_ID` environment variable.
-- Define a schema in `convex/schema.ts` with a table named `tasks_${run-id}`.
-- The table must have two fields: `text` (string) and `status` (a union of literal "todo" and literal "done").
-- Add an index named `by_status` on the `status` field of this table.
-- Create a file `convex/tasks.ts` and define a mutation named `create` that takes a `text` string argument, inserts a new record into the `tasks_${run-id}` table with `text` and `status: "todo"`, and returns the new record's ID.
-- In the same file, define a query named `get` that takes a `status` string argument and returns all records from the `tasks_${run-id}` table matching that status, using the `by_status` index.
-- Deploy the Convex project and save the deployment output to `/home/user/myproject/deploy.log`.
-
-## Implementation Hints
-- Set up a basic `package.json` and install the `convex` package.
-- You will need to dynamically generate `convex/schema.ts` and `convex/tasks.ts` to include the `run-id` in the table name.
-- The `CONVEX_DEPLOY_KEY` environment variable is already available in the environment for deployment.
-- Use `npx convex deploy` to push your schema and functions to the Convex cloud. Redirect its output to `deploy.log`.
-
-## Acceptance Criteria
-- Project path: `/home/user/myproject`
-- Log file: `/home/user/myproject/deploy.log`
-- The deployed Convex backend must expose a mutation `api.tasks.create` and a query `api.tasks.get`.
-- The table name must strictly match `tasks_${run-id}`.
-
-b:T919,# Convex Transaction: Bank Transfer
-
-## Background
-Convex is a reactive backend-as-a-service where mutations are inherently transactional and deterministic. You need to implement a bank transfer mutation that ensures atomicity across multiple table updates.
-
-## Requirements
-- Initialize a Convex project in `/home/user/project`.
-- Define a schema with an `accounts` table. Each account must have a `name` (string) and a `balance` (number).
-- Implement a mutation `createAccount` in `convex/bank.ts` that takes `name` (string) and `initialBalance` (number) and returns the new account ID.
-- Implement a query `getAccount` in `convex/bank.ts` that takes `accountId` (ID) and returns the account object.
-- Implement a mutation `transfer` in `convex/bank.ts` that takes `from` (account ID), `to` (account ID), and `amount` (number).
-- The `transfer` mutation must:
-  - Check if both accounts exist.
-  - Check if the `from` account has at least `amount` balance. If not, throw an error.
-  - Deduct `amount` from the `from` account.
-  - Add `amount` to the `to` account.
-- Deploy the project to the Convex cloud.
-
-## Implementation Hints
-- Use `defineSchema` and `defineTable` in `convex/schema.ts` to define the `accounts` table.
-- Use `mutation` and `query` from `./_generated/server` in `convex/bank.ts`.
-- Use `ctx.db.get` to fetch accounts, and `ctx.db.patch` to update balances.
-- Convex mutations are automatically atomic, so you don't need explicit transaction locks.
-- Make sure to add `@types/node` if you use Node built-ins, but it's not needed for basic mutations.
-- Ensure you run `npx convex deploy` to push your functions to the Convex cloud.
-- Read the `ZEALT_RUN_ID` environment variable and use it if you need to name any global resources, though account IDs will be unique.
-
-## Acceptance Criteria
-- Project path: `/home/user/project`
-- The Convex project must be deployed and accessible via `npx convex run`.
-- Exported Convex functions:
-  - `bank:createAccount` (mutation): args `{"name": <string>, "initialBalance": <number>}`, returns the account ID.
-  - `bank:getAccount` (query): args `{"accountId": <id>}`, returns the account document.
-  - `bank:transfer` (mutation): args `{"from": <id>, "to": <id>, "amount": <number>}`. Throws an error if `from` has insufficient funds, otherwise updates both balances.
-
-0:{"P":null,"b":"ZDu38buGRsN78hPSw9x6p","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/convex-benchmark/_next/static/chunks/62e71ca786b4fc97.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$7",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L8",null,{"tasksData":[{"taskName":"convex_ai_integration","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_ai_integration__edEuu8P","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":204.636,"latency_breakdown":{"env_setup":5.337,"agent_setup":17.763,"agent_exec":136.007,"verifier":21.309},"taskName":"convex_ai_integration","jobId":"edEuu8P","exec_duration":136.007}]},{"taskName":"convex_python_sdk","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_python_sdk__NmErUWG","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":160.326,"latency_breakdown":{"env_setup":5.089,"agent_setup":17.77,"agent_exec":108.697,"verifier":8.479},"taskName":"convex_python_sdk","jobId":"NmErUWG","exec_duration":108.697}]},{"taskName":"convex_rust_sdk","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_rust_sdk__mjqagcD","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":647.119,"latency_breakdown":{"env_setup":5.345,"agent_setup":17.545,"agent_exec":600.236,"verifier":3.406},"taskName":"convex_rust_sdk","jobId":"mjqagcD","exec_duration":600.236}]},{"taskName":"convex-cleanup","instruction":"$9","trials":[{"job_name":"2026-05-28__17-40-10","trial_name":"convex-cleanup__WKrCtox","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":143.136,"latency_breakdown":{"env_setup":4.382,"agent_setup":14.987,"agent_exec":108.907,"verifier":0.947},"taskName":"convex-cleanup","jobId":"WKrCtox","exec_duration":108.907}]},{"taskName":"convex-crud","instruction":"$a","trials":[{"job_name":"2026-05-28__17-40-10","trial_name":"convex-crud__DYnsvHW","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":116.335,"latency_breakdown":{"env_setup":4.195,"agent_setup":15.37,"agent_exec":81.501,"verifier":1.511},"taskName":"convex-crud","jobId":"DYnsvHW","exec_duration":81.501}]},{"taskName":"convex-transaction","instruction":"$b","trials":[{"job_name":"2026-05-28__17-40-10","trial_name":"convex-transaction__Er3mPRN","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":209.804,"latency_breakdown":{"env_setup":4.136,"agent_setup":15.011,"agent_exec":164.162,"verifier":12.723},"taskName":"convex-transaction","jobId":"Er3mPRN","exec_duration":164.162}]}]}]}]]}],["$Lc","$Ld"],"$Le"]}],{},null,false,false]},null,false,false]},null,false,false],"$Lf",false]],"m":"$undefined","G":["$10",[]],"S":true}
-11:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
-13:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
-15:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
-c:["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/d6890805f2484beb.js","async":true,"nonce":"$undefined"}]
-d:["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true,"nonce":"$undefined"}]
-e:["$","$L11",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@12"}]}]
-f:["$","$1","h",{"children":[null,["$","$L13",null,{"children":"$L14"}],["$","div",null,{"hidden":true,"children":["$","$L15",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$L16"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
-14:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-12:null
-16:[["$","title","0",{"children":"Convex Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Convex tasks, measuring success rate and execution time with high precision."}]]
+0:{"P":null,"b":"5STNbSTfAFikCIAoyDy_l","c":["","tasks",""],"q":"","i":false,"f":[[["",{"children":["tasks",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/convex-benchmark/_next/static/chunks/29c80e0ec759ef35.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/babff0e7418ab052.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/3ecbb78a8ff87549.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"en","suppressHydrationWarning":true,"children":["$","body",null,{"className":"inter_5972bc34-module__OU16Qa__className antialiased","children":["$","$L2",null,{"children":["$","$L3",null,{"defaultTheme":"dark","children":[["$","div",null,{"className":"fixed right-4 top-6 z-50 sm:top-8","children":["$","$L4",null,{}]}],["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]]}]}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L5",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L6",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","div",null,{"className":"min-h-screen bg-background text-foreground font-sans selection:bg-primary/20","children":[["$","div",null,{"className":"fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#2a2a2a_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-20 dark:opacity-40"}],["$","$7",null,{"fallback":["$","div",null,{"className":"container mx-auto py-8 text-center","children":"Loading tasks..."}],"children":["$","$L8",null,{"tasksData":[{"taskName":"convex_ai_integration","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_ai_integration__edEuu8P","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":false,"latency_sec":204.636,"latency_breakdown":{"env_setup":5.337,"agent_setup":17.763,"agent_exec":136.007,"verifier":21.309},"taskName":"convex_ai_integration","jobId":"edEuu8P","exec_duration":136.007}]},{"taskName":"convex_python_sdk","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_python_sdk__NmErUWG","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":true,"reward":1,"error":false,"latency_sec":160.326,"latency_breakdown":{"env_setup":5.089,"agent_setup":17.77,"agent_exec":108.697,"verifier":8.479},"taskName":"convex_python_sdk","jobId":"NmErUWG","exec_duration":108.697}]},{"taskName":"convex_rust_sdk","instruction":"","trials":[{"job_name":"2026-05-29__14-07-44","trial_name":"convex_rust_sdk__mjqagcD","model":"gemini-3-flash","rawModel":"google/gemini-3-flash","agent":"Pochi","passed":false,"reward":0,"error":true,"latency_sec":647.119,"latency_breakdown":{"env_setup":5.345,"agent_setup":17.545,"agent_exec":600.236,"verifier":3.406},"taskName":"convex_rust_sdk","jobId":"mjqagcD","exec_duration":600.236}]}]}]}]]}],[["$","script","script-0",{"src":"/convex-benchmark/_next/static/chunks/d6890805f2484beb.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/convex-benchmark/_next/static/chunks/f9f579c42c486944.js","async":true,"nonce":"$undefined"}]],"$L9"]}],{},null,false,false]},null,false,false]},null,false,false],"$La",false]],"m":"$undefined","G":["$b",[]],"S":true}
+c:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"OutletBoundary"]
+e:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"ViewportBoundary"]
+10:I[75049,["/convex-benchmark/_next/static/chunks/d2c13bb33c4fcd54.js","/convex-benchmark/_next/static/chunks/c21188132e0e0d48.js"],"MetadataBoundary"]
+9:["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]
+a:["$","$1","h",{"children":[null,["$","$Le",null,{"children":"$Lf"}],["$","div",null,{"hidden":true,"children":["$","$L10",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":"$L11"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+f:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+d:null
+11:[["$","title","0",{"children":"Convex Benchmark"}],["$","meta","1",{"name":"description","content":"Performance results of AI coding models on Convex tasks, measuring success rate and execution time with high precision."}]]
