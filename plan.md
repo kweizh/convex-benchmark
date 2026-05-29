@@ -61,6 +61,118 @@ await ctx.scheduler.runAfter(0, internal.api.tasks.cleanup, { olderThan: Date.no
 *   **SaaS Boilerplates**: [Convex SaaS Starter](https://github.com/get-convex/convex-saas-starter) - Includes Clerk auth, Stripe integration, and multi-tenancy patterns.
 *   **AI Agents**: [Convex AI Town](https://github.com/a16z-infra/ai-town) - A complex simulation using Convex for state management and background processing.
 *   **Vector Search**: [Convex Vector Search](https://docs.convex.dev/search/vector-search) - Integrating LLMs with a built-in vector database.
+
+A example creating a react app using Convex:
+
+1. Create a React app
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+```
+
+2. Install the Convex client and server library
+
+```bash
+cd my-app && npm install convex
+```
+
+3. Create sample data for your database
+
+```jsonl
+{"text": "Buy groceries", "isCompleted": true}
+{"text": "Go for a swim", "isCompleted": true}
+{"text": "Integrate Convex", "isCompleted": false}
+```
+
+
+4. Add the sample data to your database
+
+```bash
+npx convex import --table tasks sampleData.jsonl
+```
+
+5. Define a schema
+Add a new file schema.ts in the convex/ folder with a description of your data.
+
+This will declare the types of your data for optional typechecking with TypeScript, and it will be also enforced at runtime.
+
+```typescript
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+export default defineSchema({
+  tasks: defineTable({
+    text: v.string(),
+    isCompleted: v.boolean(),
+  }),
+});
+```
+
+6. Expose a database query
+Add a new file tasks.ts in the convex/ folder with a query function that loads the data.
+
+Exporting a query function from this file declares an API function named after the file and the export name, api.tasks.get.
+
+```typescript
+import { query } from "./_generated/server";
+
+export const get = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("tasks").collect();
+  },
+});
+```
+
+7. Connect the app to your backend
+In src/main.tsx, create a ConvexReactClient and pass it to a ConvexProvider wrapping your app.
+
+```typescript
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+
+const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <ConvexProvider client={convex}>
+      <App />
+    </ConvexProvider>
+  </React.StrictMode>,
+);
+```
+
+8. Display the data in your app
+In src/App.tsx, use the useQuery hook to fetch from your api.tasks.get API function and display the data.
+
+```typescript
+import "./App.css";
+import { useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+
+function App() {
+  const tasks = useQuery(api.tasks.get);
+  return (
+    <div className="App">
+      {tasks?.map(({ _id, text }) => <div key={_id}>{text}</div>)}
+    </div>
+  );
+}
+
+export default App;
+```
+
+9. Start the app
+
+Start the app, open http://localhost:5173/ in a browser, and see the list of tasks.
+
+```bash
+npm run dev
+```
+
 ## 4. Developer Friction Points
 1.  **Strict Separation of Actions and Mutations**: Developers often try to call external APIs (like OpenAI or Stripe) inside a `mutation`, which fails because mutations must be deterministic and have no side effects. The fix requires moving the API call to an `action` and then calling a mutation to save the result.
     *   *Reference*: [Actions vs Mutations](https://docs.convex.dev/functions/actions)
@@ -79,9 +191,11 @@ To automate benchmarks or CI/CD deployments, Convex uses **Deployment Keys**.
 *   **Environment Variable Usage**:
     *   Provide `CONVEX_DEPLOY_KEY` in your environment (e.g., GitHub Secrets, `.env`).
     *   The CLI will automatically use this key when running `npx convex deploy`.
-    *   Frontend clients typically need `NEXT_PUBLIC_CONVEX_URL` or `VITE_CONVEX_URL` to connect to the cloud instance.
+    *   Frontend clients typically need `NEXT_PUBLIC_CONVEX_URL` or `VITE_CONVEX_URL` to connect to the cloud instance,
+        the value is provided in `CONVEX_URL`, please use it and set it as the needed frontend environment variable.
 ## 6. Evaluation Ideas
 1.  **Basic CRUD**: Implement a simple task manager with schema validation and indexes.
+2.  **Languages SDKs**: Use different SDKs (React, Next.js, Python, Rust) to interact with Convex backend.
 2.  **Real-time Sync**: Create a collaborative white-board or counter where multiple clients see updates instantly.
 3.  **Complex Transaction**: Implement a "bank transfer" mutation that ensures atomicity across multiple table updates.
 4.  **AI Integration**: Build an action that fetches data from an external API, processes it with an LLM, and saves the result via a mutation.
