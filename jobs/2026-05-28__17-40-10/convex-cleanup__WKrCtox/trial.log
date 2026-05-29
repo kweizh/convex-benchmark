@@ -1,0 +1,78 @@
+Skipping image OS validation for hb__convex-cleanup: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-wkrctox > /logs/artifacts/run-id && echo convex-cleanup__WKrCtox > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Scheduled Cleanup in Convex
+
+## Background
+Convex allows scheduling functions to run on a recurring basis using cron jobs. You need to implement a scheduled cleanup job to delete expired session data.
+
+## Requirements
+- Initialize a Convex project in `/home/user/project`.
+- Define a `sessions` table in `convex/schema.ts` with fields: `sessionId` (string) and `expiresAt` (number).
+- Create a mutation named `insertSession` in `convex/sessions.ts` that takes `sessionId` and `expiresAt` as arguments and inserts a new session.
+- Create a query named `getSessions` in `convex/sessions.ts` that returns all sessions.
+- Create a mutation named `clearExpired` in `convex/sessions.ts` that deletes all sessions where `expiresAt` is less than the current time (`Date.now()`).
+- Define a cron job in `convex/crons.ts` named `clear expired sessions` that runs the `clearExpired` mutation every hour.
+- Deploy the Convex functions to the cloud using `npx convex deploy`.
+
+## Implementation Hints
+- Set up a basic Node.js project and install `convex`.
+- You can configure the project by manually creating `convex.json` and the `convex/` folder.
+- Use `CONVEX_DEPLOY_KEY` in your environment to authenticate for `npx convex deploy`.
+- In `convex/sessions.ts`, write the mutations and queries.
+- In `convex/crons.ts`, use `crons.hourly()` to schedule the mutation.
+
+## Acceptance Criteria
+- Project path: `/home/user/project`
+- The cloud instance must have the `sessions` table, the `insertSession` mutation, the `getSessions` query, the `clearExpired` mutation, and the cron job deployed.
+- The `insertSession` mutation must successfully insert a session.
+- The `getSessions` query must return all inserted sessions.
+- The `clearExpired` mutation must successfully delete sessions with `expiresAt < Date.now()` and leave other sessions intact.
+- The cron job must be defined in `convex/crons.ts` to run hourly.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
