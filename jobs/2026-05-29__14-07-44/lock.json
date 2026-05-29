@@ -1,0 +1,170 @@
+{
+    "schema_version": 1,
+    "created_at": "2026-05-29T14:07:47.795456Z",
+    "harbor": {
+        "version": "0.8.0",
+        "is_editable": false
+    },
+    "invocation": [
+        "/home/kweizh/.local/bin/harbor",
+        "run",
+        "--yes",
+        "--agent-import-path",
+        "agents.pochi:Pochi",
+        "--artifact",
+        "/home/user",
+        "--mounts",
+        "[{\"type\": \"bind\",\"source\":\"test_initial_state.py\",\"target\":\"/bootstrap/test_initial_state.py\"}]",
+        "--model",
+        "google/gemini-3-flash",
+        "-p",
+        "/home/kweizh/zealt/convex-benchmark/tasks",
+        "--n-attempts",
+        "1",
+        "--max-retries",
+        "0",
+        "--job-name",
+        "2026-05-29__14-07-44",
+        "-n",
+        "5"
+    ],
+    "n_concurrent_trials": 5,
+    "retry": {
+        "max_retries": 0,
+        "exclude_exceptions": [
+            "RewardFileNotFoundError",
+            "VerifierTimeoutError",
+            "RewardFileEmptyError",
+            "VerifierOutputParseError",
+            "AgentTimeoutError"
+        ],
+        "wait_multiplier": 1.0,
+        "min_wait_sec": 1.0,
+        "max_wait_sec": 60.0
+    },
+    "trials": [
+        {
+            "task": {
+                "name": "convex_ai_integration",
+                "type": "local",
+                "digest": "sha256:80babc86a258a7679184f42f3d36dd5163c87e0ffdfd03efd27b3da65c2ee9bb",
+                "source": "tasks",
+                "path": "/home/kweizh/zealt/convex-benchmark/tasks/convex_ai_integration"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "convex_rust_sdk",
+                "type": "local",
+                "digest": "sha256:7fc0ec1b08600e815b4918135c520a170a39b3d38e1ce5e43e28bcdc9552470d",
+                "source": "tasks",
+                "path": "/home/kweizh/zealt/convex-benchmark/tasks/convex_rust_sdk"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        },
+        {
+            "task": {
+                "name": "convex_python_sdk",
+                "type": "local",
+                "digest": "sha256:d97598d697410b9672cbef3ab3e311267bc23f497b0c6b13a8a654bc2f08c6c7",
+                "source": "tasks",
+                "path": "/home/kweizh/zealt/convex-benchmark/tasks/convex_python_sdk"
+            },
+            "timeout_multiplier": 1.0,
+            "agent": {
+                "import_path": "agents.pochi:Pochi",
+                "model_name": "google/gemini-3-flash",
+                "skills": [],
+                "kwargs": {},
+                "env": {},
+                "mcp_servers": []
+            },
+            "skills": [],
+            "environment": {
+                "type": "docker",
+                "force_build": false,
+                "delete": true,
+                "cpu_enforcement_policy": "auto",
+                "memory_enforcement_policy": "auto",
+                "suppress_override_warnings": false,
+                "mounts": [
+                    {
+                        "type": "bind",
+                        "source": "test_initial_state.py",
+                        "target": "/bootstrap/test_initial_state.py"
+                    }
+                ],
+                "extra_docker_compose": [],
+                "env": {},
+                "kwargs": {}
+            },
+            "verifier": {
+                "env": {},
+                "disable": false
+            }
+        }
+    ]
+}
