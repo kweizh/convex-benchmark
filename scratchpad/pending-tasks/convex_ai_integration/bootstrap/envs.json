@@ -1,0 +1,10 @@
+{
+  "task": [
+    "CONVEX_DEPLOY_KEY",
+    "CONVEX_URL",
+    "OPENAI_API_KEY"
+  ],
+  "verifier": [
+    "POCHI_API_KEY"
+  ]
+}
