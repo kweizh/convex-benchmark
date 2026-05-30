@@ -1,0 +1,4 @@
+{
+    "task": ["CONVEX_DEPLOY_KEY", "CLERK_ISSUER_URL"],
+    "verifier": ["CONVEX_DEPLOY_KEY"]
+}

@@ -1,0 +1,9 @@
+{
+    "task": [
+        "CONVEX_DEPLOY_KEY",
+        "CONVEX_URL"
+    ],
+    "verifier": [
+        "CONVEX_URL"
+    ]
+}
