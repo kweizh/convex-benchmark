@@ -196,6 +196,7 @@ To automate benchmarks or CI/CD deployments, Convex uses **Deployment Keys**.
 ## 6. Evaluation Ideas
 1.  **Basic CRUD**: Implement a simple task manager with schema validation and indexes.
 2.  **Languages SDKs**: Use different SDKs (React, Next.js, Python, Rust) to interact with Convex backend.
+    * If using Rust SDK, it may take more time 120s to build the project, should specify in tasks description to start a background job to build the Rust project.
 2.  **Real-time Sync**: Create a collaborative white-board or counter where multiple clients see updates instantly.
 3.  **Complex Transaction**: Implement a "bank transfer" mutation that ensures atomicity across multiple table updates.
 4.  **AI Integration**: Build an action that fetches data from an external API, processes it with an LLM, and saves the result via a mutation.
