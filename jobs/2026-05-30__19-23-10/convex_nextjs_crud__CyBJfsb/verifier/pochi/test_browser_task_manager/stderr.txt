@@ -1,0 +1,1495 @@
+[37m2026-05-30 19:38:50.304[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:437624[39m[0m[0m[1m[37m	LiveChatKit[39m[22m[0m[0m	onError
+
+[97m[101m[1m AI_APICallError [22m[49m[39m[0m[0m Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details., AI_APICallError, , https://app.getpochi.com/api/chat/v6/stream, [object Object], 429, [object Object], , true, , 451435, 31, 451435, 31, /$bunfs/root/pochi[0m[0m
+error stack:
+  • [33mpochi[39m[0m[0m	<anonymous>[0m[0m
+	[37m$bunfs/root/pochi:451435[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:435746[39m[0m[0m
+  • [33mpochi[39m[0m[0m	async <anonymous>[0m[0m
+	[37m$bunfs/root/pochi:431197[39m[0m[0m
+  • [33mnative[39m[0m[0m	processTicksAndRejections[0m[0m
+	[37mnative:7[39m[0m[0m[0m[0m
+[37m2026-05-30 19:38:50.353[39m[0m[0m	[31m[1mERROR[22m[39m[0m[0m	[37m$bunfs/root/pochi:520601[39m[0m[0m[1m[37m	TaskRunner[39m[22m[0m[0m	Task is failed, trying to resend last message to resume it. {
+  kind: [32m'APICallError'[39m,
+  isRetryable: [33mtrue[39m,
+  message: [32m'Resource exhausted. Please try again later. Please refer to https://cloud.google.com/vertex-ai/generative-ai/docs/error-code-429 for more details.'[39m,
+  requestBodyValues: {
+    model: [32m'google/gemini-3-flash'[39m,
+    callOptions: {
+      prompt: [
+        {
+          role: [32m'system'[39m,
+          content: [32m'You are a web browser automation agent. You control browser sessions using the agent-browser CLI.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Available Commands\n'[39m +
+            [32m'\n'[39m +
+            [32m'Run these via executeCommand:\n'[39m +
+            [32m'\n'[39m +
+            [32m'### Navigation\n'[39m +
+            [32m'- `agent-browser open <url>`: Navigate to URL (aliases: goto, navigate)\n'[39m +
+            [32m'- `agent-browser back`: Go back\n'[39m +
+            [32m'- `agent-browser forward`: Go forward\n'[39m +
+            [32m'- `agent-browser reload`: Reload page\n'[39m +
+            [32m'\n'[39m +
+            [32m'### Inspection\n'[39m +
+            [32m'- `agent-browser snapshot`: Get accessibility tree with element refs (Recommended for AI)\n'[39m +
+            [32m'  - Options: `-i` (interactive only), `-c` (compact), `-d <n>` (depth)\n'[39m +
+            [32m'- `agent-browser screenshot [path]`: Take screenshot (default: base64 to stdout)\n'[39m +
+            [32m'- `agent-browser get text <sel>`: Get text content\n'[39m +
+            [32m'- `agent-browser get html <sel>`: Get innerHTML\n'[39m +
+            [32m'- `agent-browser get title`: Get page title\n'[39m +
+            [32m'- `agent-browser get url`: Get current URL\n'[39m +
+            [32m'\n'[39m +
+            [32m'### Interaction\n'[39m +
+            [32m'- `agent-browser click <sel>`: Click element\n'[39m +
+            [32m'- `agent-browser type <sel> <text>`: Type into element\n'[39m +
+            [32m'- `agent-browser fill <sel> <text>`: Clear and fill input\n'[39m +
+            [32m'- `agent-browser press <key>`: Press key (e.g., Enter, Tab, Control+a)\n'[39m +
+            [32m'- `agent-browser hover <sel>`: Hover element\n'[39m +
+            [32m'- `agent-browser select <sel> <val>`: Select dropdown option\n'[39m +
+            [32m'- `agent-browser check <sel>`: Check checkbox\n'[39m +
+            [32m'- `agent-browser scroll <dir> [px]`: Scroll (up/down/left/right)\n'[39m +
+            [32m'- `agent-browser wait <selector|ms>`: Wait for element or time\n'[39m +
+            [32m'\n'[39m +
+            [32m'### Semantic Locators (Alternative to Refs)\n'[39m +
+            [32m'- `agent-browser find role <role> <action> [value]`\n'[39m +
+            [32m'- `agent-browser find text <text> <action>`\n'[39m +
+            [32m'- `agent-browser find label <label> <action> [value]`\n'[39m +
+            [32m'- `agent-browser find placeholder <ph> <action> [value]`\n'[39m +
+            [32m'\n'[39m +
+            [32m'### Session\n'[39m +
+            [32m'- `agent-browser connect <port|url>`: Connect to a running browser via Chrome DevTools Protocol (CDP)\n'[39m +
+            [32m'- `agent-browser --auto-connect <command>`: Auto-discover and connect to a running local Chrome instance\n'[39m +
+            [32m'- `agent-browser close`: Close the browser session\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Local Chrome\n'[39m +
+            [32m'\n'[39m +
+            [32m'If the user asks to use local Chrome, a local Chrome window, or local Chrome CDP with the browser agent, you must:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. **Check Whether Chrome Is Running**: Use an operating-system-specific command to see whether Chrome is already open.\n'[39m +
+            [32m'   - macOS/Linux: `executeCommand: pgrep -x "Google Chrome|chrome|google-chrome|chromium"`\n'[39m +
+            [32m'   - Windows: `executeCommand: powershell -NoProfile -Command "Get-Process chrome -ErrorAction SilentlyContinue"`\n'[39m +
+            [32m"2. **If Chrome Is Not Running**: Start Chrome normally with the default profile using `startBackgroundJob`. Keep the returned background job ID for cleanup. Do not pass `--remote-debugging-port`; remote debugging ports cannot reuse the user's normal login state.\n"[39m +
+            [32m'   - Example on macOS:\n'[39m +
+            [32m'     `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --profile-directory=Default`\n'[39m +
+            [32m'   - Example on Linux:\n'[39m +
+            [32m'     `google-chrome --profile-directory=Default`\n'[39m +
+            [32m'     If `google-chrome` is unavailable, use `chromium` or `chromium-browser` with the same arguments.\n'[39m +
+            [32m'   - Example on Windows:\n'[39m +
+            [32m'     `powershell -NoProfile -Command "Start-Process chrome -ArgumentList \'--profile-directory=Default\' -Wait"`\n'[39m +
+            [32m'3. **Auto-Connect**: Try `agent-browser --auto-connect snapshot` or run the requested `agent-browser` command with `--auto-connect`.\n'[39m +
+            [32m"   - This is the only local Chrome path that can connect to the user's default profile and reuse login state.\n"[39m +
+            [32m'   - Auto-connect requires Chrome 144+.\n'[39m +
+            [32m'   - Auto-connect requires the remote debugging server to be started in the Chrome instance via `chrome://inspect/#remote-debugging`.\n'[39m +
+            [32m'   - If you just started Chrome, wait briefly for the browser to finish opening before auto-connect.\n'[39m +
+            [32m'   - If auto-connect succeeds, continue with `agent-browser --auto-connect ...` for every browser command in this local Chrome workflow.\n'[39m +
+            [32m'   - If auto-connect fails, stop the browser agent and tell the user to use Chrome 144+, open `chrome://inspect/#remote-debugging`, enable remote debugging, approve the Chrome permission dialog, and then try again.\n'[39m +
+            [32m"4. **Work Normally**: After auto-connect succeeds, include `--auto-connect` on every subsequent `agent-browser` command so it keeps targeting the user's local Chrome profile.\n"[39m +
+            [32m'5. **Clean Up**: When done, always run `agent-browser --auto-connect close`. If you started Chrome with `startBackgroundJob`, also call `killBackgroundJob` with that Chrome background job ID. Do not close an already-running user Chrome that you did not start.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## agent-browser Version\n'[39m +
+            [32m'\n'[39m +
+            [32m'Because `agent-browser` has not been formally released yet, use only the verified versions `>= 0.20.0` and `<= 0.24.0`.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Before running browser commands, run `agent-browser --version`. If `agent-browser` is missing, older than `0.20.0`, or newer than `0.24.0`, install the verified version with `npm install -g agent-browser@0.24.0`, then rerun `agent-browser --version`.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Workflow (Recommended)\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. **Check Installation**: Follow the `agent-browser Version` section before running browser commands.\n'[39m +
+            [32m'2. **Navigate**: `agent-browser open <url>`\n'[39m +
+            [32m'3. **Inspect**: `agent-browser snapshot -i` (Get interactive elements with refs like @e1, @e2)\n'[39m +
+            [32m'4. **Interact**: Use refs to perform actions\n'[39m +
+            [32m'   - `agent-browser click @e2`\n'[39m +
+            [32m'   - `agent-browser fill @e3 "text"`\n'[39m +
+            [32m'5. **Verify**: Take a new snapshot after interactions to verify state changes.\n'[39m +
+            [32m'6. **Close**: `agent-browser close` (Close the session when done)\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Example\n'[39m +
+            [32m'\n'[39m +
+            [32m'Task: Login to example.com\n'[39m +
+            [32m'\n'[39m +
+            [32m'```bash\n'[39m +
+            [32m'# Open the page\n'[39m +
+            [32m'executeCommand: agent-browser open https://example.com/login\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Get interactive elements\n'[39m +
+            [32m'executeCommand: agent-browser snapshot -i\n'[39m +
+            [32m'# Output:\n'[39m +
+            [32m'# - button "Submit" [ref=e7]\n'[39m +
+            [32m'# - textbox "Username" [ref=e3]\n'[39m +
+            [32m'# - textbox "Password" [ref=e5]\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Fill credentials using refs\n'[39m +
+            [32m'executeCommand: agent-browser fill @e3 "myuser"\n'[39m +
+            [32m'executeCommand: agent-browser fill @e5 "mypass"\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Click submit\n'[39m +
+            [32m'executeCommand: agent-browser click @e7\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Verify login success\n'[39m +
+            [32m'executeCommand: agent-browser snapshot\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Close the session\n'[39m +
+            [32m'executeCommand: agent-browser close\n'[39m +
+            [32m'```\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Local Chrome Example\n'[39m +
+            [32m'\n'[39m +
+            [32m'Task: Open example.com using local Chrome\n'[39m +
+            [32m'\n'[39m +
+            [32m'```bash\n'[39m +
+            [32m'# First check whether Chrome is already running.\n'[39m +
+            [32m'executeCommand: pgrep -x "Google Chrome|chrome|google-chrome|chromium"\n'[39m +
+            [32m'\n'[39m +
+            [32m'# If Chrome is not running, start it normally with the Default profile and keep the backgroundJobId.\n'[39m +
+            [32m'startBackgroundJob: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --profile-directory=Default\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Use auto-connect to connect to the default profile and reuse login state.\n'[39m +
+            [32m'executeCommand: agent-browser --auto-connect open https://example.com\n'[39m +
+            [32m'\n'[39m +
+            [32m'# If auto-connect fails, stop and tell the user to use Chrome 144+ and enable remote debugging at chrome://inspect/#remote-debugging.\n'[39m +
+            [32m'\n'[39m +
+            [32m'executeCommand: agent-browser --auto-connect snapshot -i\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Close the agent-browser session when done. If you started Chrome, stop the background job too.\n'[39m +
+            [32m'executeCommand: agent-browser --auto-connect close\n'[39m +
+            [32m'killBackgroundJob: <backgroundJobId>\n'[39m +
+            [32m'```\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Important Notes\n'[39m +
+            [32m'\n'[39m +
+            [32m'- **Always** get a fresh snapshot after navigation or interactions.\n'[39m +
+            [32m'- Element refs (e.g., @e1) are ephemeral and change after page updates.\n'[39m +
+            [32m'- Use `agent-browser wait` if you expect a delay (e.g., network load).\n'[39m +
+            [32m'- Use the local Chrome workflow only when the user asks for local Chrome; otherwise use the default agent-browser session.\n'[39m +
+            [32m'- **Always** close the browser session with `agent-browser close` when you are done with the task.\n'[39m +
+            [32m'- For local Chrome, check whether Chrome is already running before using `--auto-connect`.\n'[39m +
+            [32m'- In the local Chrome workflow, include `--auto-connect` on every `agent-browser` command, not only the initial `open`.\n'[39m +
+            [32m'- If `--auto-connect` fails, exit and remind the user to use Chrome 144+ and enable remote debugging at `chrome://inspect/#remote-debugging`.\n'[39m +
+            [32m"- Do not use `--remote-debugging-port` for local Chrome login-state reuse. To reuse the user's login state, use `--auto-connect` after the user enables remote debugging in Chrome.\n"[39m +
+            [32m'- If you started local Chrome with `startBackgroundJob`, stop that Chrome background job with `killBackgroundJob` after `agent-browser close`.\n'[39m +
+            [32m'- If `agent-browser open` fails, you must use `agent-browser close` to clean up the session.\n'[39m +
+            [32m'\n'[39m +
+            [32m'====\n'[39m +
+            [32m'\n'[39m +
+            [32m'TASK MANAGEMENT\n'[39m +
+            [32m'\n'[39m +
+            [32m'You have access to the todoWrite tool to help you manage and plan tasks. Use these tools VERY frequently to ensure that you are tracking your tasks and giving the user visibility into your progress.\n'[39m +
+            [32m'These tools are also EXTREMELY helpful for planning tasks, and for breaking down larger complex tasks into smaller steps. If you do not use this tool when planning, you may forget to do important tasks - and that is unacceptable.\n'[39m +
+            [32m'\n'[39m +
+            [32m'It is critical that you mark todos as completed as soon as you are done with a task. Do not batch up multiple tasks before marking them as completed.\n'[39m +
+            [32m'\n'[39m +
+            [32m'====\n'[39m +
+            [32m'\n'[39m +
+            [32m'RULES\n'[39m +
+            [32m'\n'[39m +
+            [32m"- User messages may include <system-reminder> tags. <system-reminder> tags contain useful information and reminders. They are NOT part of the user's provided input or the tool result. You shall pay close attention to information in these tags and use it to inform you actions.\n"[39m +
+            [32m"- For simple, directed codebase searches (project structure, specific files/classes/functions), use the listFiles tool. If you pass 'true' for the recursive parameter, it will list files recursively. Use globFiles when you need to match files by pattern.\n"[39m +
+            [32m'- For broader codebase exploration and deep research, use the newTask tool with agentType="explore". Use this only when simple, directed searches prove insufficient or when your task will clearly require more than three queries.\n'[39m +
+            [32m'- All file paths used by tools must be relative to current working directory, do not use the ~ character or $HOME to refer to the home directory in file paths used by tools.\n'[39m +
+            [32m"- You can use `pochi://` URI schema to access the Pochi virtual file system. This allows you to read and write files that are stored in Pochi's internal storage.\n"[39m +
+            [32m"- Be sure to consider the type of project (e.g. Python, JavaScript, web application) when determining the appropriate structure and files to include. Also consider what files may be most relevant to accomplishing the task, for example looking at a project's manifest file would help you und"[39m... 1797 more characters
+        },
+        {
+          role: [32m'user'[39m,
+          content: [
+            {
+              type: [32m'text'[39m,
+              text: [32m'<system-reminder># System Information\n'[39m +
+                [32m'\n'[39m +
+                [32m'Operating System: linux\n'[39m +
+                [32m'Default Shell: \n'[39m +
+                [32m'Home Directory: /root\n'[39m +
+                [32m'Current Working Directory: /\n'[39m +
+                [32m'Current Time: Sat May 30 2026 19:32:54 GMT+0000 (Coordinated Universal Time)\n'[39m +
+                [32m'\n'[39m +
+                [32m'# GIT STATUS\n'[39m +
+                [32m'Current branch: \n'[39m +
+                [32m'Main branch (you will usually use this for PRs): \n'[39m +
+                [32m'\n'[39m +
+                [32m'Recent commits:\n'[39m +
+                [32m'\n'[39m +
+                [32m'\n'[39m +
+                [32m'# TODOs\n'[39m +
+                [32m'No TODOs yet, if you are working on tasks that would benefit from a todo list please use the todoWrite tool to create one.</system-reminder>'[39m
+            },
+            {
+              type: [32m'text'[39m,
+              text: [32m'Navigate to http://localhost:3000 and perform the following steps:\n'[39m +
+                [32m'1. Find the input field (e.g., data-testid="task-input") and enter "Test Task zr-cybjfsb".\n'[39m +
+                [32m'2. Click the add button (e.g., data-testid="add-button").\n'[39m +
+                [32m'3. Verify that the task "Test Task zr-cybjfsb" appears in a data-testid="task-item" element.\n'[39m +
+                [32m'4. Find the toggle button (e.g., data-testid="toggle-button") inside the "Test Task zr-cybjfsb" item and click it.\n'[39m +
+                [32m'5. Verify that the UI reflects the task is completed (e.g., check for a specific class, attribute, or visual indicator within the task item).\n'[39m +
+                [32m'6. Find the delete button (e.g., data-testid="delete-button") inside the "Test Task zr-cybjfsb" item and click it.\n'[39m +
+                [32m'7. Verify that "Test Task zr-cybjfsb" is no longer visible on the page.\n'[39m +
+                [32m'\n'[39m +
+                [32m'Provide a detailed report of the outcome of each step and a final pass/fail status. If you cannot access the URL or encounter an unexpected state (like a login page), report it immediately.'[39m
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Verifying Environment Setup**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I'm currently focused on confirming the agent-browser version, aiming to establish it within the 0.20.0 to 0.24.0 range. This foundational check is crucial before proceeding with any further automation steps.\n"[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'Q4ebaZYgTWhsEe5R'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'agent-browser --version'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18zYt/KIPR38cNlhLX0AA8MXEdRVjfmKxjntGak4goIr1H9bYnp4V0gsaToRrfD/eTQwtnpFn8vdSli6zSEgabYkyGIZ0GWP7TYwxnBoy4SD5V2j8rK4lo7eLNsj/YHSYk1TiHHGb8hw5XVcvl5Jv9E34q/8VeI1rsb4xqXvlG3qK9zDrBngupAQYBUbkpH1WFRE2stRlrEEunLT1wVaZwDKQ1nRejVclbEbifcjUdmk3tQsfe7vJJyNFFdPZJo97QSXRmHOl8NVysS9HttBPc+xw6PMOH6xC+ajbourOR+Jd14iHFZqGhoQ8cPv9pHD2kqvexbld8gDwNeHyqnZ0NXdk1lbgrEOQsv/MmgsmNr5hK/NgO9ztXcYhT5Gt+zXp/wbpAbmzRkCBobyG+7EOlEdREcDpJq2mppCLINXCy7nPqYo8/As5TXe2gsOgYuscEAcjGDluXjHKSuQt84sP5OnwkUnuMH3Q+VnqL4ftPsH3pbtZUVWr4AqKM7Qqs+r1TQ0XmpocgJ3BQkU7ZBMXgBxlGOj8Krgx43nMtEcKRRwBGp7lxCa0Pil4dT3dNwfTOGA5VHPFvQtxwbbIdcjiiaKtosM19A8ATmwpVg0NmUSsbRQef+CV4w42igJo8WwO7wcd3eEN1egaWXJjD3X6PgsoEqhzhZXS3cV/4Tv5wi/M+OzWT1b63CLKg8DCL7AEMSIl3QWzrCJpd7pD2JaCoFQ/oEOKoKVeVvl6QCA0dUjL90fCrBOSRLDBMz41ff+s8GrFL0sTwwFjS7fVucZSfVy8SJyii5lVvSY4vPejKnPp7EYpT3HsJx6y/8G68ZHIcGGQBHEj+SLpwryEc5Uxy2Rg2R8Nqgn8vj8Ed3nS6mkGBxtfr9+7QNuVYbRW17AgxNtT6WvzgApn3Ol4SQkFDJWvTm/IzszuhP4WBxLx4LJTCivhqk7dpY7dQWMwCdB0zehGDL/Se0fe33FNXH+z5UcS4yhUtHMKZW+dMVxFdGefoGdh46wxibAXQCO5A181bHRUQgT8ee0tEfrMVaD2pWOOTIZbjG9w3VPp3RnTewelUeKY/BlgX9HkxNA+QAAXGnYcZb4T6tSJ+d+GTrpkMz5gXstksHvD43cGvg56u4d8fCVbg5iNap76cRi2LR5SNPu8c0J+dihfxQ4WzZRPB1GeJcWm/UgGJPtRKXR5hUlpqdIYn2JgrTELhwh9QcrH5Rs/LcGeUBzXPq02X/XVnV+qVZMwsyzp089j75Dg8='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'Q4ebaZYgTWhsEe5R'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'agent-browser 0.27.0\r\n'[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18zYt/KIPR38cNlhLX0AA8MXEdRVjfmKxjntGak4goIr1H9bYnp4V0gsaToRrfD/eTQwtnpFn8vdSli6zSEgabYkyGIZ0GWP7TYwxnBoy4SD5V2j8rK4lo7eLNsj/YHSYk1TiHHGb8hw5XVcvl5Jv9E34q/8VeI1rsb4xqXvlG3qK9zDrBngupAQYBUbkpH1WFRE2stRlrEEunLT1wVaZwDKQ1nRejVclbEbifcjUdmk3tQsfe7vJJyNFFdPZJo97QSXRmHOl8NVysS9HttBPc+xw6PMOH6xC+ajbourOR+Jd14iHFZqGhoQ8cPv9pHD2kqvexbld8gDwNeHyqnZ0NXdk1lbgrEOQsv/MmgsmNr5hK/NgO9ztXcYhT5Gt+zXp/wbpAbmzRkCBobyG+7EOlEdREcDpJq2mppCLINXCy7nPqYo8/As5TXe2gsOgYuscEAcjGDluXjHKSuQt84sP5OnwkUnuMH3Q+VnqL4ftPsH3pbtZUVWr4AqKM7Qqs+r1TQ0XmpocgJ3BQkU7ZBMXgBxlGOj8Krgx43nMtEcKRRwBGp7lxCa0Pil4dT3dNwfTOGA5VHPFvQtxwbbIdcjiiaKtosM19A8ATmwpVg0NmUSsbRQef+CV4w42igJo8WwO7wcd3eEN1egaWXJjD3X6PgsoEqhzhZXS3cV/4Tv5wi/M+OzWT1b63CLKg8DCL7AEMSIl3QWzrCJpd7pD2JaCoFQ/oEOKoKVeVvl6QCA0dUjL90fCrBOSRLDBMz41ff+s8GrFL0sTwwFjS7fVucZSfVy8SJyii5lVvSY4vPejKnPp7EYpT3HsJx6y/8G68ZHIcGGQBHEj+SLpwryEc5Uxy2Rg2R8Nqgn8vj8Ed3nS6mkGBxtfr9+7QNuVYbRW17AgxNtT6WvzgApn3Ol4SQkFDJWvTm/IzszuhP4WBxLx4LJTCivhqk7dpY7dQWMwCdB0zehGDL/Se0fe33FNXH+z5UcS4yhUtHMKZW+dMVxFdGefoGdh46wxibAXQCO5A181bHRUQgT8ee0tEfrMVaD2pWOOTIZbjG9w3VPp3RnTewelUeKY/BlgX9HkxNA+QAAXGnYcZb4T6tSJ+d+GTrpkMz5gXstksHvD43cGvg56u4d8fCVbg5iNap76cRi2LR5SNPu8c0J+dihfxQ4WzZRPB1GeJcWm/UgGJPtRKXR5hUlpqdIYn2JgrTELhwh9QcrH5Rs/LcGeUBzXPq02X/XVnV+qVZMwsyzp089j75Dg8='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'urWRShVapHnjkLRH'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'npm install -g agent-browser@0.24.0'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a19yO+SRE2vtDvaXxRZingL4NPjJaX0WFvTBxg+R2pIeDDk8CO12ZaHFppxKK1qaL6QLGFVaw7yP/9zRs+ckZdowaX0AwHEachLj2HCrDBqQqTeu3f8wvLchsst9m80hnzWhVrRMhCogIItW3ShtXKPG7G61P8pw20P0in2N04anSRz9HkkIHcqK5j7Q2NzJhVoDKvBcxwxPdCqhWFc4UK4j+TMpa8jIz5UFIdnN7MfGQMQHsfEyu2YsHhp+h2yIChIfn9XroQOjgmQnYLuWmCkv'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'urWRShVapHnjkLRH'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'\r\nchanged 1 package in 3s\r\n'[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a19yO+SRE2vtDvaXxRZingL4NPjJaX0WFvTBxg+R2pIeDDk8CO12ZaHFppxKK1qaL6QLGFVaw7yP/9zRs+ckZdowaX0AwHEachLj2HCrDBqQqTeu3f8wvLchsst9m80hnzWhVrRMhCogIItW3ShtXKPG7G61P8pw20P0in2N04anSRz9HkkIHcqK5j7Q2NzJhVoDKvBcxwxPdCqhWFc4UK4j+TMpa8jIz5UFIdnN7MfGQMQHsfEyu2YsHhp+h2yIChIfn9XroQOjgmQnYLuWmCkv'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'ccQEEXtQKD70gAZO'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'agent-browser --version'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18rC04fJ+/WdfayBiXlGjoHsv7qGdcUJBOFKkSGYiHOpfdIkUNInbOS8+6f3GKlx7TIu109IlKCrt/CzuG2mboQ7m14xYrBq+xto40PHr60oWdrEgq2EyI71U6c'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'ccQEEXtQKD70gAZO'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'agent-browser 0.24.0\r\n'[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18rC04fJ+/WdfayBiXlGjoHsv7qGdcUJBOFKkSGYiHOpfdIkUNInbOS8+6f3GKlx7TIu109IlKCrt/CzuG2mboQ7m14xYrBq+xto40PHr60oWdrEgq2EyI71U6c'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'9SRbxq9dW6tzwoFy'[39m,
+              toolName: [32m'todoWrite'[39m,
+              input: {
+                todos: [
+                  {
+                    id: [32m'navigate'[39m,
+                    content: [32m'Navigate to http://localhost:3000'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'high'[39m
+                  },
+                  {
+                    id: [32m'add-task'[39m,
+                    content: [32m'Add task "Test Task zr-cybjfsb"'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'high'[39m
+                  },
+                  {
+                    id: [32m'verify-added'[39m,
+                    content: [32m'Verify task appears in list'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'high'[39m
+                  },
+                  {
+                    id: [32m'toggle-task'[39m,
+                    content: [32m'Toggle task completion'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'medium'[39m
+                  },
+                  {
+                    id: [32m'verify-completed'[39m,
+                    content: [32m'Verify task is completed'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'medium'[39m
+                  },
+                  {
+                    id: [32m'delete-task'[39m,
+                    content: [32m'Delete task'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'medium'[39m
+                  },
+                  {
+                    id: [32m'verify-deleted'[39m,
+                    content: [32m'Verify task is removed'[39m,
+                    status: [32m'pending'[39m,
+                    priority: [32m'medium'[39m
+                  }
+                ]
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a19sXu4Wk7r8dQE9qrZhY06p7FLRkb6pE/MWC+Rg/pZ08CMWwe1Xc/E35HaX67ywiBW4e7pHi7L+a6dPoW32LJWrpLrkKv4CPYJxeK7bEVcokHx7yJefBIg7Nxnt4qeUf2ktNF3ZO38QycOagNXBVt/v'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'9SRbxq9dW6tzwoFy'[39m,
+              toolName: [32m'todoWrite'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  success: [33mtrue[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a19sXu4Wk7r8dQE9qrZhY06p7FLRkb6pE/MWC+Rg/pZ08CMWwe1Xc/E35HaX67ywiBW4e7pHi7L+a6dPoW32LJWrpLrkKv4CPYJxeK7bEVcokHx7yJefBIg7Nxnt4qeUf2ktNF3ZO38QycOagNXBVt/v'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'kQagQHNMef1SdG0L'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'curl -I http://localhost:3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/YDPAA6WRfx3VpIvKuKBiS+Zn/qYlJcDylp/YQUzjsX5SK+Fx0IrqnzJ+yNxIFsbVcaHv6pEQGHFA/RCFcpywqiBq6MCJldGBJvcgqirEnI7G9FVjDm7F6J9QlI1FjPcFH6Cc/jNL1mQCJ7v3+AQoVL4D7dHbEO6GnrmZxrnLS03TSLy+0DFvtR2YOoJeGzGIS6WkeHktUIy59Tx1AWk2s+X2JLUL0w2GzXH8oA/b+KhnBTSwRqtxi//Cijg=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'kQagQHNMef1SdG0L'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\r\n'[39m +
+                    [32m'                                 Dload  Upload   Total   Spent    Left  Speed\r\n'[39m +
+                    [32m'\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:31 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:32 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:33 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:34 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:35 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:36 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:37 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:38 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:39 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:40 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:41 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:42 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:43 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:44 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:45 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:46 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:47 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:48 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:49 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:50 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:51 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:52 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:53 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:54 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:55 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:56 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:57 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:58 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:59 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:00 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:03 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:04 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:05 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:06 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:07 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:08 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:09 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:10 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:11 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:12 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:13 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:14 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:15 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:16 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:17 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:18 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:19 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:20 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:21 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:22 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:23 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:24 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:25 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:26 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:27 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:28 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:29 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:30 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:31 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:32 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:33 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:34 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:35 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:36 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:37 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:38 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:39 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:40 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:41 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:42 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:43 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:44 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:45 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:46 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:47 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:48 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:49 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:50 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:51 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:52 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:53 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:54 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:55 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:56 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:57 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:58 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:59 --:--:--     0'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command execution timed out after 120 seconds.'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/YDPAA6WRfx3VpIvKuKBiS+Zn/qYlJcDylp/YQUzjsX5SK+Fx0IrqnzJ+yNxIFsbVcaHv6pEQGHFA/RCFcpywqiBq6MCJldGBJvcgqirEnI7G9FVjDm7F6J9QlI1FjPcFH6Cc/jNL1mQCJ7v3+AQoVL4D7dHbEO6GnrmZxrnLS03TSLy+0DFvtR2YOoJeGzGIS6WkeHktUIy59Tx1AWk2s+X2JLUL0w2GzXH8oA/b+KhnBTSwRqtxi//Cijg=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'g3pDsYIDzG9hqaHQ'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'netstat -tuln | grep :3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a186G0NVeV5wE/nD+jrqGu1EjDnrb1FNooyODUFwKzZfqXMZQb1cLZjrdJ/zh9+vpKTkV1Z0NrM2uL5Dp7x64sjaTcV0IQOwQArShpWPGlAvT0IRt2YWJShQUMXxcbKjoqR+44YZrA1u1D/Go4+vW6N7o1CX6QU0BWNWbQ+46X8pDwKdgDRp4PnBio/DQIr60+tnpQHIdrZsS4XcJ1p1U1SqGRArJwsP8oToxJM1CIHb4UaRlrwj2Q4PUy9rsSv6AB/iaAo6V6afyl6WkjPEn7IReBTaoULW3ppbpyvM+bJDvwmLBHZUlDY6T+B7Nto='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'g3pDsYIDzG9hqaHQ'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'/bin/bash: line 1: netstat: command not found\r\n'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 1'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a186G0NVeV5wE/nD+jrqGu1EjDnrb1FNooyODUFwKzZfqXMZQb1cLZjrdJ/zh9+vpKTkV1Z0NrM2uL5Dp7x64sjaTcV0IQOwQArShpWPGlAvT0IRt2YWJShQUMXxcbKjoqR+44YZrA1u1D/Go4+vW6N7o1CX6QU0BWNWbQ+46X8pDwKdgDRp4PnBio/DQIr60+tnpQHIdrZsS4XcJ1p1U1SqGRArJwsP8oToxJM1CIHb4UaRlrwj2Q4PUy9rsSv6AB/iaAo6V6afyl6WkjPEn7IReBTaoULW3ppbpyvM+bJDvwmLBHZUlDY6T+B7Nto='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'2vjqq2Om6B64mZjc'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'ss -tuln | grep :3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+N7ayRhJt/7Hd4YLjd9NUnu7TOhFitM1nX6kXkbLPaOEEKHSAf0ylFPCB78ZZU95B+tBulBAdRE7YFzyeCot0J+MTmXCIYS6ETlYYcULYszXxeYwLHzMsL/pg1dYzr5y1Sff6kV1HyrxvnRuImvHe3RkXotBi1xab0eQsv8QwrHIBdDmP5LaQ='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'2vjqq2Om6B64mZjc'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'/bin/bash: line 1: ss: command not found\r\n'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 1'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+N7ayRhJt/7Hd4YLjd9NUnu7TOhFitM1nX6kXkbLPaOEEKHSAf0ylFPCB78ZZU95B+tBulBAdRE7YFzyeCot0J+MTmXCIYS6ETlYYcULYszXxeYwLHzMsL/pg1dYzr5y1Sff6kV1HyrxvnRuImvHe3RkXotBi1xab0eQsv8QwrHIBdDmP5LaQ='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'b7pXKICWmdm35Td0'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'lsof -i :3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18oH91QLM55Qixs/QEVL1wKIrR4C9AaH5xalgcCc5upsJHVTBZirzmMNK2RVvRGysglQCMsRu3bEdzV+n5hKDFfwmUKAg1WKpmQXhaQ1tGvVuMiJP0UKA=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'b7pXKICWmdm35Td0'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'/bin/bash: line 1: lsof: command not found\r\n'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 127'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18oH91QLM55Qixs/QEVL1wKIrR4C9AaH5xalgcCc5upsJHVTBZirzmMNK2RVvRGysglQCMsRu3bEdzV+n5hKDFfwmUKAg1WKpmQXhaQ1tGvVuMiJP0UKA=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'PdTvQYF8KKVD8R29'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'agent-browser open http://localhost:3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18hpBykT8PRyRlTHKtMDmnJLYe232ikrswhrtPyPfUj6Nm+Qs7tSO5NJjPzNKKsoLeGUu1bEBYVz59myeaN3ReRbUr177v7OgWf1AAg1q7XR18Ikvms94BbFglwo+JRFIcEMf2cqCUkZrWjzeyZHAe0pCnmqVj5MGWwbwvtL9P7WhWHxmaVg0pAa6mieUjUIPK9zxfBSdEmlsyd6lL8OxXVx7BSstTlLVJZrC5tLyDndJjPtIrsXp+hKiWr3QV2zdiQE7YecoLLCbqdFWg='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'PdTvQYF8KKVD8R29'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'\x1B[31m✗\x1B[0m CDP command timed out: Page.navigate\r\n'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command exited with code 1'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18hpBykT8PRyRlTHKtMDmnJLYe232ikrswhrtPyPfUj6Nm+Qs7tSO5NJjPzNKKsoLeGUu1bEBYVz59myeaN3ReRbUr177v7OgWf1AAg1q7XR18Ikvms94BbFglwo+JRFIcEMf2cqCUkZrWjzeyZHAe0pCnmqVj5MGWwbwvtL9P7WhWHxmaVg0pAa6mieUjUIPK9zxfBSdEmlsyd6lL8OxXVx7BSstTlLVJZrC5tLyDndJjPtIrsXp+hKiWr3QV2zdiQE7YecoLLCbqdFWg='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'DU68tQ0wRwFcB4g4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'ls -R'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18dc8Ss80Q/1EUj+l2e41/7NX0wLH5GIUg8E84lwCCFCm7LJoTFkcThUfgH3jFqkzN0Iu0B35Qy+hjXPHpUyP2X63XkIziNu6/IuX1o37e9+n3TUMrob2WAKXxlagklwT1Esyi+E/4/mB4dqlKZHkhJhDL3AN2LAQLBES4ancuRHqYmnjSd+RBgkrmA0CnSHlZTn213Xmg+/ELTuYnS6KG9A8SuVPubFKtCfBqbmijhjHMM1SSDE5IluR2+t/WyDQDLFRYhkPa8rEwh/kbzTltIaomNG8n9VBkejaVrlku8VZJfpokqa0eG3Kka9MUUmDpqahXAU6w8HG9and43AebVdZrYKTL7djIAIs3yMkuPNoH4m+ojHHWcl8USwfbHSvUPGlgzeLjQvhdx2KXe0+4HQ56g7RrptYUkl2CuYlx2cXjZpKEg6uOXoRcz'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'DU68tQ0wRwFcB4g4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  error: [32m'stdout maxBuffer length exceeded'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a18dc8Ss80Q/1EUj+l2e41/7NX0wLH5GIUg8E84lwCCFCm7LJoTFkcThUfgH3jFqkzN0Iu0B35Qy+hjXPHpUyP2X63XkIziNu6/IuX1o37e9+n3TUMrob2WAKXxlagklwT1Esyi+E/4/mB4dqlKZHkhJhDL3AN2LAQLBES4ancuRHqYmnjSd+RBgkrmA0CnSHlZTn213Xmg+/ELTuYnS6KG9A8SuVPubFKtCfBqbmijhjHMM1SSDE5IluR2+t/WyDQDLFRYhkPa8rEwh/kbzTltIaomNG8n9VBkejaVrlku8VZJfpokqa0eG3Kka9MUUmDpqahXAU6w8HG9and43AebVdZrYKTL7djIAIs3yMkuPNoH4m+ojHHWcl8USwfbHSvUPGlgzeLjQvhdx2KXe0+4HQ56g7RrptYUkl2CuYlx2cXjZpKEg6uOXoRcz'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'j0kkaa39IY8k7deN'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'ls -F'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+u2HGM01/JVhSe5dW0EKtejRNj/Tfhwp3QBaGIEkuDLJ0UN6/O2V/h+FKNkVbteNEMikg1EmhIE7x8o+GSwqsghc3KdpxEzxIqqrBPQry+og57z0MZkNjd24XXy9dvwTq/W7RUvSqleVEQr3EEAi7Z2lObxDp7VyBnURb16w=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'j0kkaa39IY8k7deN'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'bin@\r\n'[39m +
+                    [32m'boot/\r\n'[39m +
+                    [32m'bootstrap/\r\n'[39m +
+                    [32m'dev/\r\n'[39m +
+                    [32m'etc/\r\n'[39m +
+                    [32m'home/\r\n'[39m +
+                    [32m'installed-agent/\r\n'[39m +
+                    [32m'lib@\r\n'[39m +
+                    [32m'lib.usr-is-merged/\r\n'[39m +
+                    [32m'lib64@\r\n'[39m +
+                    [32m'logs/\r\n'[39m +
+                    [32m'media/\r\n'[39m +
+                    [32m'mnt/\r\n'[39m +
+                    [32m'opt/\r\n'[39m +
+                    [32m'proc/\r\n'[39m +
+                    [32m'root/\r\n'[39m +
+                    [32m'run/\r\n'[39m +
+                    [32m'sbin@\r\n'[39m +
+                    [32m'srv/\r\n'[39m +
+                    [32m'sys/\r\n'[39m +
+                    [32m'tests/\r\n'[39m +
+                    [32m'tmp/\r\n'[39m +
+                    [32m'usr/\r\n'[39m +
+                    [32m'var/\r\n'[39m +
+                    [32m''[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+u2HGM01/JVhSe5dW0EKtejRNj/Tfhwp3QBaGIEkuDLJ0UN6/O2V/h+FKNkVbteNEMikg1EmhIE7x8o+GSwqsghc3KdpxEzxIqqrBPQry+og57z0MZkNjd24XXy9dvwTq/W7RUvSqleVEQr3EEAi7Z2lObxDp7VyBnURb16w=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'VBdMnjGmK9qYlKLN'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'ls -F /root'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+eEgCLBwO6W6hYYSqn6NcaViZNc8i0qcs5w9ypFf3HebNLYy0+uigSpoR+srDWkSRa66ZYVGXzRMIbNhxDYl3XxdpwRcYQebGkvCUab6mFS5ODWyW1T+cr2NQBl2BObfnrtbYjVXLRFDDCApfuqZ56uzzjM37sEmFdgwC8tteX9ZLlnr3GVASaK/Yt4FBIbfZykM7TtSwZsBgP+hsjQ4ZgTcLHSYQy2ecFEW9br0SYxSN1EBS6gX23w5Rv7dWnfTbexfjF1GsjijRrEryq'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'VBdMnjGmK9qYlKLN'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m''[39m,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+eEgCLBwO6W6hYYSqn6NcaViZNc8i0qcs5w9ypFf3HebNLYy0+uigSpoR+srDWkSRa66ZYVGXzRMIbNhxDYl3XxdpwRcYQebGkvCUab6mFS5ODWyW1T+cr2NQBl2BObfnrtbYjVXLRFDDCApfuqZ56uzzjM37sEmFdgwC8tteX9ZLlnr3GVASaK/Yt4FBIbfZykM7TtSwZsBgP+hsjQ4ZgTcLHSYQy2ecFEW9br0SYxSN1EBS6gX23w5Rv7dWnfTbexfjF1GsjijRrEryq'[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'yRmKAHW3H8wk679T'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'ps aux'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+6PMIWftAuP2CxMyak8CrRzIXT2sQK+iXCleRqF+W6p8TsrnT4ZtvZczKevFULHKJBKy+lDp8RTbUepjMrYIAUGwhgzi+CuPzwQBriD30kNym6LoWWWghctawSeLEg8iLuvDTlDr+bnccCs+x3huMRD+KHuT0Aktxq0p9k1Lz1e3kSsoPVcMhgv0ZbSst7bWMEOhUugLkzDvOfhOlsg2kzLxy0A+UxeM9kC7m0vK1fajOPTkV9ApSGxHlGUehvh0NYsWuQy3Vv1Nldz+sI1V7J+x5tC8Wk6aj4FOII94J5CtHWbCJdxuaY7nBARJF1bjts7TSw35qlptgLc7Piio4qeofZX+vDJGQnMzvRtahSrFl3TN02QGyQz/PDnSFllmyZeOhLCR9KrxDe58wMfJ1KPwvAMwbjpT56oDhh0OLSC/2CldMMJhYfHsB+JNwajkVW1PCDIJSMOcIue2ezwyYLv/b0azDhOBkIYQXxk+1JC8zxJ8fIrsa3dEaWVHWZX8S0VAsETIPvwfzQRxpUtg=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'yRmKAHW3H8wk679T'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND\r\n'[39m +
+                    [32m'root           1  0.0  0.0   2800  1788 ?        Ss   19:25   0:00 sh -c sleep infinity\r\n'[39m +
+                    [32m'root           7  0.0  0.0   2696  1504 ?        S    19:25   0:00 sleep infinity\r\n'[39m +
+                    [32m'root         310  0.0  0.0   2704  1576 ?        S    19:25   0:00 tee /logs/agent/pochi/stdout.txt\r\n'[39m +
+                    [32m'root         311  0.0  0.0   2704  1568 ?        S    19:25   0:00 tee /logs/agent/pochi/stderr.txt\r\n'[39m +
+                    [32m'root        1107  0.1  0.2 9936948 89628 ?       Sl   19:30   0:00 node /home/user/task-manager/node_modules/.bin/next dev\r\n'[39m +
+                    [32m'root        1119 72.3  9.4 73049864 3121628 ?    Rl   19:30   4:17 next-server (v14.2.3)\r\n'[39m +
+                    [32m'root        1323  0.0  0.0   4324  3304 ?        Ss   19:32   0:00 bash -c (/tests/test.sh) > /logs/verifier/test-stdout.txt 2>&1\r\n'[39m +
+                    [32m'root        1329  0.0  0.0   4324  3528 ?        S    19:32   0:00 /bin/bash /tests/test.sh\r\n'[39m +
+                    [32m'root        1331  0.2  0.0  30804 26324 ?        S    19:32   0:00 /usr/bin/python3 /usr/bin/pytest --ctrf /logs/verifier/ctrf.json /tests/test_final_state.py -rA\r\n'[39m +
+                    [32m'root        1344  0.1  0.2 1509824 68708 ?       Sl   19:32   0:00 npm run dev\r\n'[39m +
+                    [32m'root        1364  0.0  0.0   2800  1948 ?        S    19:32   0:00 sh -c next dev\r\n'[39m +
+                    [32m'root        1365  0.2  0.2 9937108 90528 ?       Sl   19:32   0:00 node /home/user/task-manager/node_modules/.bin/next dev\r\n'[39m +
+                    [32m'root        1377  2.1  0.5 27479788 183480 ?     Sl   19:32   0:05 next-server (v14.2.3)\r\n'[39m +
+                    [32m'root        1401  0.0  0.0   4708  3572 ?        S    19:32   0:00 /bin/bash -c pochi --model google/gemini-3-flash --attempt-completion-schema \'z.object({ "status": z.enum(["pass", "fail"]), "reason": z.string() })\' --experimental-stream-trajectory /logs/verifier/pochi/test_browser_task_manager/trajectory.jsonl --blobs-dir /logs/verifier/pochi/test_browser_task_manager/blobs > >(tee /logs/verifier/pochi/test_browser_task_manager/stdout.txt) 2> >(tee /logs/verifier/pochi/test_browser_task_manager/stderr.txt >&2) <<\'EOF\' You are a software tester assigned to verify a test case using the agent browser.  ## Critical Instructions - You **must** use the agent browser to perform all verification steps.   - **Do NOT** attempt to execute any system commands, scripts, or actions that start, open, terminate, or kill any process or service (including but not limited to starting servers, opening ports, killing background jobs). - **Do NOT** attempt to access, open, or modify network ports through any means, including indirect methods (such as running programs that bind to ports). - If the verification steps reference a URL or port that cannot be accessed via the agent browser, immediately return a `"fail"` status. - If you encounter any verification step that you cannot execute, or are unsure how to proceed at any point, immediately return a `"fail"` status.     - For example: If you see a login page but no login step exists in the instructions, stop and return `"fail"`.  ## Reason for this test The application should allow users to create, toggle, and delete tasks. It should filter tasks by the current runId.  ## Verification Steps Follow these steps precisely and in order:  1. Navigate to http://localhost:3000 2. Find the input field (e.g., `data-testid="task-input"`) and enter `Test Task zr-cybjfsb`. 3. Click the add button (e.g., `data-testid="add-button"`). 4. Verify that the task `Test Task zr-cybjfsb` appears in a `data-testid="task-item"` element. 5. Find the toggle button (e.g., `data-testid="toggle-button"`) inside the `Test Task zr-cybjfsb` item and click it. 6. Verify that the UI reflects the task is completed. 7. Find the delete button (e.g., `data-testid="delete-button"`) inside the `Test Task zr-cybjfsb` item and click it. 8. Verify that `Test Task zr-cybjfsb` is no longer visible on the page.   ## Result Format At the end of the test, respond with the following JSON: {     "status": "pass" | "fail",     "reason": "A detailed explanation describing why the test passed or failed." }  EOF\r\n'[39m +
+                    [32m'root        1402  7.1  0.9 74375224 325568 ?     Sl   19:32   0:17 pochi --model google/gemini-3-flash --attempt-completion-schema z.object({ "status": z.enum(["pass", "fail"]), "reason": z.string() }) --experimental-stream-trajectory /logs/verifier/pochi/test_browser_task_manager/trajectory.jsonl --blobs-dir /logs/verifier/pochi/test_browser_task_manager/blobs\r\n'[39m +
+                    [32m'root        1403  0.0  0.0   3088  1832 ?        S    19:32   0:00 tee /logs/verifier/pochi/test_browser_task_manager/stdout.txt\r\n'[39m +
+                    [32m'root        1404  0.0  0.0   3088  1772 ?        S    19:32   0:00 tee /logs/verifier/pochi/test_browser_task_manager/stderr.txt\r\n'[39m +
+                    [32m'root        1738  0.0  0.0 349768  7740 ?        Ssl  19:35   0:00 /usr/lib/node_modules/agent-browser/bin/agent-browser-linux-x64\r\n'[39m +
+                    [32m'root        1744  6.0  0.5 55163408 194216 ?     Sl   19:35   0:04 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --remote-debugging-port=0 --no-first-run --no-default-browser-check --disable-background-networking --disable-backgrounding-occluded-windows --disable-component-update --disable-default-apps --disable-hang-monitor --disable-popup-blocking --disable-prompt-on-repost --disable-sync --disable-features=Translate --enable-features=NetworkService,NetworkServiceInProcess --metrics-recording-only --password-store=basic --use-mock-keychain --headless=new --enable-unsafe-swiftshader --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --window-size=1280,720 --no-sandbox --disable-dev-shm-usage\r\n'[39m +
+                    [32m'root        1746  0.0  0.0 54540832 3832 ?       Sl   19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome_crashpad_handler --monitor-self --monitor-self-annotation=ptype=crashpad-handler --database=/root/.config/google-chrome-for-testing/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=149.0.7827.54 --initial-client-fd=6 --shared-client-connection\r\n'[39m +
+                    [32m'root        1748  0.0  0.0 54532620 3352 ?       S    19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome_crashpad_handler --no-periodic-tasks --monitor-self-annotation=ptype=crashpad-handler --database=/root/.config/google-chrome-for-testing/Crash Reports --annotation=lsb-release=Ubuntu 24.04.4 LTS --annotation=plat=Linux --annotation=prod=Chrome_Linux --annotation=ver=149.0.7827.54 --initial-client-fd=4 --shared-client-connection\r\n'[39m +
+                    [32m'root        1751  0.0  0.2 54946748 66844 ?      S    19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --type=zygote --no-zygote-sandbox --no-sandbox --headless=new --crashpad-handler-pid=1746 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --change-stack-guard-on-fork=enable --no-first-run --ozone-platform=headless --ozone-override-screen-size=800,600 --use-angle=swiftshader-webgl\r\n'[39m +
+                    [32m'root        1752  0.1  0.2 54946748 66956 ?      S    19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --type=zygote --no-sandbox --headless=new --crashpad-handler-pid=1746 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --change-stack-guard-on-fork=enable --no-first-run --ozone-platform=headless --ozone-override-screen-size=800,600 --use-angle=swiftshader-webgl\r\n'[39m +
+                    [32m'root        1778  2.0  0.2 55121624 87156 ?      Sl   19:35   0:01 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --type=gpu-process --no-sandbox --disable-dev-shm-usage --headless=new --ozone-platform=headless --use-angle=swiftshader-webgl --enable-unsafe-swiftshader --crashpad-handler-pid=1746 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --change-stack-guard-on-fork=enable --gpu-preferences=UAAAAAAAAAAgAAAEAAAAAAAAAAAAAMAAAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAYAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAA --shared-files --field-trial-handle=3,i,8299703743580439431,8567027587163887745,262144 --enable-features=NetworkService,NetworkServiceInProcess --disable-features=PaintHolding,Translate --variations-seed-version --pseudonymization-salt-handle=7,i,1944303532431634145,13764147231262614946,4 --trace-process-track-uuid=3190708988185955192\r\n'[39m +
+                    [32m'root        1781  0.3  0.3 54980940 114452 ?     Sl   19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=network --no-sandbox --disable-dev-shm-usage --use-angle=swiftshader-webgl --crashpad-handler-pid=1746 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --change-stack-guard-on-fork=enable --shared-files=network_parent_dirs_pipe:100,v8_context_snapshot_data:101 --field-trial-handle=3,i,8299703743580439431,8567027587163887745,262144 --enable-features=NetworkService,NetworkServiceInProcess --disable-features=PaintHolding,Translate --variations-seed-version --pseudonymization-salt-handle=7,i,1944303532431634145,13764147231262614946,4 --trace-process-track-uuid=3190708989122997041\r\n'[39m +
+                    [32m'root        1810  0.0  0.1 55012728 49224 ?      Sl   19:35   0:00 /root/.agent-browser/browsers/chrome-149.0.7827.54/chrome --type=utility --utility-sub-type=storage.mojom.StorageService --lang=en-US --service-sandbox-type=utility --no-sandbox --disable-dev-shm-usage --use-angle=swiftshader-webgl --crashpad-handler-pid=1746 --enable-crash-reporter=, --noerrdialogs --user-data-dir=/tmp/agent-browser-chrome-57ed6d19-6bd0-415e-99de-9b36748e9de1 --change-stack-guard-on-fork=enable --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,8299703743580439431,8567027587163887745,262144 --enable-features=NetworkService,NetworkServiceInProcess --disable-features=PaintHolding,Translate --variations-seed-version --pseudonymization-salt-handle=7,i,1944303532431634145,13764147231262614946,4 --trace-process-track-uuid=3190708990060038890\r\n'[39m +
+                    [32m'root      '[39m... 4924 more characters,
+                  isTruncated: [33mfalse[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1+6PMIWftAuP2CxMyak8CrRzIXT2sQK+iXCleRqF+W6p8TsrnT4ZtvZczKevFULHKJBKy+lDp8RTbUepjMrYIAUGwhgzi+CuPzwQBriD30kNym6LoWWWghctawSeLEg8iLuvDTlDr+bnccCs+x3huMRD+KHuT0Aktxq0p9k1Lz1e3kSsoPVcMhgv0ZbSst7bWMEOhUugLkzDvOfhOlsg2kzLxy0A+UxeM9kC7m0vK1fajOPTkV9ApSGxHlGUehvh0NYsWuQy3Vv1Nldz+sI1V7J+x5tC8Wk6aj4FOII94J5CtHWbCJdxuaY7nBARJF1bjts7TSw35qlptgLc7Piio4qeofZX+vDJGQnMzvRtahSrFl3TN02QGyQz/PDnSFllmyZeOhLCR9KrxDe58wMfJ1KPwvAMwbjpT56oDhh0OLSC/2CldMMJhYfHsB+JNwajkVW1PCDIJSMOcIue2ezwyYLv/b0azDhOBkIYQXxk+1JC8zxJ8fIrsa3dEaWVHWZX8S0VAsETIPvwfzQRxpUtg=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'assistant'[39m,
+          content: [
+            {
+              type: [32m'reasoning'[39m,
+              text: [32m'**Observing Node Process**\n'[39m +
+                [32m'\n'[39m +
+                [32m"I'm seeing the Next.js development server active, indicating the application is running. The `ps aux` output confirms a Node process is indeed up and operational.\n"[39m +
+                [32m'\n'[39m +
+                [32m''[39m
+            },
+            {
+              type: [32m'tool-call'[39m,
+              toolCallId: [32m'lYAIBe6cndRIa5y4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              input: {
+                command: [32m'curl -v http://localhost:3000'[39m
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/Ldnd4b+w76jkPpijJDqvrUYyEfyRgMkZbXhCMlrNgmDs/KFV/5GCoDMMIQB9uQl3szHe/tJG/Clx11i1Mg2JXcWneHpYLQBH9SWxLFLMEvrndsoXLPOIryjUJur4PiTiifOldhZGQ2JoLJHt4Ez9NAWbIhRiwa+mR35X/ZczJ17lXvsZN2NFkPaFrqxGCUySl3QMLT1hIVnmJFzBNhlgw8RMTXME6zWlnVsKYQ1HIK/d91Fm4+S+Kf8Wrjbduzsf23i6aNHY9UbuSmw8i7BDMvc1+8zpT0WzoPFIkX0yigxqvtpUG6a8jqdLFegUfXhwfkk77RA7FTcFYUvcvrbYNdF7Lb2S30wLBZ2ERo/P1UETOSJemhPEcpMJhfnONnJf2C+8SOBCJcdJaqDq8yd6reIsI8ubWoy7KfRwhg+hjroDAR15xLSS2N9xV5zm7KkEPZu4bSiRcfN5y7EbxiJFRiUVcd7kEKOnch0K1WmXl2dRTbiUYBg4Xefiwm5HkcVoGcK0zeTajl3CPXeEREYswp0EZWRN/yiVgevXhAuzVkwsSSFxefe+XrlhIL+ijWYcf6Cjdceh/JI1bAN6FDwLA2WMrPuzOLcD2THLuLPB8YQlXQkLzWnpL0YMRKOYAgkYGHpeVWP3iQeSuyHy291ZCZjy2rFDfwgySDqHwxp5dEqbUFO3Khn/LvKUI5piwd76JrnKhfFKlps+GoUN4dDdlYjnewDUBSNOYgRWcSqN9F9MwFeE5oO9+10b8UmcZ+LyIayQbmo97aMEAlMmvlBmmoGC3C6QOHAR2y4WS2Hur5S4mHvnl54MWna8Xvgiw1yvpLOGlx3A7uxzYOKhwZCw4KvJOtZmKwCHp6lD4eu87225PneTz8l4acKyaMICNabZHpzJnnN7uKPlblftl0CKmqBNLw2CKtu7tDWtoS/dustdRA+Zauwr9Qp8Y7XwcRMzymzlJDSnXeek9aIAQslhsmZ1SP+c0cXLyBmesvqY/LIgg2wNRIWEr78HBOPyzdnzVZfMMqdOXM21b3Pf7qVJdfXnMn0yHGLweAVmAjfUO7v7D+PwqP0QRAskXjOerPVlZPCptVg2vW3sGy2fb39KynSXg866D9n9jEPRi+A=='[39m
+                }
+              }
+            }
+          ]
+        },
+        {
+          role: [32m'tool'[39m,
+          content: [
+            {
+              type: [32m'tool-result'[39m,
+              toolCallId: [32m'lYAIBe6cndRIa5y4'[39m,
+              toolName: [32m'executeCommand'[39m,
+              output: {
+                type: [32m'json'[39m,
+                value: {
+                  output: [32m'* Host localhost:3000 was resolved.\r\n'[39m +
+                    [32m'* IPv6: ::1\r\n'[39m +
+                    [32m'* IPv4: 127.0.0.1\r\n'[39m +
+                    [32m'  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\r\n'[39m +
+                    [32m'                                 Dload  Upload   Total   Spent    Left  Speed\r\n'[39m +
+                    [32m'\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying [::1]:3000...\r\n'[39m +
+                    [32m'* Connected to localhost (::1) port 3000\r\n'[39m +
+                    [32m'> GET / HTTP/1.1\r\n'[39m +
+                    [32m'> Host: localhost:3000\r\n'[39m +
+                    [32m'> User-Agent: curl/8.5.0\r\n'[39m +
+                    [32m'> Accept: */*\r\n'[39m +
+                    [32m'> \r\n'[39m +
+                    [32m'\r  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:08 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:09 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:10 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:11 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:12 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:13 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:14 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:15 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:16 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:17 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:18 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:19 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:20 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:21 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:22 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:23 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:24 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:25 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:26 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:27 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:28 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:29 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:30 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:31 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:32 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:33 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:34 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:35 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:36 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:37 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:38 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:39 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:40 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:41 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:42 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:43 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:44 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:45 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:46 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:47 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:48 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:49 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:50 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:51 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:52 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:53 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:54 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:55 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:56 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:57 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:58 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:00:59 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:00 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:01 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:02 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:03 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:04 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:05 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:06 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:07 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:08 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:09 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:10 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:11 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:12 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:13 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:14 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:15 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:16 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:17 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:18 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:19 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:20 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:21 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:22 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:23 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:24 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:25 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:26 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:27 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:28 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:29 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:30 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:31 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:32 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:33 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:34 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:35 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:36 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:37 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:38 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:39 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:40 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:41 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:42 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:43 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:44 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:45 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:46 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:47 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:48 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:49 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:50 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:51 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:52 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:53 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:54 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:55 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:56 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:57 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:58 --:--:--     0\r  0     0    0     0    0     0      0      0 --:--:--  0:01:59 --:--:--     0'[39m,
+                  isTruncated: [33mfalse[39m,
+                  error: [32m'Command execution timed out after 120 seconds.'[39m
+                }
+              },
+              providerOptions: {
+                vertex: {
+                  thoughtSignature: [32m'AY89a1/Ldnd4b+w76jkPpijJDqvrUYyEfyRgMkZbXhCMlrNgmDs/KFV/5GCoDMMIQB9uQl3szHe/tJG/Clx11i1Mg2JXcWneHpYLQBH9SWxLFLMEvrndsoXLPOIryjUJur4PiTiifOldhZGQ2JoLJHt4Ez9NAWbIhRiwa+mR35X/ZczJ17lXvsZN2NFkPaFrqxGCUySl3QMLT1hIVnmJFzBNhlgw8RMTXME6zWlnVsKYQ1HIK/d91Fm4+S+Kf8Wrjbduzsf23i6aNHY9UbuSmw8i7BDMvc1+8zpT0WzoPFIkX0yigxqvtpUG6a8jqdLFegUfXhwfkk77RA7FTcFYUvcvrbYNdF7Lb2S30wLBZ2ERo/P1UETOSJemhPEcpMJhfnONnJf2C+8SOBCJcdJaqDq8yd6reIsI8ubWoy7KfRwhg+hjroDAR15xLSS2N9xV5zm7KkEPZu4bSiRcfN5y7EbxiJFRiUVcd7kEKOnch0K1WmXl2dRTbiUYBg4Xefiwm5HkcVoGcK0zeTajl3CPXeEREYswp0EZWRN/yiVgevXhAuzVkwsSSFxefe+XrlhIL+ijWYcf6Cjdceh/JI1bAN6FDwLA2WMrPuzOLcD2THLuLPB8YQlXQkLzWnpL0YMRKOYAgkYGHpeVWP3iQeSuyHy291ZCZjy2rFDfwgySDqHwxp5dEqbUFO3Khn/LvKUI5piwd76JrnKhfFKlps+GoUN4dDdlYjnewDUBSNOYgRWcSqN9F9MwFeE5oO9+10b8UmcZ+LyIayQbmo97aMEAlMmvlBmmoGC3C6QOHAR2y4WS2Hur5S4mHvnl54MWna8Xvgiw1yvpLOGlx3A7uxzYOKhwZCw4KvJOtZmKwCHp6lD4eu87225PneTz8l4acKyaMICNabZHpzJnnN7uKPlblftl0CKmqBNLw2CKtu7tDWtoS/dustdRA+Zauwr9Qp8Y7XwcRMzymzlJDSnXeek9aIAQslhsmZ1SP+c0cXLyBmesvqY/LIgg2wNRIWEr78HBOPyzdnzVZfMMqdOXM21b3Pf7qVJdfXnMn0yHGLweAVmAjfUO7v7D+PwqP0QRAskXjOerPVlZPCptVg2vW3sGy2fb39KynSXg866D9n9jEPRi+A=='[39m
+                }
+              }
+            }
+          ]
+        }
+      ],
+      tools: [
+        {
+          type: [32m'function'[39m,
+          name: [32m'attemptCompletion'[39m,
+          description: [32m"Once you've received the results of tool uses and can confirm that the task is complete, use this tool to present the result of your work to the user.\n"[39m +
+            [32m'\n'[39m +
+            [32m'You MUST NOT generate any text before this tool call. All conclusion text must be included within the result parameter of the attemptCompletion tool.\n'[39m +
+            [32m'Never use this tool with a question or request to engage in further conversation! Formulate the end of your result in a way that is final and does not require further input from the user.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: This tool CANNOT be used in combination with other tools (except todoWrite) in a single step. If you need to use other tools, you must do so in a separate step before calling this tool.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              result: {
+                type: [32m'object'[39m,
+                properties: {
+                  status: {
+                    type: [32m'string'[39m,
+                    enum: [
+                      [32m'pass'[39m,
+                      [32m'fail'[39m
+                    ]
+                  },
+                  reason: {
+                    type: [32m'string'[39m
+                  }
+                },
+                required: [
+                  [32m'status'[39m,
+                  [32m'reason'[39m
+                ],
+                additionalProperties: [33mfalse[39m
+              }
+            },
+            required: [
+              [32m'result'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'executeCommand'[39m,
+          description: [32m'Executes a given bash command in a persistent shell session with optional timeout, ensuring proper handling and security measures.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: This tool is for terminal operations like git, npm, docker, etc. DO NOT use it for file operations (reading, writing, editing, searching, finding files) - use the specialized tools for this instead.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Before executing the command, please follow these steps:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Directory Verification:\n'[39m +
+            [32m'   - If the command will create new directories or files, first use listFiles to verify the parent directory exists and is the correct location\n'[39m +
+            [32m'   - For example, before running "mkdir foo/bar", first use listFiles to check that "foo" exists and is the intended parent directory\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. Command Execution:\n'[39m +
+            [32m'   - Always quote file paths that contain spaces with double quotes (e.g., cd "path with spaces/file.txt")\n'[39m +
+            [32m'   - Examples of proper quoting:\n'[39m +
+            [32m'     - cd "/Users/name/My Documents" (correct)\n'[39m +
+            [32m'     - cd /Users/name/My Documents (incorrect - will fail)\n'[39m +
+            [32m'     - python "/path/with spaces/script.py" (correct)\n'[39m +
+            [32m'     - python /path/with spaces/script.py (incorrect - will fail)\n'[39m +
+            [32m'   - After ensuring proper quoting, execute the command.\n'[39m +
+            [32m'   - Capture the output of the command.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'- The command argument is required.\n'[39m +
+            [32m'- You can specify an optional timeout in seconds (up to 300s / 5 minutes). If not specified, commands will timeout after 60s (1 minute).\n'[39m +
+            [32m'- If the output exceeds 30000 characters, output will be truncated before being returned to you.\n'[39m +
+            [32m'- When issuing multiple commands:\n'[39m +
+            [32m'  - If the commands are independent and can run in parallel, make multiple executeCommand tool calls in a single message. For example, if you need to run "git status" and "git diff", send a single message with two executeCommand tool calls in parallel.\n'[39m +
+            [32m'  - If the commands depend on each other and must run sequentially, use a single executeCommand call with \'&&\' to chain them together (e.g., `git add . && git commit -m "message" && git push`). For instance, if one operation must complete before another starts (like mkdir before cp, Write before executeCommand for git operations, or git add before git commit), run these operations sequentially instead.\n'[39m +
+            [32m"  - Use ';' only when you need to run commands sequentially but don't care if earlier commands fail\n"[39m +
+            [32m'  - DO NOT use newlines to separate commands (newlines are ok in quoted strings)\n'[39m +
+            [32m"- You shall avoid use the markdown code block syntax (backtick, '`') in your command, as it will be interpreted as a command substitution.\n"[39m +
+            [32m"- Before using this tool, you must first think about the context provided in <system-reminder> to understand the user's environment and tailor your commands to ensure they are compatible with their system. You must also consider if the command you need to run should be executed in a specific directory rather than the current working directory, and properly set the `cwd` if necessary.\n"[39m +
+            [32m'\n'[39m +
+            [32m'# Committing changes with git\n'[39m +
+            [32m'\n'[39m +
+            [32m'Only create commits when requested by the user. If unclear, ask first. When the user asks you to create a new git commit, follow these steps carefully:\n'[39m +
+            [32m'\n'[39m +
+            [32m'Git Safety Protocol:\n'[39m +
+            [32m'- NEVER update the git config\n'[39m +
+            [32m"- NEVER run destructive git commands (push --force, reset --hard, checkout ., restore ., clean -f, branch -D) unless the user explicitly requests these actions. Taking unauthorized destructive actions is unhelpful and can result in lost work, so it's best to ONLY run these commands when given direct instructions \n"[39m +
+            [32m'- NEVER skip hooks (--no-verify, --no-gpg-sign, etc) unless the user explicitly requests it\n'[39m +
+            [32m'- NEVER run force push to main/master, warn the user if they request it\n'[39m +
+            [32m'- CRITICAL: Always create NEW commits rather than amending, unless the user explicitly requests a git amend. When a pre-commit hook fails, the commit did NOT happen  — so --amend would modify the PREVIOUS commit, which may result in destroying work or losing previous changes. Instead, after hook failure, fix the issue, re-stage, and create a NEW commit\n'[39m +
+            [32m'- When staging files, prefer adding specific files by name rather than using "git add -A" or "git add .", which can accidentally include sensitive files (.env, credentials) or large binaries\n'[39m +
+            [32m'- NEVER commit changes unless the user explicitly asks you to. It is VERY IMPORTANT to only commit when explicitly asked, otherwise the user will feel that you are being too proactive\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following bash commands in parallel, each using the executeCommand tool:\n'[39m +
+            [32m'  - Run a git status command to see all untracked files. IMPORTANT: Never use the -uall flag as it can cause memory issues on large repos.\n'[39m +
+            [32m'  - Run a git diff command to see both staged and unstaged changes that will be committed.\n'[39m +
+            [32m"  - Run a git log command to see recent commit messages, so that you can follow this repository's commit message style.\n"[39m +
+            [32m'2. Analyze all staged changes (both previously staged and newly added) and draft a commit message:\n'[39m +
+            [32m'  - Summarize the nature of the changes (eg. new feature, enhancement to an existing feature, bug fix, refactoring, test, docs, etc.). Ensure the message accurately reflects the changes and their purpose (i.e. "add" means a wholly new feature, "update" means an enhancement to an existing feature, "fix" means a bug fix, etc.).\n'[39m +
+            [32m'  - Do not commit files that likely contain secrets (.env, credentials.json, etc). Warn the user if they specifically request to commit those files\n'[39m +
+            [32m'  - Draft a concise (1-2 sentences) commit message that focuses on the "why" rather than the "what"\n'[39m +
+            [32m'  - Ensure it accurately reflects the changes and their purpose\n'[39m +
+            [32m'3. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following commands:\n'[39m +
+            [32m'   - Add relevant untracked files to the staging area.\n'[39m +
+            [32m'   - Create the commit with a message ending with:\n'[39m +
+            [32m'   🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'\n'[39m +
+            [32m'   Co-Authored-By: Pochi <noreply@getpochi.com>\n'[39m +
+            [32m'\n'[39m +
+            [32m'   Note: Replace <Share URL> with the Share URL from system information if available. If not available, omit the " | [Task](...)" part.\n'[39m +
+            [32m'\n'[39m +
+            [32m'   - Run git status after the commit completes to verify success.\n'[39m +
+            [32m'   Note: git status depends on the commit completing, so run it sequentially after the commit.\n'[39m +
+            [32m'4. If the commit fails due to pre-commit hook changes, retry the commit ONCE to include these automated changes. If it fails again, it usually means a pre-commit hook is preventing the commit. If the commit succeeds but you notice that files were modified by the pre-commit hook, you MUST amend your commit to include them.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important notes:\n'[39m +
+            [32m'- NEVER update the git config\n'[39m +
+            [32m'- NEVER run additional commands to read or explore code, besides git bash commands\n'[39m +
+            [32m'- DO NOT push to the remote repository unless the user explicitly asks you to do so\n'[39m +
+            [32m'- IMPORTANT: Never use git commands with the -i flag (like git rebase -i or git add -i) since they require interactive input which is not supported.\n'[39m +
+            [32m'- IMPORTANT: Do not use --no-edit with git rebase commands, as the --no-edit flag is not a valid option for git rebase.\n'[39m +
+            [32m'- If there are no changes to commit (i.e., no untracked files and no modifications), do not create an empty commit\n'[39m +
+            [32m'- In order to ensure good formatting, ALWAYS pass the commit message via a HEREDOC, a la this example:\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m`git commit -m "$(cat <<'EOF'\n`[39m +
+            [32m'Commit message here.\n'[39m +
+            [32m'\n'[39m +
+            [32m'🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'\n'[39m +
+            [32m'Co-Authored-By: Pochi <noreply@getpochi.com>\n'[39m +
+            [32m'EOF\n'[39m +
+            [32m')"\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'# Creating pull requests\n'[39m +
+            [32m'Use the gh command via the executeCommand tool for ALL GitHub-related tasks including working with issues, pull requests, checks, and releases. If given a Github URL use the gh command to get the information needed.\n'[39m +
+            [32m'\n'[39m +
+            [32m'IMPORTANT: When the user asks you to create a pull request, follow these steps carefully:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following bash commands in parallel using the executeCommand tool, in order to understand the current state of the branch since it diverged from the main branch:\n'[39m +
+            [32m'   - Run a git status command to see all untracked files (never use -uall flag)\n'[39m +
+            [32m'   - Run a git diff command to see both staged and unstaged changes that will be committed\n'[39m +
+            [32m'   - Check if the current branch tracks a remote branch and is up to date with the remote, so you know if you need to push to the remote\n'[39m +
+            [32m'   - Run a git log command and `git diff [base-branch]...HEAD` to understand the full commit history for the current branch (from the time it diverged from the base branch)\n'[39m +
+            [32m'2. Analyze all changes that will be included in the pull request, making sure to look at all relevant commits (NOT just the latest commit, but ALL commits that will be included in the pull request!!!), and draft a pull request title and summary:\n'[39m +
+            [32m'   - Keep the PR title short (under 70 characters)\n'[39m +
+            [32m'   - Use the description/body for details, not the title\n'[39m +
+            [32m'3. You can call multiple tools in a single response. When multiple independent pieces of information are requested and all commands are likely to succeed, run multiple tool calls in parallel for optimal performance. run the following commands in parallel:\n'[39m +
+            [32m'   - Create new branch if needed\n'[39m +
+            [32m'   - Push to remote with -u flag if needed\n'[39m +
+            [32m'   - Create PR using gh pr create with the format below. Use a HEREDOC to pass the body to ensure correct formatting.\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m`gh pr create --title "the pr title" --body "$(cat <<'EOF'\n`[39m +
+            [32m'## Summary\n'[39m +
+            [32m'<1-3 bullet points>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Test plan\n'[39m +
+            [32m'[Checklist of TODOs for testing the pull request...]\n'[39m +
+            [32m'\n'[39m +
+            [32m'🤖 Generated with [Pochi](https://getpochi.com) | [Task](<Share URL>)\n'[39m +
+            [32m'EOF\n'[39m +
+            [32m')"\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important:\n'[39m +
+            [32m'- NEVER update the git confi'[39m... 355 more characters,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              command: {
+                type: [32m'string'[39m,
+                description: [32m'The CLI command to execute. This should be valid for the current operating system.'[39m
+              },
+              cwd: {
+                description: [32m'The working directory to execute the command in.'[39m,
+                type: [32m'string'[39m
+              },
+              timeout: {
+                description: [32m'Optional timeout in seconds, max 300 seconds. By default the timeout is 120 seconds.'[39m,
+                type: [32m'number'[39m,
+                minimum: [33m1[39m,
+                maximum: [33m300[39m
+              }
+            },
+            required: [
+              [32m'command'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'useSkill'[39m,
+          description: [32m'Execute a skill within the main conversation\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask about a SPECIFIC skill (e.g., "How does the pdf skill work?", "What does the commit skill do?"), you must call this tool to get detailed information about that skill.\n'[39m +
+            [32m'\n'[39m +
+            [32m'When users ask general questions like "What skills are available?" or "List all skills", simply refer to the "Available skills" section below - do NOT call this tool.\n'[39m +
+            [32m'\n'[39m +
+            [32m"This tool returns the skill's detailed instructions which you must then follow to complete the task. The instructions contain step-by-step guidance on how to perform the specific task or workflow.\n"[39m +
+            [32m'\n'[39m +
+            [32m'How to invoke:\n'[39m +
+            [32m'- Use this tool with the skill name\n'[39m +
+            [32m'- Example: `skill: "pdf-processing"` - invoke the pdf-processing skill\n'[39m +
+            [32m"- The tool will return the skill's instructions\n"[39m +
+            [32m'- Follow the returned instructions carefully to complete the task\n'[39m +
+            [32m'\n'[39m +
+            [32m'Important:\n'[39m +
+            [32m'- When a skill is relevant for a task OR when users ask about a SPECIFIC skill, you must invoke this tool IMMEDIATELY as your first action\n'[39m +
+            [32m'- For general questions about available skills, simply refer to the "Available skills" list below without calling this tool\n'[39m +
+            [32m'- NEVER just announce or mention a skill in your text response without actually calling this tool (except for general skill listing requests)\n'[39m +
+            [32m'- This is a BLOCKING REQUIREMENT: invoke the relevant Skill tool BEFORE generating any other response about a specific skill or task\n'[39m +
+            [32m'- Only use skills listed in "Available skills" below\n'[39m +
+            [32m'- Check compatibility requirements before using a skill - ensure the skill is compatible with the current OS/environment\n'[39m +
+            [32m'- After calling this tool, follow the returned instructions step by step\n'[39m +
+            [32m'- The skill file location is shown in the [Location: filepath] section of each skill listing below - use this information to understand where the skill is defined\n'[39m +
+            [32m"- Use the directory containing the skill's source file as the base directory for resolving any resource files mentioned in the instructions\n"[39m +
+            [32m'- Proactively explore the skill directory for optional resources that enhance task completion:\n'[39m +
+            [32m'  * scripts/ - executable code that agents can run (Python, Bash, JavaScript, etc.)\n'[39m +
+            [32m'  * references/ - on-demand documentation (REFERENCE.md, FORMS.md, domain-specific files)\n'[39m +
+            [32m'  * assets/ - static resources (templates, images, data files, schemas)\n'[39m +
+            [32m'  Use these resources when they exist and are relevant to the current task\n'[39m +
+            [32m'\n'[39m +
+            [32m'Available skills:\n'[39m +
+            [32m'\n'[39m +
+            [32m'- **find-skills**: Helps users discover and install agent skills when they ask questions like "how do I do X", "find a skill for X", "is there a skill that can...", or express interest in extending capabilities. This skill should be used when the user is looking for functionality that might exist as an installable skill. [Location: _builtIn_]\n'[39m +
+            [32m'- **create-skill**: Helps users create new custom agent skills. Use when the user wants to create a new skill, automate a workflow, or package specialized knowledge for reuse. [Location: _builtIn_]'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              skill: {
+                type: [32m'string'[39m,
+                description: [32m'The name of the skill to use.'[39m
+              }
+            },
+            required: [
+              [32m'skill'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'todoWrite'[39m,
+          description: [32m'Use this tool to create and manage a structured task list for your current coding session. This helps you track progress, organize complex tasks, and demonstrate thoroughness to the user.\n'[39m +
+            [32m'It also helps the user understand the progress of the task and overall progress of their requests.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## When to Use This Tool\n'[39m +
+            [32m'Use this tool proactively in these scenarios:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Complex multi-step tasks - When a task requires 3 or more distinct steps or actions\n'[39m +
+            [32m'2. Non-trivial and complex tasks - Tasks that require careful planning or multiple operations\n'[39m +
+            [32m'3. User explicitly requests todo list - When the user directly asks you to use the todo list\n'[39m +
+            [32m'4. User provides multiple tasks - When users provide a list of things to be done (numbered or comma-separated)\n'[39m +
+            [32m'5. After receiving new instructions - Immediately capture user requirements as todos. Feel free to edit the todo list based on new information.\n'[39m +
+            [32m'6. After completing a task - Mark it complete and add any new follow-up tasks\n'[39m +
+            [32m'7. When you start working on a new task, mark the todo as in-progress. Ideally you should only have one todo as in-progress at a time. Complete existing tasks before starting new ones.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## When NOT to Use This Tool\n'[39m +
+            [32m'\n'[39m +
+            [32m'Skip using this tool when:\n'[39m +
+            [32m'1. There is only a single, straightforward task\n'[39m +
+            [32m'2. The task is trivial and tracking it provides no organizational benefit\n'[39m +
+            [32m'3. The task can be completed in less than 3 trivial steps\n'[39m +
+            [32m'4. The task is purely conversational or informational\n'[39m +
+            [32m'\n'[39m +
+            [32m'NOTE that you should use should not use this tool if there is only one trivial task to do. In this case you are better off just doing the task directly.\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Examples of When to Use the Todo List\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: I want to add a dark mode toggle to the application settings. Make sure you run the tests and build when you're done!\n"[39m +
+            [32m"Assistant: I'll help add a dark mode toggle to your application settings. Let me create a todo list to track this implementation.\n"[39m +
+            [32m'*Creates todo list with the following items:*\n'[39m +
+            [32m'1. Create dark mode toggle component in Settings page\n'[39m +
+            [32m'2. Add dark mode state management (context/store)\n'[39m +
+            [32m'3. Implement CSS-in-JS styles for dark theme\n'[39m +
+            [32m'4. Update existing components to support theme switching\n'[39m +
+            [32m'5. Run tests and build process, addressing any failures or errors that occur\n'[39m +
+            [32m'*Begins working on the first task*\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. Adding dark mode is a multi-step feature requiring UI, state management, and styling changes\n'[39m +
+            [32m'2. The user explicitly requested tests and build be run afterward\n'[39m +
+            [32m'3. The assistant inferred that tests and build need to pass by adding "Ensure tests and build succeed" as the final task\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Help me rename the function getCwd to getCurrentWorkingDirectory across my project\n'[39m +
+            [32m"Assistant: Let me first search through your codebase to find all occurrences of 'getCwd'.\n"[39m +
+            [32m'*Uses grep or search tools to locate all instances of getCwd in the codebase*\n'[39m +
+            [32m"Assistant: I've found 15 instances of 'getCwd' across 8 different files. Let me create a todo list to track these changes.\n"[39m +
+            [32m'*Creates todo list with specific items for each file that needs updating*\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. First, the assistant searched to understand the scope of the task\n'[39m +
+            [32m'2. Upon finding multiple occurrences across different files, it determined this was a complex task with multiple steps\n'[39m +
+            [32m'3. The todo list helps ensure every instance is tracked and updated systematically\n'[39m +
+            [32m'4. This approach prevents missing any occurrences and maintains code consistency\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: I need to implement these features for my e-commerce site: user registration, product catalog, shopping cart, and checkout flow.\n'[39m +
+            [32m"Assistant: I'll help implement these features. First, let's add all the features to the todo list.\n"[39m +
+            [32m'*Creates a todo list breaking down each feature into specific tasks based on the project architecture*\n'[39m +
+            [32m"Assistant: Let's start with user registration. This will involve creating database models, API endpoints, and frontend forms that integrate with your existing authentication system.\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. The user provided multiple complex features to implement in a comma separated list\n'[39m +
+            [32m'2. The todo list helps organize these large features into manageable tasks\n'[39m +
+            [32m'3. This approach allows for tracking progress across the entire implementation\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: Can you help optimize my React application? It's rendering slowly and has performance issues.</user>\n"[39m +
+            [32m"Assistant: I'll help optimize your React application. First, let me examine your codebase to identify potential performance bottlenecks.\n"[39m +
+            [32m'*Reviews component structure, render patterns, state management, and data fetching*\n'[39m +
+            [32m"Assistant: After analyzing your codebase, I've identified several performance issues. Let me create a todo list to track our optimization efforts.\n"[39m +
+            [32m'*Creates todo list with items like: 1) Implement memoization for expensive calculations in ProductList, 2) Add virtualization for long lists in Dashboard, 3) Optimize image loading in Gallery component, 4) Fix state update loops in ShoppingCart, 5) Review bundle size and implement code splitting*\n'[39m +
+            [32m"Let's start by implementing memoization for the expensive calculations in your ProductList component.</assistant>\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant used the todo list because:\n'[39m +
+            [32m'1. First, the assistant examined the codebase to identify specific performance issues\n'[39m +
+            [32m'2. Based on this analysis, it identified multiple optimization opportunities\n'[39m +
+            [32m'3. Performance optimization is a non-trivial task requiring multiple steps\n'[39m +
+            [32m'4. The todo list helps methodically track improvements across different components\n'[39m +
+            [32m'5. This systematic approach ensures all performance bottlenecks are addressed\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Examples of When NOT to Use the Todo List\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m"User: How do I print 'Hello World' in Python?\n"[39m +
+            [32m'Assistant: In Python, you can print "Hello World" with this simple code:\n'[39m +
+            [32m'\n'[39m +
+            [32m'python\n'[39m +
+            [32m'print("Hello World")\n'[39m +
+            [32m'\n'[39m +
+            [32m'This will output the text "Hello World" to the console when executed.</assistant>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m"The assistant did not use the todo list because this is a single, trivial task that can be completed in one step. There's no need to track multiple tasks or steps for such a straightforward request.\n"[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: What does the git status command do?\n'[39m +
+            [32m"Assistant: The git status command shows the current state of your working directory and staging area. It displays which changes have been staged, which haven't, and which files aren't being tracked by Git. This is a fundamental command for understanding the current state of your repository before making commits.\n"[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant did not use the todo list because this is an informational request with no actual coding task to complete. The user is simply asking for an explanation, not for the assistant to perform multiple steps or tasks.\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Can you add a comment to the calculateTotal function to explain what it does?\n'[39m +
+            [32m'Assistant: Sure, let me add a comment to the calculateTotal function to explain what it does.\n'[39m +
+            [32m'* Uses the Edit tool to add a comment to the calculateTotal function *\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m"The assistant did not use the todo list because this is a single, straightforward task confined to one location in the code. Adding a comment doesn't require tracking multiple steps or systematic organization.\n"[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'<example>\n'[39m +
+            [32m'User: Run npm install for me and tell me what happens.\n'[39m +
+            [32m"Assistant: I'll run the npm install command for you.\n"[39m +
+            [32m'\n'[39m +
+            [32m'*Executes: npm install*\n'[39m +
+            [32m'\n'[39m +
+            [32m"The command completed successfully. Here's the output:\n"[39m +
+            [32m'[Output of npm install command]\n'[39m +
+            [32m'\n'[39m +
+            [32m'All dependencies have been installed according to your package.json file.\n'[39m +
+            [32m'\n'[39m +
+            [32m'<reasoning>\n'[39m +
+            [32m'The assistant did not use the todo list because this is a single command execution with immediate results. There are no multiple steps to track or organize, making the todo list unnecessary for this straightforward task.\n'[39m +
+            [32m'</reasoning>\n'[39m +
+            [32m'</example>\n'[39m +
+            [32m'\n'[39m +
+            [32m'## Task States and Management\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. **Task States**: Use these states to track progress:\n'[39m +
+            [32m'   - pending: Task not yet started\n'[39m +
+            [32m'   - in-progress: Currently working on (limit to ONE task at a time)\n'[39m +
+            [32m'   - completed: Task finished successfully\n'[39m +
+            [32m'   - cancelled: Task no longer needed\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. **Task Management**:\n'[39m +
+            [32m'   - Update task status in real-time as you work\n'[39m +
+            [32m"   - Mark tasks complete IMMEDIATELY after finishing (don't batch completions)\n"[39m +
+            [32m'   - Only have ONE task in-progress at any time\n'[39m +
+            [32m'   - Complete current tasks before starting new ones\n'[39m +
+            [32m'   - Cancel tasks that become irrelevant\n'[39m +
+            [32m'\n'[39m +
+            [32m'3. **Task Breakdown**:\n'[39m +
+            [32m'   - Create specific, actionable items\n'[39m +
+            [32m'   - Break complex tasks into smaller, manageable steps\n'[39m +
+            [32m'   - Use clear, descriptive task names\n'[39m +
+            [32m'\n'[39m +
+            [32m'When in doubt, use this tool. Being proactive with task management demonstrates attentiveness and ensures you complete all requirements successfully.'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              todos: {
+                type: [32m'array'[39m,
+                items: {
+                  type: [32m'object'[39m,
+                  properties: {
+                    id: {
+                      type: [32m'string'[39m,
+                      description: [32m'The unique identifier of the task, e.g "collect-information".'[39m
+                    },
+                    content: {
+                      type: [32m'string'[39m,
+                      description: [32m'The content of the task.'[39m
+                    },
+                    status: {
+                      type: [32m'string'[39m,
+                      enum: [
+                        [32m'pending'[39m,
+                        [32m'in-progress'[39m,
+                        [32m'completed'[39m,
+                        [32m'cancelled'[39m
+                      ],
+                      description: [32m'The status of the task.'[39m
+                    },
+                    priority: {
+                      type: [32m'string'[39m,
+                      enum: [
+                        [32m'low'[39m,
+                        [32m'medium'[39m,
+                        [32m'high'[39m
+                      ],
+                      description: [32m'The priority of the task.'[39m
+                    }
+                  },
+                  required: [
+                    [32m'id'[39m,
+                    [32m'content'[39m,
+                    [32m'status'[39m,
+                    [32m'priority'[39m
+                  ],
+                  additionalProperties: [33mfalse[39m
+                }
+              }
+            },
+            required: [
+              [32m'todos'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'startBackgroundJob'[39m,
+          description: [32m'Start a background job to execute a bash command, which allows you to continue working while the job runs.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Before starting the background job, please follow these steps:\n'[39m +
+            [32m'\n'[39m +
+            [32m'1. Directory Verification:\n'[39m +
+            [32m'   - If the command will create new directories or files, first use the listFiles tool to verify the parent directory exists and is the correct location\n'[39m +
+            [32m'   - For example, before running "mkdir foo/bar", first use listFiles to check that "foo" exists and is the intended parent directory\n'[39m +
+            [32m'\n'[39m +
+            [32m'2. Job Execution:\n'[39m +
+            [32m'   - After ensuring proper quoting, start the background job.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Usage notes:\n'[39m +
+            [32m'- The command argument is required.\n'[39m +
+            [32m'- Use readBackgroundJobOutput to monitor the output and status of the job.\n'[39m +
+            [32m'- Use killBackgroundJob to terminate the job if needed.\n'[39m +
+            [32m'- If the output exceeds 30000 characters, output will be truncated before being returned to you.\n'[39m +
+            [32m'\n'[39m +
+            [32m'Common use cases and examples:\n'[39m +
+            [32m'- Development servers: `npm run dev`, `yarn start`, `bun run dev`\n'[39m +
+            [32m'- Build processes: `npm run build`, `make`, `cargo build`\n'[39m +
+            [32m'- File watchers: `npm run watch`, `tsc --watch`\n'[39m +
+            [32m'- Testing: `npm run test:watch`, `jest --watch`\n'[39m +
+            [32m'- Database services: `docker run -p 5432:5432 postgres`\n'[39m +
+            [32m'\n'[39m +
+            [32m'Command execution rules:\n'[39m +
+            [32m"- Never run 'sleep' as it will return immediately.\n"[39m +
+            [32m"- You do not need to use '&' at the end of the command.\n"[39m +
+            [32m"- When issuing multiple commands, use the ';' or '&&' operator to separate them. DO NOT use newlines (newlines are ok in quoted strings).\n"[39m +
+            [32m"- You shall avoid use the markdown code block syntax (backtick, '`') in your command, as it will be interpreted as a command substitution."[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              command: {
+                type: [32m'string'[39m,
+                description: [32m'The CLI command to execute. This should be valid for the current operating system.'[39m
+              },
+              cwd: {
+                description: [32m'The working directory to execute the command in.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'command'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'readBackgroundJobOutput'[39m,
+          description: [32m'- Retrieves output from a running or completed background job\n'[39m +
+            [32m'- Takes a backgroundJobId parameter identifying the job\n'[39m +
+            [32m'- For terminal jobs, returns only new output since the last check\n'[39m +
+            [32m'- Returns stdout and stderr output along with job status\n'[39m +
+            [32m'- Supports optional regex filtering to show only lines matching a pattern\n'[39m +
+            [32m'- Use this tool when you need to monitor or check the output of a long-running background job'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              backgroundJobId: {
+                type: [32m'string'[39m,
+                description: [32m'The ID of the background job to get output from'[39m
+              },
+              regex: {
+                description: [32m'Optional regular expression to filter the output lines. Only lines matching this regex will be included in the result. Any lines that do not match will no longer be available to read.'[39m,
+                type: [32m'string'[39m
+              }
+            },
+            required: [
+              [32m'backgroundJobId'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        },
+        {
+          type: [32m'function'[39m,
+          name: [32m'killBackgroundJob'[39m,
+          description: [32m'- Kills a running background job by its ID\n'[39m +
+            [32m'- Takes a backgroundJobId parameter identifying the job to kill\n'[39m +
+            [32m'- Returns a success or failure status\n'[39m +
+            [32m'- Use this tool when you need to terminate a long-running background job'[39m,
+          inputSchema: {
+            [32m'$schema'[39m: [32m'http://json-schema.org/draft-07/schema#'[39m,
+            type: [32m'object'[39m,
+            properties: {
+              backgroundJobId: {
+                type: [32m'string'[39m,
+                description: [32m'The ID of the background job to kill.'[39m
+              }
+            },
+            required: [
+              [32m'backgroundJobId'[39m
+            ],
+            additionalProperties: [33mfalse[39m
+          }
+        }
+      ],
+      providerOptions: {
+        pochi: {
+          taskId: [32m'bb21c435-f1d4-4143-a5a4-cd3f74a23f73'[39m,
+          client: [32m'PochiCli/0.6.12'[39m,
+          useCase: [32m'agent'[39m
+        }
+      }
+    }
+  }
+}
