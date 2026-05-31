@@ -1,0 +1,49 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py F                                              [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_cron_job_cleanup _____________________________
+
+    def test_cron_job_cleanup():
+        """Verify that the cron job cleans up the expired session."""
+        run_id = os.environ.get("ZEALT_RUN_ID", "test-run-id")
+    
+        # Run seed.js to create an expired session
+        result_seed = subprocess.run(
+            ["node", "seed.js", "--run-id", run_id],
+            capture_output=True, text=True, cwd=PROJECT_DIR
+        )
+>       assert result_seed.returncode == 0, f"'node seed.js' failed: {result_seed.stderr}\nStdout: {result_seed.stdout}"
+E       AssertionError: 'node seed.js' failed: (node:809) Warning: Failed to load the ES module: /home/user/project/convex/_generated/api.js. Make sure to set "type": "module" in the nearest package.json file or use the .mjs extension.
+E         (Use `node --trace-warnings ...` to show where the warning was created)
+E         /home/user/project/convex/_generated/api.js:11
+E         import { anyApi, componentsGeneric } from "convex/server";
+E         ^^^^^^
+E         
+E         SyntaxError: Cannot use import statement outside a module
+E             at wrapSafe (node:internal/modules/cjs/loader:1763:18)
+E             at Module._compile (node:internal/modules/cjs/loader:1804:20)
+E             at Object..js (node:internal/modules/cjs/loader:1961:10)
+E             at Module.load (node:internal/modules/cjs/loader:1553:32)
+E             at Module._load (node:internal/modules/cjs/loader:1355:12)
+E             at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+E             at Module.require (node:internal/modules/cjs/loader:1576:12)
+E             at require (node:internal/modules/helpers:153:16)
+E             at Object.<anonymous> (/home/user/project/seed.js:2:17)
+E             at Module._compile (node:internal/modules/cjs/loader:1830:14)
+E         
+E         Node.js v24.15.0
+E         
+E         Stdout: 
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'seed.js', '--run-id', 'zr-nsckj4j'], returncode=1, stdout='', stderr='(node:809) Warni...e/user/project/seed.js:2:17)\n    at Module._compile (node:internal/modules/cjs/loader:1830:14)\n\nNode.js v24.15.0\n').returncode
+
+tests/test_final_state.py:18: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_final_state.py::test_cron_job_cleanup - AssertionError: 'no...
+============================== 1 failed in 0.15s ===============================

@@ -1,0 +1,82 @@
+Skipping image OS validation for hb__convex_schema_migrations: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-a4tdkud > /logs/artifacts/run-id && echo convex_schema_migrations__A4TdKUD > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3-flash --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Schema Migrations
+
+## Background
+Convex is a reactive database where schema changes deploy instantly, but existing data is not automatically transformed. To add a required field to an existing table, you must update the schema and write a backfill mutation to update existing records.
+
+## Requirements
+- You are provided with a Convex project in `/home/user/project`.
+- First, run `bash setup.sh` to initialize the database. This script will create a table named `tasks_<run_id>` (where `<run_id>` is derived from `ZEALT_RUN_ID` with hyphens replaced by underscores) and insert 3 initial records with `text` and `isCompleted` fields.
+- Update `convex/schema.ts` to add a new required field `priority` (string) to the table.
+- Create a new file `convex/migrations.ts` and write a mutation named `backfillPriority` that iterates over all records in the table and sets the `priority` field to `"medium"` for any record that doesn't have it.
+- Deploy your changes to Convex.
+- Execute your `backfillPriority` mutation to update the existing data.
+- Create a query function in `convex/queries.ts` named `getAll` that returns all records from the table.
+- Write a Node.js script `fetch.js` that uses `ConvexHttpClient` (from `convex/browser`) to call your `getAll` query and writes the JSON stringified result to `/home/user/project/output.log`.
+- Run `node fetch.js` to generate the log file.
+
+## Implementation Hints
+- `setup.sh` will dynamically generate `convex/schema.ts` based on `ZEALT_RUN_ID`. Review it after running the script.
+- Convex table names must be alphanumeric and underscores. The setup script handles this conversion for you.
+- To backfill, you can use `ctx.db.query(tableName).collect()` to get all records, and `ctx.db.patch(record._id, { priority: "medium" })` to update them.
+- Use `npx convex deploy` to deploy your schema and functions.
+- Use `npx convex run migrations:backfillPriority` to execute the mutation from the CLI.
+- In `fetch.js`, initialize `ConvexHttpClient` with `process.env.CONVEX_URL` (ensure you load `.env.local` or pass the URL).
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Ensure the real migration action is executed and the log artifact exists.
+- Log file: /home/user/project/output.log
+- The log file must contain a JSON array of the tasks.
+- Every task in the log file must have `text`, `isCompleted`, and `priority` fields.
+- The `priority` field for all tasks must be `"medium"`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

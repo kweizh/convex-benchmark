@@ -1,0 +1,79 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 6,
+            "passed": 6,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780244931776,
+            "stop": 1780244943616
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_type_checking",
+                "status": "passed",
+                "duration": 6022,
+                "start": 1780244931799,
+                "stop": 1780244937821,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_create_admin_user",
+                "status": "passed",
+                "duration": 1427,
+                "start": 1780244937822,
+                "stop": 1780244939249,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_create_regular_user",
+                "status": "passed",
+                "duration": 1138,
+                "start": 1780244939249,
+                "stop": 1780244940387,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_list_admin_users",
+                "status": "passed",
+                "duration": 1080,
+                "start": 1780244940387,
+                "stop": 1780244941467,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_list_regular_users",
+                "status": "passed",
+                "duration": 1079,
+                "start": 1780244941468,
+                "stop": 1780244942547,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_invalid_role_fails",
+                "status": "passed",
+                "duration": 1068,
+                "start": 1780244942547,
+                "stop": 1780244943615,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

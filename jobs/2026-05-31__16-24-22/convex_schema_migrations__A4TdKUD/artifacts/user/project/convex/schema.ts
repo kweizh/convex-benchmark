@@ -1,0 +1,9 @@
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+export default defineSchema({
+  tasks_zr_a4tdkud: defineTable({
+    text: v.string(),
+    isCompleted: v.boolean(),
+    priority: v.string(),
+  }),
+});

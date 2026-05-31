@@ -1,0 +1,35 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_cargo_run_output _____________________________
+
+    def test_cargo_run_output():
+        result = subprocess.run(
+            ["cargo", "run"],
+            cwd=APP_DIR,
+            capture_output=True,
+            text=True
+        )
+        assert result.returncode == 0, f"'cargo run' failed: {result.stderr}"
+    
+        # Check for the sample tasks in the output
+        expected_tasks = ["Buy groceries", "Go for a swim", "Integrate Convex"]
+        for task in expected_tasks:
+>           assert task in result.stdout, f"Expected task '{task}' not found in output: {result.stdout}"
+E           AssertionError: Expected task 'Buy groceries' not found in output: Value(Array([]))
+E             
+E           assert 'Buy groceries' in 'Value(Array([]))\n'
+E            +  where 'Value(Array([]))\n' = CompletedProcess(args=['cargo', 'run'], returncode=0, stdout='Value(Array([]))\n', stderr='    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.23s\n     Running `target/debug/convex_query_app`\n').stdout
+
+tests/test_final_state.py:22: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_app_dir_exists
+FAILED tests/test_final_state.py::test_cargo_run_output - AssertionError: Exp...
+========================= 1 failed, 1 passed in 0.83s ==========================
