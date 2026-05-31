@@ -1,0 +1,49 @@
+{
+    "id": "270009dd-b7d7-43e6-93d6-9b76a6621701",
+    "started_at": "2026-05-31T17:48:46.217646",
+    "updated_at": "2026-05-31T18:12:54.058875",
+    "finished_at": "2026-05-31T18:12:54.058875",
+    "n_total_trials": 9,
+    "stats": {
+        "n_completed_trials": 9,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 9,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.6666666666666666
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "convex_schema_migrations__qUoxDuW",
+                            "convex_typescript_types__HEWsXpT",
+                            "convex_environment_variables__PKqnuoc",
+                            "convex_cron_jobs__FrphLZr",
+                            "convex_python_sdk_mutation__4iH9Uce",
+                            "convex_data_export__hLqE6ce"
+                        ],
+                        "0.0": [
+                            "convex_table_name_limit__cUsz7cG",
+                            "convex_rust_sdk_query__M5syeYb",
+                            "convex_search_text__9QppdrF"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 208780,
+        "cost_usd": null
+    }
+}

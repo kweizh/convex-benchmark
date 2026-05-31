@@ -1,0 +1,25 @@
+- Initializing MCP connections...
+You
+# Convex Table Name Limit ## Background You are working on a Convex backend project. The project currently has a schema defined with a table named `my-tasks`, which violates Convex's table naming rules. ## Requirements * Fix the table name in `convex/schema.ts` to comply with Convex's naming constraints (alphanumeric characters and underscores only, e.g., `my_tasks`). * Update any queries or mutations in the `convex/` directory that reference the old table name to use the new valid table name. * Ensure the Convex backend can be successfully deployed. ## Implementation Hints * Convex table names must only contain alphanumeric characters and underscores. * You can use `npx convex deploy` to deploy and verify your fixes. ## Acceptance Criteria * Project path: /home/user/project * Ensure the real schema deployment action is executed. * The table name must be updated to a valid format (e.g., `my_tasks`). * There must be a working mutation `api.tasks.add` that accepts a `text` string and inserts it into the table. * There must be a working query `api.tasks.get` that returns all tasks from the table.   
+
+Pochi
+💭 Thinking for 117 characters   
+📋 Updating todo list (3 items) ✔ 
+📂 Listing files in . ✔ 
+📂 Listing files in /home ✔ 
+📂 Listing files in /home/user ✔ 
+📂 Listing files in /home/user/project ✔ 
+📂 Listing files in /home/user/project/convex recursively ✔ 
+📖 Reading /home/user/project/convex/schema.ts ✔ 
+📖 Reading /home/user/project/convex/tasks.ts ✔ 
+💭 Thinking for 174 characters   
+🔧 Applying diff to /home/user/project/convex/schema.ts ✔ 
+🔧 Applying diff to /home/user/project/convex/tasks.ts ✔ 
+💭 Thinking for 208 characters   
+📋 Updating todo list (3 items) ✔ 
+💫 Executing npx convex deploy ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+🎉 Task Completed
+Updated Convex schema and tasks functions to use my_tasks, and deployed successfully with npx convex deploy. The api.tasks.add mutation inserts text into my_tasks and api.tasks.get returns all tasks.   
+  

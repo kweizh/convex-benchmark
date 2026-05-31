@@ -1,0 +1,65 @@
+- Initializing MCP connections...
+You
+# Convex Strict TypeScript Types ## Background Convex provides a code-first schema with strong runtime validation. In this task, you will create a Convex backend that enforces strict TypeScript types for a `users` table and build a CLI script to interact with it. ## Requirements - Initialize a Convex project. - Define a schema in `convex/schema.ts` with a `users` table. The table must strictly validate: - `name`: string - `age`: number - `role`: union of literal strings `"admin"` and `"user"` - Define a mutation `createUser` in `convex/users.ts` that enforces these types in its arguments and inserts a user. - Define a query `getUsersByRole` in `convex/users.ts` that takes a `role` argument and returns users with that role. - Create a TypeScript CLI script `cli.ts` that uses `ConvexHttpClient` to call these functions. - The CLI script must read the `ZEALT_RUN_ID` environment variable and apply it to avoid cross-run collisions. ## Implementation Hints - Use `defineSchema` and `defineTable` with `v.string()`, `v.number()`, and `v.union(v.literal("admin"), v.literal("user"))` for the schema. - In `cli.ts`, use `process.env.CONVEX_URL` to initialize the `ConvexHttpClient`. - Import the generated API types from `./convex/_generated/api.js` to ensure type safety in `cli.ts`. - You may need to run `npx convex deploy` or `npx convex dev` to generate the `api.js` files during your development. ## Acceptance Criteria - Project path: `/home/user/myproject` - Command: `npx tsx cli.ts <action> [args...]` - The CLI must support the following actions: - `create <name> <age> <role>`: Calls the `createUser` mutation. The script MUST append `-${run-id}` (read from the `ZEALT_RUN_ID` environment variable) to the provided `<name>` before passing it to the mutation. - `list <role>`: Calls the `getUsersByRole` query. The script MUST filter the returned users in the client to only include those whose `name` ends with `-${run-id}`, and then print the filtered list as a JSON array to stdout. - The stdout for the `list` command should print a JSON array of user objects. - The project must be type-safe. Running `npx tsc --noEmit` in the project directory must succeed without errors.   
+
+Pochi
+💭 Thinking for 150 characters   
+📂 Listing files in . ✔ 
+📂 Listing files in /home ✔ 
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/myproject ✔ 
+💭 Thinking for 213 characters   
+💫 Executing npm init -y ✔ 
+💭 Thinking for 160 characters   
+💫 Executing npm install convex && npm install -D typescript tsx @types/node ✔ 
+💭 Thinking for 264 characters   
+💫 Executing npx convex init --yes ✖ "Command exited with code 1"
+💭 Thinking for 324 characters   
+💭 Thinking for 344 characters   
+✏️  Writing /home/user/myproject/convex/schema.ts ✔ 
+✏️  Writing /home/user/myproject/convex/users.ts ✔ 
+✏️  Writing /home/user/myproject/convex.json ✔ 
+✏️  Writing /home/user/myproject/cli.ts ✔ 
+✏️  Writing /home/user/myproject/tsconfig.json ✔ 
+💭 Thinking for 257 characters   
+🔧 Applying diff to /home/user/myproject/package.json ✖ "File has not been read yet. Please read the file before editing it."
+💭 Thinking for 0 characters   
+📖 Reading /home/user/myproject/package.json ✔ 
+🔧 Applying diff to /home/user/myproject/package.json ✔ 
+💭 Thinking for 0 characters   
+💫 Executing npx convex codegen ✔ 
+💭 Thinking for 199 characters   
+📂 Listing files in /home/user/myproject/convex/_generated ✔ 
+💭 Thinking for 243 characters   
+📋 Updating todo list (4 items) ✔ 
+💭 Thinking for 162 characters   
+💫 Executing npx tsc --noEmit ✖ "Command exited with code 2"
+💭 Thinking for 329 characters   
+💭 Thinking for 474 characters   
+🔧 Applying diff to /home/user/myproject/tsconfig.json ✔ 
+💭 Thinking for 0 characters   
+🔧 Applying diff to /home/user/myproject/convex/users.ts ✔ 
+💭 Thinking for 0 characters   
+💫 Executing npx tsc --noEmit ✖ "Command exited with code 2"
+💭 Thinking for 237 characters   
+🔧 Applying diff to /home/user/myproject/cli.ts ✔ 
+💭 Thinking for 0 characters   
+💫 Executing npx tsc --noEmit ✔ 
+💭 Thinking for 301 characters   
+🎉 Task Completed
+Implemented Convex schema and users functions, added a type-safe CLI, and set up TypeScript config. Generated Convex API bindings with convex codegen and verified npx tsc --noEmit passes.
+
+Key files:
+- convex/schema.ts: users table with strict name/age/role validation.
+- convex/users.ts: createUser mutation and getUsersByRole query (role union).
+- cli.ts: create/list actions with ZEALT_RUN_ID suffix filtering and ConvexHttpClient.
+- tsconfig.json and package.json updated for NodeNext + module.
+
+Usage:
+- Create: CONVEX_URL=... ZEALT_RUN_ID=... npx tsx cli.ts create <name> <age> <role>
+- List: CONVEX_URL=... ZEALT_RUN_ID=... npx tsx cli.ts list <role>
+   
+  

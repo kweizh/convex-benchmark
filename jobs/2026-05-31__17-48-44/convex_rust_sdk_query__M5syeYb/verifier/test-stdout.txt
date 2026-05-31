@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_cargo_run_output _____________________________
+
+    def test_cargo_run_output():
+        result = subprocess.run(
+            ["cargo", "run"],
+            cwd=APP_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"'cargo run' failed: {result.stderr}"
+E       AssertionError: 'cargo run' failed:    Compiling tungstenite v0.21.0
+E            Compiling tokio-tungstenite v0.21.0
+E            Compiling convex v0.9.0
+E            Compiling convex_query_app v0.1.0 (/home/user/project/convex_query_app)
+E         error[E0308]: mismatched types
+E            --> src/main.rs:10:36
+E             |
+E          10 |     let client = ConvexClient::new(convex_url)?;
+E             |                  ----------------- ^^^^^^^^^^ expected `&str`, found `String`
+E             |                  |
+E             |                  arguments to this function are incorrect
+E             |
+E         note: associated function defined here
+E            --> /root/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/convex-0.9.0/src/client/mod.rs:132:18
+E             |
+E         132 |     pub async fn new(deployment_url: &str) -> anyhow::Result<Self> {
+E             |                  ^^^
+E         help: consider borrowing here
+E             |
+E          10 |     let client = ConvexClient::new(&convex_url)?;
+E             |                                    +
+E         
+E         error[E0277]: the `?` operator can only be applied to values that implement `Try`
+E           --> src/main.rs:10:18
+E            |
+E         10 |     let client = ConvexClient::new(convex_url)?;
+E            |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ the `?` operator cannot be applied to type `impl Future<Output = Result<ConvexClient, anyhow::Error>>`
+E            |
+E            = help: the nightly-only, unstable trait `Try` is not implemented for `impl Future<Output = Result<ConvexClient, anyhow::Error>>`
+E         help: consider `await`ing on the `Future`
+E            |
+E         10 |     let client = ConvexClient::new(convex_url).await?;
+E            |                                               ++++++
+E         
+E         Some errors have detailed explanations: E0277, E0308.
+E         For more information about an error, try `rustc --explain E0277`.
+E         error: could not compile `convex_query_app` (bin "convex_query_app") due to 2 previous errors
+E         
+E       assert 101 == 0
+E        +  where 101 = CompletedProcess(args=['cargo', 'run'], returncode=101, stdout='', stderr='   Compiling tungstenite v0.21.0\n   Compil...tc --explain E0277`.\nerror: could not compile `convex_query_app` (bin "convex_query_app") due to 2 previous errors\n').returncode
+
+tests/test_final_state.py:17: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_app_dir_exists
+FAILED tests/test_final_state.py::test_cargo_run_output - AssertionError: 'ca...
+========================= 1 failed, 1 passed in 4.02s ==========================
