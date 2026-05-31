@@ -1,0 +1,8 @@
+{
+  "name": "convex-project",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "convex": "^1.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["ES2021", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "esnext"
+  }
+}

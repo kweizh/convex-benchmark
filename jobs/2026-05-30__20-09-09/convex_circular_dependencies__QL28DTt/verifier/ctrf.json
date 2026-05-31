@@ -1,0 +1,61 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780172592477,
+            "stop": 1780172593535
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_typecheck_passes",
+                "status": "passed",
+                "duration": 1019,
+                "start": 1780172592505,
+                "stop": 1780172593524,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exports_funcA",
+                "status": "passed",
+                "duration": 4,
+                "start": 1780172593524,
+                "stop": 1780172593528,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exports_funcB",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780172593529,
+                "stop": 1780172593532,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_exports_funcC",
+                "status": "passed",
+                "duration": 3,
+                "start": 1780172593532,
+                "stop": 1780172593535,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

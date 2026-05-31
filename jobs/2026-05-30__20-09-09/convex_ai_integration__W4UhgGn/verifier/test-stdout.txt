@@ -1,0 +1,71 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+_________________________ test_convex_action_and_query _________________________
+
+    def test_convex_action_and_query():
+        """
+        Verify that the action can be called and the mutation saved the result.
+        We create a temporary Node.js script to use the Convex client.
+        """
+        script_content = """
+    import { ConvexHttpClient } from "convex/browser";
+    import * as dotenv from "dotenv";
+    dotenv.config({ path: ".env.local" });
+    
+    const client = new ConvexHttpClient(process.env.CONVEX_URL || process.env.VITE_CONVEX_URL);
+    
+    async function main() {
+        console.log("Calling action...");
+        await client.action("ai:generate", { prompt: "Say hello world" });
+        console.log("Action completed.");
+    
+        console.log("Querying list...");
+        const results = await client.query("ai:list");
+        console.log(JSON.stringify(results));
+    }
+    
+    main().catch(err => {
+        console.error(err);
+        process.exit(1);
+    });
+    """
+        script_path = os.path.join(PROJECT_DIR, "test_action.mjs")
+        with open(script_path, "w") as f:
+            f.write(script_content)
+    
+        # Need to make sure dotenv is installed in the project for the script to work
+        subprocess.run(["npm", "install", "dotenv"], cwd=PROJECT_DIR, capture_output=True)
+    
+        result = subprocess.run(
+            ["node", "test_action.mjs"],
+            cwd=PROJECT_DIR,
+            capture_output=True,
+            text=True
+        )
+>       assert result.returncode == 0, f"Node script failed: {result.stderr}"
+E       AssertionError: Node script failed: Error
+E             at ConvexHttpClient.action (file:///home/user/myproject/node_modules/convex/dist/esm/browser/http_client.js:376:13)
+E             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+E             at async main (file:///home/user/myproject/test_action.mjs:10:5)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'test_action.mjs'], returncode=1, stdout='◇ injected env (0) from .env.local // tip: ⌘ ...ons (node:internal/process/task_queues:104:5)\n    at async main (file:///home/user/myproject/test_action.mjs:10:5)\n').returncode
+
+tests/test_final_state.py:77: AssertionError
+==================================== PASSES ====================================
+___________________________________ test_ui ____________________________________
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/start_app$ npm run dev
+process 'start_app' started pid=1371
+start_app process startup detected
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_ui
+FAILED tests/test_final_state.py::test_convex_action_and_query - AssertionErr...
+==================== 1 failed, 1 passed in 79.29s (0:01:19) ====================

@@ -1,0 +1,62 @@
+{
+    "id": "0c3b2a9d-575d-420d-9a78-591faf176a28",
+    "started_at": "2026-05-30T20:09:12.287581",
+    "updated_at": "2026-05-30T20:34:46.647726",
+    "finished_at": "2026-05-30T20:34:46.647726",
+    "n_total_trials": 19,
+    "stats": {
+        "n_completed_trials": 19,
+        "n_errored_trials": 3,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__glm-5.1__tasks": {
+                "n_trials": 16,
+                "n_errors": 3,
+                "metrics": [
+                    {
+                        "mean": 0.05263157894736842
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "convex_rust_sdk_mutation__N2woJLt",
+                            "convex_complex_transaction__z3zGKQP",
+                            "convex_http_actions__dmTTk4b",
+                            "convex_pagination_cursor__gyhNwyM",
+                            "convex_data_validation__Beycehu",
+                            "convex_node_runtime__NTydsah",
+                            "convex_python_sdk_query__5umv5LJ",
+                            "convex_vector_search__fZnkQWP",
+                            "convex_paginated_search__2GXrZqm",
+                            "convex_indexes__YBG953L",
+                            "convex_react_native__FVdjvxu",
+                            "convex_ai_integration__W4UhgGn",
+                            "convex_actions_vs_mutations__X7KF5o6",
+                            "convex_file_upload__cSVQ6nV",
+                            "convex_scheduled_cleanup__JoTFC8x"
+                        ],
+                        "1.0": [
+                            "convex_circular_dependencies__QL28DTt"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "convex_react_crud__zjYutpR",
+                        "convex_nextjs_crud__pgKZvgp",
+                        "convex_realtime_sync__7pWQr3X"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 545801,
+        "cost_usd": null
+    }
+}
