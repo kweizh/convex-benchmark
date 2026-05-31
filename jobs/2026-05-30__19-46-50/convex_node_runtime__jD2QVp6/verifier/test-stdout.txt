@@ -1,0 +1,55 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+_______________________ test_convex_action_hash_generate _______________________
+
+    def test_convex_action_hash_generate():
+        """Create and run a Node.js script to verify the Convex action."""
+        verify_script_path = os.path.join(PROJECT_DIR, "verify.js")
+    
+        script_content = """
+    const { ConvexHttpClient } = require("convex/browser");
+    const client = new ConvexHttpClient(process.env.CONVEX_URL);
+    client.action("hash:generate", { text: "test-string" }).then(res => {
+      if (res === "ffe65f1d98fafedea3514adc956c8ada5980c6c5d2552fd61f48401aefd5c00e") {
+        console.log("SUCCESS");
+      } else {
+        console.log("FAILED: " + res);
+        process.exit(1);
+      }
+    }).catch(err => {
+      console.error(err);
+      process.exit(1);
+    });
+    """
+    
+        with open(verify_script_path, "w") as f:
+            f.write(script_content)
+    
+        result = subprocess.run(
+            ["node", "verify.js"],
+            capture_output=True,
+            text=True,
+            cwd=PROJECT_DIR
+        )
+    
+>       assert result.returncode == 0, f"verify.js failed with error: {result.stderr}"
+E       AssertionError: verify.js failed with error: Error
+E             at ConvexHttpClient.action (/home/user/project/node_modules/convex/dist/cjs/browser/http_client.js:391:13)
+E             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['node', 'verify.js'], returncode=1, stdout='', stderr='Error\n    at ConvexHttpClient.action (/.../browser/http_client.js:391:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n').returncode
+
+tests/test_final_state.py:41: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_project_exists
+FAILED tests/test_final_state.py::test_convex_action_hash_generate - Assertio...
+========================= 1 failed, 1 passed in 0.37s ==========================

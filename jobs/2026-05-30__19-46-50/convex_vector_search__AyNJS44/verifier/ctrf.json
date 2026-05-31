@@ -1,0 +1,37 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780170852134,
+            "stop": 1780170852617
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_convex_vector_search",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 446,
+                "start": 1780170852171,
+                "stop": 1780170852617,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_convex_vector_search():\n        \"\"\"Verify Convex vector search works correctly.\"\"\"\n        run_id = os.environ.get(\"ZEALT_RUN_ID\", \"test-run-id\")\n    \n        # Write a Node.js script to interact with the Convex backend\n        script_path = os.path.join(PROJECT_DIR, \"verify_vector_search.js\")\n        script_content = f\"\"\"\n    const {{ ConvexHttpClient }} = require(\"convex/browser\");\n    const client = new ConvexHttpClient(process.env.CONVEX_URL);\n    \n    async function run() {{\n      const runId = \"{run_id}\";\n    \n      try {{\n          const id1 = await client.mutation(\"foods:insert\", {{ runId, text: \"apple\", embedding: [1.0, 0.0, 0.0] }});\n          const id2 = await client.mutation(\"foods:insert\", {{ runId, text: \"banana\", embedding: [0.9, 0.1, 0.0] }});\n          const id3 = await client.mutation(\"foods:insert\", {{ runId, text: \"car\", embedding: [0.0, 0.0, 1.0] }});\n    \n          // Wait for vector index to update\n          await new Promise(r => setTimeout(r, 4000));\n    \n          const results = await client.action(\"foods:searchSimilar\", {{ runId, vector: [1.0, 0.0, 0.0] }});\n    \n          console.log(JSON.stringify({{ success: true, id1, id2, id3, results }}));\n      }} catch (e) {{\n          console.log(JSON.stringify({{ success: false, error: e.message }}));\n      }}\n    }}\n    run();\n    \"\"\"\n    \n        with open(script_path, \"w\") as f:\n            f.write(script_content)\n    \n        # Run the script\n        result = subprocess.run(\n            [\"node\", \"verify_vector_search.js\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True\n        )\n    \n        assert result.returncode == 0, f\"Node script failed to execute: {result.stderr}\"\n    \n        try:\n            output = json.loads(result.stdout.strip())\n        except json.JSONDecodeError:\n            pytest.fail(f\"Failed to parse script output. Raw output: {result.stdout}\")\n    \n>       assert output.get(\"success\") is True, f\"Script encountered an error: {output.get('error')}\"\nE       AssertionError: Script encountered an error: \nE       assert False is True\nE        +  where False = <built-in method get of dict object at 0x7f2eece20a00>('success')\nE        +    where <built-in method get of dict object at 0x7f2eece20a00> = {'error': '', 'success': False}.get\n\ntests/test_final_state.py:58: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "id": "dd6622a9-75d1-4fc8-ae77-4e7edebc07c5",
+    "started_at": "2026-05-30T19:46:53.837319",
+    "updated_at": "2026-05-30T20:09:06.361885",
+    "finished_at": "2026-05-30T20:09:06.361885",
+    "n_total_trials": 19,
+    "stats": {
+        "n_completed_trials": 19,
+        "n_errored_trials": 1,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 18,
+                "n_errors": 1,
+                "metrics": [
+                    {
+                        "mean": 0.05263157894736842
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "convex_rust_sdk_mutation__X2im2AV",
+                            "convex_complex_transaction__TmRXN2k",
+                            "convex_http_actions__WXXYT2W",
+                            "convex_pagination_cursor__FMxXAXT",
+                            "convex_react_crud__qonSwWD",
+                            "convex_data_validation__jo6drmw",
+                            "convex_nextjs_crud__8rfLbWD",
+                            "convex_node_runtime__jD2QVp6",
+                            "convex_python_sdk_query__qmTooRR",
+                            "convex_vector_search__AyNJS44",
+                            "convex_paginated_search__JotMHWf",
+                            "convex_indexes__eCddSat",
+                            "convex_realtime_sync__JEMiAvg",
+                            "convex_ai_integration__znMj6sg",
+                            "convex_actions_vs_mutations__TWjDTbT",
+                            "convex_file_upload__efZBUNq",
+                            "convex_scheduled_cleanup__NGDo58Q"
+                        ],
+                        "1.0": [
+                            "convex_circular_dependencies__KEvYubK"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "convex_react_native__VLcwNCE"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 382573,
+        "cost_usd": null
+    }
+}

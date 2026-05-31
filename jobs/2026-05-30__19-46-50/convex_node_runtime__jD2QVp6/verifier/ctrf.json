@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780170712864,
+            "stop": 1780170713238
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_project_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780170712892,
+                "stop": 1780170712894,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_convex_action_hash_generate",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 343,
+                "start": 1780170712895,
+                "stop": 1780170713238,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_convex_action_hash_generate():\n        \"\"\"Create and run a Node.js script to verify the Convex action.\"\"\"\n        verify_script_path = os.path.join(PROJECT_DIR, \"verify.js\")\n    \n        script_content = \"\"\"\n    const { ConvexHttpClient } = require(\"convex/browser\");\n    const client = new ConvexHttpClient(process.env.CONVEX_URL);\n    client.action(\"hash:generate\", { text: \"test-string\" }).then(res => {\n      if (res === \"ffe65f1d98fafedea3514adc956c8ada5980c6c5d2552fd61f48401aefd5c00e\") {\n        console.log(\"SUCCESS\");\n      } else {\n        console.log(\"FAILED: \" + res);\n        process.exit(1);\n      }\n    }).catch(err => {\n      console.error(err);\n      process.exit(1);\n    });\n    \"\"\"\n    \n        with open(verify_script_path, \"w\") as f:\n            f.write(script_content)\n    \n        result = subprocess.run(\n            [\"node\", \"verify.js\"],\n            capture_output=True,\n            text=True,\n            cwd=PROJECT_DIR\n        )\n    \n>       assert result.returncode == 0, f\"verify.js failed with error: {result.stderr}\"\nE       AssertionError: verify.js failed with error: Error\nE             at ConvexHttpClient.action (/home/user/project/node_modules/convex/dist/cjs/browser/http_client.js:391:13)\nE             at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\nE         \nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'verify.js'], returncode=1, stdout='', stderr='Error\\n    at ConvexHttpClient.action (/.../browser/http_client.js:391:13)\\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\\n').returncode\n\ntests/test_final_state.py:41: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
