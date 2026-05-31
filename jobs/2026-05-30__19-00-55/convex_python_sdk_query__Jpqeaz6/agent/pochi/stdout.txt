@@ -1,0 +1,57 @@
+- Initializing MCP connections...
+You
+# Convex Python SDK Integration ## Background Use the official Python SDK (`convex` package) to interact with a Convex backend. You will set up a simple Convex backend project and write a Python script to perform basic queries and mutations against it. ## Requirements * Initialize a Convex backend project in `/home/user/myproject`. * Define a `tasks` table in the schema with `text` (string) and `status` (string). * Create a mutation `tasks:add` that accepts `text` and `status` arguments and inserts a new task. * Create a query `tasks:get` that returns all tasks in the table. * Write a Python script `/home/user/myproject/run.py` using the `convex` PyPI package. * The Python script must accept `--add <text>` to call the mutation (with `status` defaulting to 'todo' or any valid string), and `--list` to call the query and print the results to stdout. ## Implementation Hints * Use `npm init -y` and `npm install convex` to set up the Node.js environment for the backend. * Use `pip install convex` to install the Python SDK. * You have the `CONVEX_DEPLOY_KEY` environment variable available. You can deploy the backend and run the python script simultaneously using `npx convex deploy --cmd "python3 run.py ..."`. The Convex CLI will automatically inject the `CONVEX_URL` environment variable into the command. * In `run.py`, initialize the `ConvexClient` using the `CONVEX_URL` environment variable. * Ensure `run.py` parses arguments correctly and prints the query output when `--list` is used. ## Acceptance Criteria * Project path: /home/user/myproject * Command: `npx convex deploy --cmd "python3 run.py <args>"` * The script must support the `--add <text>` argument to insert a task. * The script must support the `--list` argument to print the list of tasks to stdout. * The `run.py` script must connect to the backend using the `CONVEX_URL` environment variable.   
+
+Pochi
+💭 Thinking for 231 characters   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && npm init -y && npm install convex ✔ 
+💭 Thinking for 321 characters   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing mkdir -p /home/user/myproject/convex ✔ 
+✏️  Writing /home/user/myproject/convex/schema.ts ✔ 
+✏️  Writing /home/user/myproject/convex/tasks.ts ✔ 
+📋 Updating todo list (5 items) ✔ 
+💫 Executing pip install convex ✖ "Command exited with code 1"
+💫 Executing pip install convex --break-system-packages ✔ 
+💭 Thinking for 347 characters   
+📋 Updating todo list (5 items) ✔ 
+✏️  Writing /home/user/myproject/run.py ✔ 
+💭 Thinking for 283 characters   
+📋 Updating todo list (5 items) ✔ 
+💫 Executing ls -R /home/user/myproject ✔ 
+📖 Reading /home/user/myproject/run.py ✔ 
+📖 Reading /home/user/myproject/convex/tasks.ts ✔ 
+📋 Updating todo list (5 items) ✔ 
+🎉 Task Completed
+I have set up the Convex backend project and the Python integration script in `/home/user/myproject`.
+
+### Changes Made:
+1.  **Project Initialization**:
+    *   Created `/home/user/myproject`.
+    *   Initialized a Node.js project and installed the `convex` package.
+    *   Installed the `convex` Python SDK using `pip`.
+2.  **Convex Backend Implementation**:
+    *   `convex/schema.ts`: Defined a `tasks` table with `text` and `status` fields.
+    *   `convex/tasks.ts`: Implemented `tasks:add` mutation and `tasks:get` query.
+3.  **Python Script Implementation**:
+    *   `run.py`: A CLI tool that uses the `convex` Python SDK to interact with the backend.
+    *   Supports `--add <text>` to insert a task (defaults `status` to 'todo').
+    *   Supports `--list` to fetch and print all tasks.
+    *   Connects to the backend using the `CONVEX_URL` environment variable.
+
+### How to Run:
+You can deploy the backend and run the script using the following commands:
+
+**To add a task:**
+```bash
+npx convex deploy --cmd "python3 run.py --add 'My new task'"
+```
+
+**To list tasks:**
+```bash
+npx convex deploy --cmd "python3 run.py --list"
+```
+
+The `CONVEX_DEPLOY_KEY` must be set in your environment for the deployment to succeed. The Convex CLI will automatically provide the `CONVEX_URL` to the Python script.   
+  

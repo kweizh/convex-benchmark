@@ -1,0 +1,63 @@
+{
+    "id": "59fa4962-b657-4463-bba9-fed616465b94",
+    "started_at": "2026-05-30T19:01:01.283291",
+    "updated_at": "2026-05-30T19:23:08.004640",
+    "finished_at": "2026-05-30T19:23:08.004640",
+    "n_total_trials": 19,
+    "stats": {
+        "n_completed_trials": 19,
+        "n_errored_trials": 4,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gemini-3-flash__tasks": {
+                "n_trials": 16,
+                "n_errors": 4,
+                "metrics": [
+                    {
+                        "mean": 0.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "0.0": [
+                            "convex_rust_sdk_mutation__yF6LsoZ",
+                            "convex_complex_transaction__KGDbUL3",
+                            "convex_http_actions__knckpfE",
+                            "convex_pagination_cursor__872NWCP",
+                            "convex_data_validation__dhFvmoL",
+                            "convex_node_runtime__eLUnKfG",
+                            "convex_python_sdk_query__Jpqeaz6",
+                            "convex_vector_search__spafVot",
+                            "convex_paginated_search__93kKoxm",
+                            "convex_indexes__7j92y2P",
+                            "convex_react_native__qZjJQkX",
+                            "convex_circular_dependencies__6V8iNQg",
+                            "convex_ai_integration__C4Js8AP",
+                            "convex_actions_vs_mutations__DCEkCPT",
+                            "convex_file_upload__f4cikKS",
+                            "convex_scheduled_cleanup__mDg5bHo"
+                        ]
+                    }
+                },
+                "exception_stats": {
+                    "VerifierTimeoutError": [
+                        "convex_react_crud__VPnvRVH",
+                        "convex_nextjs_crud__6xVPDQC",
+                        "convex_realtime_sync__X4tGNt8"
+                    ],
+                    "NonZeroAgentExitCodeError": [
+                        "convex_circular_dependencies__6V8iNQg"
+                    ]
+                }
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 412680,
+        "cost_usd": null
+    }
+}
