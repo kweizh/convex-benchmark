@@ -174,11 +174,12 @@ npm run dev
 ```
 
 ## 4. Developer Friction Points
-1.  **Strict Separation of Actions and Mutations**: Developers often try to call external APIs (like OpenAI or Stripe) inside a `mutation`, which fails because mutations must be deterministic and have no side effects. The fix requires moving the API call to an `action` and then calling a mutation to save the result.
+1.  **Table Name Limit**: Convex enforces an alphanumeric-and-underscore limit on table names, whenever a table name is used, should add notes and then convert to alphanumeric-and-underscore format.
+2.  **Strict Separation of Actions and Mutations**: Developers often try to call external APIs (like OpenAI or Stripe) inside a `mutation`, which fails because mutations must be deterministic and have no side effects. The fix requires moving the API call to an `action` and then calling a mutation to save the result.
     *   *Reference*: [Actions vs Mutations](https://docs.convex.dev/functions/actions)
-2.  **Circular Dependencies in Generated Code**: Large projects with many cross-file function calls can trigger TypeScript circularity limits in the `_generated/api.ts` file.
+3.  **Circular Dependencies in Generated Code**: Large projects with many cross-file function calls can trigger TypeScript circularity limits in the `_generated/api.ts` file.
     *   *Reference*: [Circular Dependencies Workarounds](https://docs.convex.dev/generated-api/#circular-dependencies)
-3.  **V8 vs Node.js Runtimes**: Using Node-specific libraries (like `fs` or certain crypto libs) in a Query/Mutation will fail. Developers must use Actions with `"use node";` for these cases.
+4.  **V8 vs Node.js Runtimes**: Using Node-specific libraries (like `fs` or certain crypto libs) in a Query/Mutation will fail. Developers must use Actions with `"use node";` for these cases.
     *   *Reference*: [Runtimes](https://docs.convex.dev/functions/runtimes)
 ## 5. Cloud Platform & Auth Info
 To automate benchmarks or CI/CD deployments, Convex uses **Deployment Keys**.
