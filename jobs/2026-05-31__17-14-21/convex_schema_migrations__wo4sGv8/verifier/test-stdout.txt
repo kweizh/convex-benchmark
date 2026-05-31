@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+___________________________ test_output_log_contents ___________________________
+
+    def test_output_log_contents():
+        """Verify the contents of output.log match the expected JSON structure."""
+        with open(OUTPUT_LOG, "r") as f:
+            content = f.read()
+    
+        try:
+            data = json.loads(content)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse {OUTPUT_LOG} as JSON: {e}")
+    
+        assert isinstance(data, list), "Expected output to be a JSON array."
+>       assert len(data) == 3, f"Expected exactly 3 objects in the array, found {len(data)}."
+E       AssertionError: Expected exactly 3 objects in the array, found 6.
+E       assert 6 == 3
+E        +  where 6 = len([{'_creationTime': 1780247743748.0974, '_id': 'nn71yd1zz69e5h0n82cgkymm3h87rav5', 'isCompleted': True, 'priority': 'me...Time': 1780247748988.5032, '_id': 'nn7bvn4r6cm87f7yy2gd02swch87s4vh', 'isCompleted': False, 'priority': 'medium', ...}])
+
+tests/test_final_state.py:22: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_output_log_exists
+FAILED tests/test_final_state.py::test_output_log_contents - AssertionError: ...
+========================= 1 failed, 1 passed in 0.03s ==========================

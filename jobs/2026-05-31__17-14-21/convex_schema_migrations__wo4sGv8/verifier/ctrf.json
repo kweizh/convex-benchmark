@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780247879599,
+            "stop": 1780247879636
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_output_log_exists",
+                "status": "passed",
+                "duration": 1,
+                "start": 1780247879618,
+                "stop": 1780247879619,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_output_log_contents",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 15,
+                "start": 1780247879620,
+                "stop": 1780247879635,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_output_log_contents():\n        \"\"\"Verify the contents of output.log match the expected JSON structure.\"\"\"\n        with open(OUTPUT_LOG, \"r\") as f:\n            content = f.read()\n    \n        try:\n            data = json.loads(content)\n        except json.JSONDecodeError as e:\n            pytest.fail(f\"Failed to parse {OUTPUT_LOG} as JSON: {e}\")\n    \n        assert isinstance(data, list), \"Expected output to be a JSON array.\"\n>       assert len(data) == 3, f\"Expected exactly 3 objects in the array, found {len(data)}.\"\nE       AssertionError: Expected exactly 3 objects in the array, found 6.\nE       assert 6 == 3\nE        +  where 6 = len([{'_creationTime': 1780247743748.0974, '_id': 'nn71yd1zz69e5h0n82cgkymm3h87rav5', 'isCompleted': True, 'priority': 'me...Time': 1780247748988.5032, '_id': 'nn7bvn4r6cm87f7yy2gd02swch87s4vh', 'isCompleted': False, 'priority': 'medium', ...}])\n\ntests/test_final_state.py:22: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}
