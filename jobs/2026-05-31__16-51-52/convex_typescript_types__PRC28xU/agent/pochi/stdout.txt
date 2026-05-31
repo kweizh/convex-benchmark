@@ -1,0 +1,49 @@
+- Initializing MCP connections...
+You
+# Convex Strict TypeScript Types ## Background Convex provides a code-first schema with strong runtime validation. In this task, you will create a Convex backend that enforces strict TypeScript types for a `users` table and build a CLI script to interact with it. ## Requirements - Initialize a Convex project. - Define a schema in `convex/schema.ts` with a `users` table. The table must strictly validate: - `name`: string - `age`: number - `role`: union of literal strings `"admin"` and `"user"` - Define a mutation `createUser` in `convex/users.ts` that enforces these types in its arguments and inserts a user. - Define a query `getUsersByRole` in `convex/users.ts` that takes a `role` argument and returns users with that role. - Create a TypeScript CLI script `cli.ts` that uses `ConvexHttpClient` to call these functions. - The CLI script must read the `ZEALT_RUN_ID` environment variable and apply it to avoid cross-run collisions. ## Implementation Hints - Use `defineSchema` and `defineTable` with `v.string()`, `v.number()`, and `v.union(v.literal("admin"), v.literal("user"))` for the schema. - In `cli.ts`, use `process.env.CONVEX_URL` to initialize the `ConvexHttpClient`. - Import the generated API types from `./convex/_generated/api.js` to ensure type safety in `cli.ts`. - You may need to run `npx convex deploy` or `npx convex dev` to generate the `api.js` files during your development. ## Acceptance Criteria - Project path: `/home/user/myproject` - Command: `npx tsx cli.ts <action> [args...]` - The CLI must support the following actions: - `create <name> <age> <role>`: Calls the `createUser` mutation. The script MUST append `-${run-id}` (read from the `ZEALT_RUN_ID` environment variable) to the provided `<name>` before passing it to the mutation. - `list <role>`: Calls the `getUsersByRole` query. The script MUST filter the returned users in the client to only include those whose `name` ends with `-${run-id}`, and then print the filtered list as a JSON array to stdout. - The stdout for the `list` command should print a JSON array of user objects. - The project must be type-safe. Running `npx tsc --noEmit` in the project directory must succeed without errors.   
+
+Pochi
+💭 Thinking for 591 characters   
+💫 Executing mkdir -p /home/user/myproject && cd /home/user/myproject && npm init -y && npm install convex tsx typescript @types/node && npx tsc --init ✔ 
+💭 Thinking for 747 characters   
+✏️  Writing /home/user/myproject/convex/schema.ts ✔ 
+✏️  Writing /home/user/myproject/convex/users.ts ✔ 
+💫 Executing cd /home/user/myproject && npx convex codegen ✔ 
+💭 Thinking for 278 characters   
+💫 Executing ls -la /home/user/myproject/convex/_generated ✔ 
+💭 Thinking for 819 characters   
+✏️  Writing /home/user/myproject/cli.ts ✔ 
+💭 Thinking for 141 characters   
+💫 Executing cd /home/user/myproject && npx tsc --noEmit ✖ "Command exited with code 2"
+💭 Thinking for 334 characters   
+💫 Executing cd /home/user/myproject && npm pkg set type="module" && echo '{"compilerOptions": {"target": "ES2022", "module": "ESNext", "moduleResolution": "node", "esModuleInterop": true, "strict": true, "skipLibCheck": true, "types": ["node"]}}' > tsconfig.json && npx tsc --noEmit ✖ "Command exited with code 2"
+💭 Thinking for 146 characters   
+💫 Executing cd /home/user/myproject && echo '{"compilerOptions": {"target": "ES2022", "module": "ESNext", "moduleResolution": "bundler", "esModuleInterop": true, "strict": true, "skipLibCheck": true, "types": ["node"]}}' > tsconfig.json && npx tsc --noEmit ✔ 
+💭 Thinking for 1505 characters   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=123 npx tsx cli.ts list admin ✔ 
+💭 Thinking for 691 characters   
+💫 Executing cd /home/user/myproject && npx convex deploy --url http://127.0.0.1:3210 --admin-key "" ✖ "Command exited with code 1"
+💭 Thinking for 715 characters   
+💫 Executing env | grep CONVEX ✔ 
+💭 Thinking for 211 characters   
+💫 Executing cd /home/user/myproject && npx convex deploy ✔ 
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=123 npx tsx cli.ts create Alice 30 admin ✔ 
+💭 Thinking for 206 characters   
+💫 Executing cd /home/user/myproject && ZEALT_RUN_ID=123 npx tsx cli.ts list admin ✔ 
+💭 Thinking for 613 characters   
+🎉 Task Completed
+I have successfully set up the Convex backend with strict TypeScript types and built the CLI script as requested.
+
+1. **Convex Project Setup**: Initialized the project at `/home/user/myproject` with `convex`, `tsx`, and `typescript` dependencies.
+2. **Schema Definition**: Created `convex/schema.ts` defining a `users` table with strictly validated fields: `name` (string), `age` (number), and `role` (union of literal strings `"admin"` and `"user"`).
+3. **Mutations & Queries**: 
+   - Defined `createUser` mutation in `convex/users.ts` to enforce the argument types and insert new users.
+   - Defined `getUsersByRole` query in `convex/users.ts` that takes a `role` argument and retrieves matching users.
+4. **CLI Implementation**: Created `cli.ts` which utilizes `ConvexHttpClient`.
+   - The CLI reads the `ZEALT_RUN_ID` and `CONVEX_URL` environment variables.
+   - Using `create <name> <age> <role>`, it appends `-${run-id}` to the provided name and invokes the `createUser` mutation.
+   - Using `list <role>`, it calls the `getUsersByRole` query, filters the returned users by the `-${run-id}` suffix in their name, and prints the result as a JSON array to stdout.
+5. **Type Safety**: Ensured type safety by importing generated API types from `./convex/_generated/api.js`. The project passes `npx tsc --noEmit` without any errors.
+
+The deployment to the provided Convex environment has been executed and the CLI script is fully operational.   
+  

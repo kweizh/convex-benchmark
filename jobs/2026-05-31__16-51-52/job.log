@@ -1,0 +1,695 @@
+Skipping image OS validation for hb__convex_schema_migrations: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-rksp3iy > /logs/artifacts/run-id && echo convex_schema_migrations__rksP3iy > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Schema Migrations
+
+## Background
+Convex is a reactive database where schema changes deploy instantly, but existing data is not automatically transformed. To add a required field to an existing table, you must update the schema and write a backfill mutation to update existing records.
+
+## Requirements
+- You are provided with a Convex project in `/home/user/project`.
+- First, run `bash setup.sh` to initialize the database. This script will create a table named `tasks_<run_id>` (where `<run_id>` is derived from `ZEALT_RUN_ID` with hyphens replaced by underscores) and insert 3 initial records with `text` and `isCompleted` fields.
+- Update `convex/schema.ts` to add a new required field `priority` (string) to the table.
+- Create a new file `convex/migrations.ts` and write a mutation named `backfillPriority` that iterates over all records in the table and sets the `priority` field to `"medium"` for any record that doesn't have it.
+- Deploy your changes to Convex.
+- Execute your `backfillPriority` mutation to update the existing data.
+- Create a query function in `convex/queries.ts` named `getAll` that returns all records from the table.
+- Write a Node.js script `fetch.js` that uses `ConvexHttpClient` (from `convex/browser`) to call your `getAll` query and writes the JSON stringified result to `/home/user/project/output.log`.
+- Run `node fetch.js` to generate the log file.
+
+## Implementation Hints
+- `setup.sh` will dynamically generate `convex/schema.ts` based on `ZEALT_RUN_ID`. Review it after running the script.
+- Convex table names must be alphanumeric and underscores. The setup script handles this conversion for you.
+- To backfill, you can use `ctx.db.query(tableName).collect()` to get all records, and `ctx.db.patch(record._id, { priority: "medium" })` to update them.
+- Use `npx convex deploy` to deploy your schema and functions.
+- Use `npx convex run migrations:backfillPriority` to execute the mutation from the CLI.
+- In `fetch.js`, initialize `ConvexHttpClient` with `process.env.CONVEX_URL` (ensure you load `.env.local` or pass the URL).
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Ensure the real migration action is executed and the log artifact exists.
+- Log file: /home/user/project/output.log
+- The log file must contain a JSON array of the tasks.
+- Every task in the log file must have `text`, `isCompleted`, and `priority` fields.
+- The `priority` field for all tasks must be `"medium"`.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_typescript_types: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-prc28xu > /logs/artifacts/run-id && echo convex_typescript_types__PRC28xU > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Strict TypeScript Types
+
+## Background
+Convex provides a code-first schema with strong runtime validation. In this task, you will create a Convex backend that enforces strict TypeScript types for a `users` table and build a CLI script to interact with it.
+
+## Requirements
+- Initialize a Convex project.
+- Define a schema in `convex/schema.ts` with a `users` table. The table must strictly validate:
+  - `name`: string
+  - `age`: number
+  - `role`: union of literal strings `"admin"` and `"user"`
+- Define a mutation `createUser` in `convex/users.ts` that enforces these types in its arguments and inserts a user.
+- Define a query `getUsersByRole` in `convex/users.ts` that takes a `role` argument and returns users with that role.
+- Create a TypeScript CLI script `cli.ts` that uses `ConvexHttpClient` to call these functions.
+- The CLI script must read the `ZEALT_RUN_ID` environment variable and apply it to avoid cross-run collisions.
+
+## Implementation Hints
+- Use `defineSchema` and `defineTable` with `v.string()`, `v.number()`, and `v.union(v.literal("admin"), v.literal("user"))` for the schema.
+- In `cli.ts`, use `process.env.CONVEX_URL` to initialize the `ConvexHttpClient`.
+- Import the generated API types from `./convex/_generated/api.js` to ensure type safety in `cli.ts`.
+- You may need to run `npx convex deploy` or `npx convex dev` to generate the `api.js` files during your development.
+
+## Acceptance Criteria
+- Project path: `/home/user/myproject`
+- Command: `npx tsx cli.ts <action> [args...]`
+- The CLI must support the following actions:
+  - `create <name> <age> <role>`: Calls the `createUser` mutation. The script MUST append `-${run-id}` (read from the `ZEALT_RUN_ID` environment variable) to the provided `<name>` before passing it to the mutation.
+  - `list <role>`: Calls the `getUsersByRole` query. The script MUST filter the returned users in the client to only include those whose `name` ends with `-${run-id}`, and then print the filtered list as a JSON array to stdout.
+- The stdout for the `list` command should print a JSON array of user objects.
+- The project must be type-safe. Running `npx tsc --noEmit` in the project directory must succeed without errors.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_table_name_limit: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-msvd9hz > /logs/artifacts/run-id && echo convex_table_name_limit__mSVd9Hz > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Table Name Limit
+
+## Background
+You are working on a Convex backend project. The project currently has a schema defined with a table named `my-tasks`, which violates Convex's table naming rules.
+
+## Requirements
+- Fix the table name in `convex/schema.ts` to comply with Convex's naming constraints (alphanumeric characters and underscores only, e.g., `my_tasks`).
+- Update any queries or mutations in the `convex/` directory that reference the old table name to use the new valid table name.
+- Ensure the Convex backend can be successfully deployed.
+
+## Implementation Hints
+- Convex table names must only contain alphanumeric characters and underscores.
+- You can use `npx convex deploy` to deploy and verify your fixes.
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Ensure the real schema deployment action is executed.
+- The table name must be updated to a valid format (e.g., `my_tasks`).
+- There must be a working mutation `api.tasks.add` that accepts a `text` string and inserts it into the table.
+- There must be a working query `api.tasks.get` that returns all tasks from the table.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_rust_sdk_query: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-2dmcgy7 > /logs/artifacts/run-id && echo convex_rust_sdk_query__2DMcgY7 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Query Convex with Rust SDK
+
+## Background
+You need to create a Rust application that connects to a Convex backend and queries data from it.
+
+## Requirements
+- Initialize a Rust Cargo project named `convex_query_app` in `/home/user/project`.
+- Add the `convex` Rust client library, `tokio`, and `dotenvy` as dependencies.
+- Write a Rust program in `src/main.rs` that connects to the Convex backend using the `CONVEX_URL` environment variable.
+- The program must query the `tasks:get` API and print the results to stdout.
+- Note: Building the Rust project takes time. Start a background job to build the Rust project (`cargo build`) as early as possible while you work on other things.
+
+## Implementation Hints
+- Use `ConvexClient::new` to connect to the deployment URL.
+- Use `client.query("tasks:get", BTreeMap::new()).await` to fetch the tasks.
+- Load environment variables using `dotenvy` or `std::env::var`.
+
+## Acceptance Criteria
+- Project path: /home/user/project/convex_query_app
+- Command: cargo run
+- The stdout should print the array of tasks fetched from Convex.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_environment_variables: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-fvdljx5 > /logs/artifacts/run-id && echo convex_environment_variables__fVDLjx5 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Environment Variables
+
+## Background
+Convex allows you to store configuration and secrets as environment variables, which can be accessed within your serverless functions (queries, mutations, and actions). You need to create a Convex action that reads an environment variable and verify it works.
+
+## Requirements
+- Initialize a Node.js project and install `convex`.
+- Create a Convex action named `getToken` in `convex/config.ts` that returns the value of the `SECRET_TOKEN` environment variable.
+- Set the `SECRET_TOKEN` environment variable in your Convex deployment to the value of the `ZEALT_RUN_ID` environment variable.
+- Deploy the Convex functions to the cloud.
+- Write a Node.js script `test.mjs` that uses `ConvexHttpClient` to call the `getToken` action and logs the result to a file.
+
+## Implementation Hints
+- Use `npm init -y` and `npm install convex` to set up the project.
+- You can access environment variables in Convex functions using `process.env.SECRET_TOKEN`.
+- Use `npx convex env set SECRET_TOKEN <value>` to set the environment variable in the deployment.
+- Use `npx convex deploy` to deploy your functions. The `CONVEX_DEPLOY_KEY` is already provided in the environment.
+- In `test.mjs`, instantiate `ConvexHttpClient` with `process.env.CONVEX_URL`, call the action using `client.action(api.config.getToken)`, and append the result to `output.log` in the format `Token: <value>`.
+
+## Acceptance Criteria
+- Project path: `/home/user/convex-env-task`
+- Ensure the script is executed and the artifacts exist.
+- Log file: `/home/user/convex-env-task/output.log`
+- The log file must contain the token in the format: `Token: <token_value>`, where `<token_value>` is the value of `ZEALT_RUN_ID`.
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_cron_jobs: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-vsyuqzh > /logs/artifacts/run-id && echo convex_cron_jobs__vSyuQZh > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Cron Jobs
+
+## Background
+Convex allows you to schedule functions to run on a recurring basis. In this task, you will create a scheduled cron job to clean up expired sessions in a Convex database.
+
+## Requirements
+- Initialize a Convex project.
+- Define a `sessions` table schema with fields: `runId` (string), `expiresAt` (number), `isActive` (boolean).
+- Create a mutation that finds all sessions where `expiresAt` is strictly less than the current time (`Date.now()`) and `isActive` is `true`, and updates their `isActive` status to `false`.
+- Create a cron job that runs the cleanup mutation every 1 minute.
+- Deploy the Convex backend to the cloud.
+- Create a Node.js script `seed.js` that inserts an already-expired session into the database.
+- Create a Node.js script `check.js` that retrieves a session by its ID and outputs its `isActive` status.
+
+## Implementation Hints
+- Read the `CONVEX_DEPLOY_KEY` and `CONVEX_URL` environment variables for authentication and connection.
+- Define your schema in `convex/schema.ts` and your mutation in a file like `convex/sessions.ts`.
+- Define the cron job in `convex/crons.ts` using `crons.interval()` for a 1-minute interval.
+- Use `npx convex deploy` to deploy your backend functions and cron jobs to the Convex cloud.
+- In `seed.js` and `check.js`, use `ConvexHttpClient` to interact with the deployed backend.
+- Ensure `seed.js` sets `expiresAt` to a time in the past so it is immediately eligible for cleanup.
+
+## Acceptance Criteria
+- Project path: /home/user/project
+- Command 1: `node seed.js --run-id <run-id>`
+  - The expected command output format should include: `Session ID: <id>`
+- Command 2: `node check.js --id <session-id>`
+  - The expected command output format should include: `Is Active: <true|false>`
+- The Convex backend must be successfully deployed and the cron job must be actively running in the cloud.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_search_text: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-sc8upge > /logs/artifacts/run-id && echo convex_search_text__Sc8upge > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Full-Text Search with Pagination
+
+## Background
+Convex provides built-in full-text search capabilities using Tantivy. You need to implement a search query that filters messages by channel and supports pagination.
+
+## Requirements
+- Define a `messages` table in `convex/schema.ts` with `body` (string) and `channel` (string).
+- Add a search index named `search_body` on the `messages` table. The index must search the `body` field and allow filtering by `channel`.
+- Implement a `search` query in `convex/messages.ts`.
+- The `search` query must accept `query` (string), `channel` (optional string), and `paginationOpts` (using Convex's `paginationOptsValidator`).
+- The query must use `.withSearchIndex()` to search the `body` and optionally filter by `channel`, then return the paginated results.
+- Deploy the schema and functions to the Convex cloud instance.
+
+## Implementation Hints
+- Use `defineSchema` and `defineTable` in `convex/schema.ts`.
+- Use `.searchIndex()` on the table definition to configure `searchField` and `filterFields`.
+- In `convex/messages.ts`, use `query` from `./_generated/server`.
+- Use `paginationOptsValidator` from `convex/server` for the pagination arguments.
+- Use `.withSearchIndex()` and `.paginate()` on the database query.
+- Use `npx convex deploy` to deploy your changes.
+
+## Acceptance Criteria
+- Project path: /home/user/convex-search-task
+- Command: `npx convex run messages:search`
+- The query must accept a JSON argument with `query` (string), `channel` (optional string), and `paginationOpts` (object with `numItems`).
+- The stdout should print the paginated result object containing a `page` array of matched documents.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_python_sdk_mutation: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-luuzeu2 > /logs/artifacts/run-id && echo convex_python_sdk_mutation__LuuzeU2 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Convex Python SDK Mutation
+
+## Background
+Convex provides a Python SDK (`convex` on PyPI) for interacting with your Convex backend. In this task, you will create a Convex backend with a mutation and a query, then use the Python SDK to call the mutation.
+
+## Requirements
+- Set up a Convex project in the target directory.
+- Define a schema with a `tasks` table containing `text` (string) and `isCompleted` (boolean).
+- Create a mutation named `add` in `convex/tasks.ts` that accepts `text` (string) and `isCompleted` (boolean), inserts a new task into the `tasks` table, and returns the generated task ID.
+- Create a query named `get` in `convex/tasks.ts` that accepts an `id` argument (string, representing the task ID), and returns the corresponding task document.
+- Deploy the Convex backend using `npx convex deploy`.
+- Write a Python script `run.py` that connects to the Convex backend using the `CONVEX_URL` environment variable and the `convex` Python package.
+- The Python script should accept a `--text` argument, call the `add` mutation with the provided text and `isCompleted` set to `False`, and print the returned task ID.
+
+## Implementation Hints
+- Use `npm init -y` and `npm install convex` to set up the Node.js environment for deploying the backend.
+- Define your schema in `convex/schema.ts` and your functions in `convex/tasks.ts`.
+- Use `npx convex deploy` to deploy your backend functions to the cloud.
+- Use the `convex` Python package (install via `pip install convex`).
+- In Python, initialize `ConvexClient` with your `CONVEX_URL`.
+- Call the mutation using `client.mutation("tasks:add", {"text": args.text, "isCompleted": False})`.
+- To query by ID in the backend, you can use `ctx.db.get(ctx.db.normalizeId("tasks", args.id))`.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Command: python3 run.py --text <text>
+- The Python script must correctly call the Convex mutation and insert the data.
+- The stdout should print: `Inserted task ID: <task_id>`
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured
+Skipping image OS validation for hb__convex_data_export: docker inspect returned 1
+Running command: apt-get update && apt-get install -y curl ripgrep
+Command outputs captured
+Running command: set -euo pipefail; curl -fsSL https://getpochi.com/install.sh | bash -x -s -- pochi-v0.6.12 && mkdir -p /logs/agent/pochi && ~/.pochi/bin/pochi --version
+Command outputs captured
+Running command: ln -sf ~/.pochi/bin/pochi /usr/local/bin/pochi
+Command outputs captured
+Running command: echo zr-7hmiof7 > /logs/artifacts/run-id && echo convex_data_export__7hmioF7 > /logs/artifacts/trial_id
+Command outputs captured
+Running command: mkdir -p ~/.pochi && cat << 'EOF' | sed -e "s/OPENAI_API_KEY/${OPENAI_API_KEY}/g" -e "s/DEEPINFRA_API_KEY/${DEEPINFRA_API_KEY}/g" > ~/.pochi/config.jsonc
+{
+  "providers": {
+    "deepinfra": {
+      "kind": "openai",
+      "baseURL": "https://api.deepinfra.com/v1/openai",
+      "apiKey": "DEEPINFRA_API_KEY",
+      "models": {
+        "zai-org/GLM-4.7-Flash": {
+          "name": "glm-4.7-flash"
+        },
+        "moonshotai/Kimi-K2.6": {
+          "name": "kimi-K2.6"
+        },
+        "deepseek-ai/DeepSeek-V4-Pro": {
+          "name": "DeepSeek-V4-Pro"
+        }
+      }
+    },
+    "openai": {
+      "kind": "openai",
+      "baseURL": "https://api.openai.com/v1",
+      "apiKey": "OPENAI_API_KEY",
+      "models": {
+        "gpt-5.4": {
+          "name": "gpt-5.4"
+        }
+      }
+    }
+  }
+}
+EOF
+Command outputs captured
+Running command: if [ -f /bootstrap/test_initial_state.py ]; then pytest -s --log-cli-level=DEBUG /bootstrap/test_initial_state.py > >(tee /logs/agent/pochi/initial-test-stdout.txt) 2> >(tee /logs/agent/pochi/initial-test-stderr.txt >&2); fi
+Command outputs captured
+Running command: pochi --model google/gemini-3.1-pro --max-steps 200 --max-retries 10 --blobs-dir /logs/agent/pochi/blobs --experimental-stream-trajectory /logs/agent/pochi/trajectory.jsonl > >(tee /logs/agent/pochi/stdout.txt) 2> >(tee /logs/agent/pochi/stderr.txt >&2) <<'EOF'
+# Export Data via Convex HTTP Action
+
+## Background
+Convex provides HTTP actions to expose public endpoints. You need to build a Convex backend that exposes a public HTTP GET endpoint to export all records from a specific table as a JSON array.
+
+## Requirements
+- Initialize a Convex project in `/home/user/myproject`.
+- Define a table named `products_{run_id}` where `{run_id}` is the value of the `ZEALT_RUN_ID` environment variable with all hyphens (`-`) replaced by underscores (`_`).
+- The table schema must include `name` (string) and `price` (number).
+- Expose a Convex HTTP action at `GET /exportProducts`.
+- The HTTP action must query all records from the `products_{run_id}` table and return them as a JSON array.
+- Deploy the project to Convex.
+
+## Implementation Hints
+1. Read the `ZEALT_RUN_ID` environment variable and replace hyphens with underscores to form the table name (e.g., `products_zr_12345`).
+2. Define the schema in `convex/schema.ts` using the generated table name.
+3. Create an HTTP router in `convex/http.ts`.
+4. Define a `route` for `path: "/exportProducts"` and `method: "GET"`.
+5. In the handler, use `ctx.runQuery` to execute an internal query that fetches all documents from the generated table name, or write the query logic directly if supported.
+6. Return the records as a JSON response using `new Response(JSON.stringify(records), { headers: { "Content-Type": "application/json" } })`.
+7. Use `npx convex deploy` to deploy the functions to the cloud.
+
+## Acceptance Criteria
+- Project path: /home/user/myproject
+- Ensure the Convex deployment is executed and the functions are live in the cloud.
+- The Convex table must be named `products_{run_id}` where `{run_id}` is the value of the `ZEALT_RUN_ID` environment variable with all hyphens replaced by underscores.
+- The HTTP action must be exposed at the route `GET /exportProducts` on the Convex site URL.
+- The HTTP action must return a JSON array containing all records from the table with a 200 OK status.
+
+
+EOF
+Command outputs captured
+Running command: rm -f ~/.pochi/config.jsonc
+Command outputs captured

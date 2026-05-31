@@ -1,0 +1,40 @@
+- Initializing MCP connections...
+You
+# Convex Cron Jobs ## Background Convex allows you to schedule functions to run on a recurring basis. In this task, you will create a scheduled cron job to clean up expired sessions in a Convex database. ## Requirements * Initialize a Convex project. * Define a `sessions` table schema with fields: `runId` (string), `expiresAt` (number), `isActive` (boolean). * Create a mutation that finds all sessions where `expiresAt` is strictly less than the current time (`Date.now()`) and `isActive` is `true`, and updates their `isActive` status to `false`. * Create a cron job that runs the cleanup mutation every 1 minute. * Deploy the Convex backend to the cloud. * Create a Node.js script `seed.js` that inserts an already-expired session into the database. * Create a Node.js script `check.js` that retrieves a session by its ID and outputs its `isActive` status. ## Implementation Hints * Read the `CONVEX_DEPLOY_KEY` and `CONVEX_URL` environment variables for authentication and connection. * Define your schema in `convex/schema.ts` and your mutation in a file like `convex/sessions.ts`. * Define the cron job in `convex/crons.ts` using `crons.interval()` for a 1-minute interval. * Use `npx convex deploy` to deploy your backend functions and cron jobs to the Convex cloud. * In `seed.js` and `check.js`, use `ConvexHttpClient` to interact with the deployed backend. * Ensure `seed.js` sets `expiresAt` to a time in the past so it is immediately eligible for cleanup. ## Acceptance Criteria * Project path: /home/user/project * Command 1: `node seed.js --run-id <run-id>` * The expected command output format should include: `Session ID: <id>` * Command 2: `node check.js --id <session-id>` * The expected command output format should include: `Is Active: <true|false>` * The Convex backend must be successfully deployed and the cron job must be actively running in the cloud.   
+
+Pochi
+💭 Thinking for 717 characters   
+💫 Executing mkdir -p /home/user/project && cd /home/user/project && npm init -y && npm install convex ✔ 
+💭 Thinking for 1224 characters   
+💫 Executing mkdir -p /home/user/project/convex ✔ 
+💭 Thinking for 243 characters   
+✏️  Writing /home/user/project/convex/schema.ts ✔ 
+✏️  Writing /home/user/project/convex/sessions.ts ✔ 
+✏️  Writing /home/user/project/convex/crons.ts ✔ 
+✏️  Writing /home/user/project/seed.js ✔ 
+✏️  Writing /home/user/project/check.js ✔ 
+💭 Thinking for 665 characters   
+💫 Executing cd /home/user/project && npx convex deploy ✔ 
+💭 Thinking for 201 characters   
+💫 Executing cd /home/user/project && node seed.js --run-id test-run-1 ✔ 
+💭 Thinking for 163 characters   
+💫 Executing cd /home/user/project && node check.js --id k17c8t92dw95ad00y9rede76v587sjh6 ✔ 
+💭 Thinking for 192 characters   
+🎉 Task Completed
+I have successfully created and deployed the Convex project with a cron job to clean up expired sessions.
+
+Here is a summary of the implementation:
+1. **Convex Project Initialized**: A Node.js project was initialized and the `convex` package was installed.
+2. **Schema Definition**: The `sessions` table schema was defined in `convex/schema.ts` with fields `runId`, `expiresAt`, and `isActive`.
+3. **Mutations and Queries**: 
+   - A `cleanup` mutation was created in `convex/sessions.ts` to find expired active sessions and update their `isActive` status to `false`.
+   - Helper mutations and queries (`insertSession` and `getSession`) were added to support adding and checking sessions.
+4. **Cron Job**: A cron job was defined in `convex/crons.ts` to run the `cleanup` mutation every 1 minute.
+5. **Deployment**: The Convex backend, along with the functions and the cron job, was deployed to the Convex cloud using `npx convex deploy`.
+6. **Seed Script**: A `seed.js` script was created to insert a session with an `expiresAt` time set in the past so that it is immediately eligible for cleanup.
+7. **Check Script**: A `check.js` script was created to query a session by its ID and print its `isActive` status.
+
+You can verify the setup by running the following commands:
+1. Seed a test session: `node seed.js --run-id <run-id>`
+2. Check the session's active status: `node check.js --id <session-id>` (After about 1 minute, the cron job will run and the status will change to `Is Active: false`).   
+  
