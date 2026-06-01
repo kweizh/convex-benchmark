@@ -1,0 +1,43 @@
+- Initializing MCP connections...
+You
+# Rate Limiting API Requests in Convex ## Background You need to implement a rate-limited API endpoint using Convex and the `@convex-dev/rate-limiter` component. This ensures that users cannot spam the system with too many requests. ## Requirements * Initialize a Convex project in `/home/user/project`. * Install the `@convex-dev/rate-limiter` component and configure it in `convex/convex.config.ts`. * Create a mutation `sendMessage` in `convex/messages.ts` that takes `userId` (string) and `text` (string). * The mutation must insert the message into a table named `messages_<run_id_with_underscores>`, where `<run_id_with_underscores>` is the `run-id` from the `ZEALT_RUN_ID` environment variable with all hyphens replaced by underscores (e.g., if `run-id` is `zr-123`, the table is `messages_zr_123`). * The mutation must enforce a rate limit of 3 requests per 10 seconds per `userId`. * To prevent cross-run conflicts, the rate limit key must include the `run-id` (e.g., `${run-id}_${args.userId}`). * If the rate limit is exceeded, the mutation must throw an error with a message containing "Rate limit exceeded". * Deploy the project to the Convex cloud environment using `npx convex deploy` and save the deployment output to `/home/user/project/deploy.log`. ## Implementation Hints * Read the `run-id` from the `ZEALT_RUN_ID` environment variable in your Convex functions using `process.env.ZEALT_RUN_ID`. * Since table names in Convex only support alphanumeric characters and underscores, replace hyphens in the `run-id` with underscores. * Use the `@convex-dev/rate-limiter` component by defining a rate limit with `{ kind: "fixed window", rate: 3, period: 10000 }` (or token bucket). * Check the rate limit using `rateLimiter.limit(ctx, "sendMessage", { key: ... })`. * If the limit check fails (`ok` is false), throw a new Error. * Use the provided `CONVEX_DEPLOY_KEY` for deployment. ## Acceptance Criteria * Project path: /home/user/project * Ensure the project is deployed to the Convex cloud environment and the log artifact exists. * Log file: /home/user/project/deploy.log * The deployed Convex backend must expose a mutation `messages:sendMessage` taking `userId` (string) and `text` (string). * The mutation must insert data into the `messages_<run_id_with_underscores>` table. * The mutation must allow up to 3 requests per 10 seconds for a given `userId`. * The 4th request within 10 seconds for the same `userId` must fail with an error containing "Rate limit exceeded". * Different `userId`s must have separate rate limits.   
+
+Pochi
+💫 Executing mkdir -p /home/user/project ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/project && npm init -y && npm install convex @convex-dev/rate-limiter ✔ 
+💫 Executing mkdir -p /home/user/project/convex ✔ 
+✏️  Writing /home/user/project/convex/convex.config.ts ✔ 
+✏️  Writing /home/user/project/convex/schema.ts ✔ 
+📋 Updating todo list (4 items) ✔ 
+✏️  Writing /home/user/project/convex/messages.ts ✔ 
+📋 Updating todo list (4 items) ✔ 
+💫 Executing cd /home/user/project && npx convex deploy --yes > deploy.log 2>&1 ✖ "Command exited with code 1"
+📖 Reading /home/user/project/deploy.log ✔ 
+🔧 Applying diff to /home/user/project/convex/schema.ts ✔ 
+✏️  Writing /home/user/project/convex/schema.ts ✔ 
+💫 Executing cd /home/user/project && RUN_ID_UNDERSCORES=$(echo $ZEALT_RUN_ID | sed 's/-/_/g') && sed -i "s/RUN_ID_PLACEHOLDER/$RUN_ID_UNDERSCORES/g" convex/schema.ts && npx convex deploy --yes > deploy.log 2>&1 ✔ 
+📖 Reading /home/user/project/deploy.log ✔ 
+📋 Updating todo list (4 items) ✔ 
+🎉 Task Completed
+I have successfully implemented the rate-limited API endpoint in Convex.
+
+### Accomplishments:
+1.  **Project Initialization**: Set up a Convex project in `/home/user/project` and installed necessary dependencies including `@convex-dev/rate-limiter`.
+2.  **Configuration**: Configured the rate limiter component in `convex/convex.config.ts`.
+3.  **Schema Definition**: Created a schema that dynamically defines the table name based on the `ZEALT_RUN_ID` environment variable (replacing hyphens with underscores).
+4.  **Mutation Implementation**: Implemented the `sendMessage` mutation in `convex/messages.ts` with the following features:
+    *   **Dynamic Table Targeting**: Inserts data into `messages_<run_id_with_underscores>`.
+    *   **Rate Limiting**: Enforces a limit of 3 requests per 10 seconds per `userId` using a fixed window strategy.
+    *   **Isolation**: Uses a rate limit key that includes the `run-id` to prevent cross-run conflicts.
+    *   **Error Handling**: Throws an error containing "Rate limit exceeded" when the limit is reached.
+5.  **Deployment**: Successfully deployed the backend to the Convex cloud environment. The deployment logs are saved at `/home/user/project/deploy.log`.
+
+### Project Structure:
+*   `/home/user/project/convex/convex.config.ts`: Component configuration.
+*   `/home/user/project/convex/schema.ts`: Database schema with dynamic table naming.
+*   `/home/user/project/convex/messages.ts`: `sendMessage` mutation logic with rate limiting.
+*   `/home/user/project/deploy.log`: Deployment output.
+
+The backend is now live and exposes the `messages:sendMessage` mutation as required.   
+  

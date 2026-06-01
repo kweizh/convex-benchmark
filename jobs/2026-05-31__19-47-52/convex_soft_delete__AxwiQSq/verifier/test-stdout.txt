@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py .                                              [100%]
+
+==================================== PASSES ====================================
+____________________________ test_soft_delete_flow _____________________________
+---------------------------- Captured stdout setup -----------------------------
+Deploying to Convex...
+----------------------------- Captured stdout call -----------------------------
+
+up to date, audited 6 packages in 1s
+
+1 package is looking for funding
+  run `npm fund` for details
+
+2 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_soft_delete_flow
+============================== 1 passed in 6.09s ===============================

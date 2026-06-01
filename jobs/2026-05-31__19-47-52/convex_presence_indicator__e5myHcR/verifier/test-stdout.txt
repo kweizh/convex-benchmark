@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 1 item
+
+tests/test_final_state.py .                                              [100%]
+
+==================================== PASSES ====================================
+_________________________ test_presence_indicator_sync _________________________
+---------------------------- Captured stdout setup -----------------------------
+
+up to date, audited 158 packages in 872ms
+
+43 packages are looking for funding
+  run `npm fund` for details
+
+2 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+/tests/.pytest_cache/d/.xprocess/start_app$ npm run dev
+process 'start_app' started pid=1383
+start_app process startup detected
+---------------------------- Captured stderr setup -----------------------------
+- Deploying to REDACTED...
+
+Convex AI files are not installed. Run npx convex ai-files install to get started or npx convex ai-files disable to hide this message.
+✔ No indexes are deleted by this push
+Uploading functions to Convex...
+Generating TypeScript bindings...
+Running TypeScript...
+Pushing code to your Convex deployment...
+Schema validation complete.
+Finalizing push...
+✔ Deployed Convex functions to REDACTED
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_presence_indicator_sync
+========================= 1 passed in 87.09s (0:01:27) =========================

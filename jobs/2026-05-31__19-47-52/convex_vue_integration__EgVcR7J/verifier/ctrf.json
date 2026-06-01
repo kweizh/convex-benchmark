@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780258776902,
+            "stop": 1780259119770
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_browser_crud",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 342816,
+                "start": 1780258776925,
+                "stop": 1780259119741,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "start_app = None\n\n    def test_browser_crud(start_app):\n        reason = \"The application should feature a fully functional to-do list with Convex backend. Users must be able to add, toggle, and delete items.\"\n        truth = (\n            \"Navigate to http://localhost:5173. \"\n            \"Locate the input field with id `new-task-input`. \"\n            \"Type 'Buy groceries' into the input. \"\n            \"Click the button with id `add-task-btn`. \"\n            \"Wait for the UI to update. \"\n            \"Verify that an element with class `task-item` appears containing the text 'Buy groceries'. \"\n            \"Click the button with class `toggle-btn` inside the 'Buy groceries' task item. \"\n            \"Wait for the UI to update. \"\n            \"Click the button with class `delete-btn` inside the 'Buy groceries' task item. \"\n            \"Wait for the UI to update. \"\n            \"Verify that the 'Buy groceries' task item is removed from the list.\"\n        )\n    \n        verifier = PochiVerifier()\n        result = verifier.verify(\n            reason=reason,\n            truth=truth,\n            use_browser_agent=True,\n            trajectory_dir=\"/logs/verifier/pochi/test_browser_crud\"\n        )\n>       assert result.status == \"pass\", f\"Browser verification failed: {result.reason}\"\nE       AssertionError: Browser verification failed: The verification failed because the application at http://localhost:5173 did not render any content. The agent browser reported that the frontend code contains compilation errors related to incorrect imports from the 'convex-vue' package, causing the application to fail to mount. As a result, the required input field with id 'new-task-input' could not be located, and the subsequent test steps could not be performed.\nE       assert 'fail' == 'pass'\nE         - pass\nE         + fail\n\ntests/test_final_state.py:57: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_schema_table_name",
+                "status": "passed",
+                "duration": 28,
+                "start": 1780259119741,
+                "stop": 1780259119769,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            }
+        ]
+    }
+}

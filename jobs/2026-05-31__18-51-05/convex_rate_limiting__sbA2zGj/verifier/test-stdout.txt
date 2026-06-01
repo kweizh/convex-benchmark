@@ -1,0 +1,68 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py .F                                             [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_rate_limiting ______________________________
+
+    def test_rate_limiting():
+        convex_url = os.environ.get("CONVEX_URL")
+        assert convex_url is not None, "CONVEX_URL environment variable is not set."
+    
+        client = ConvexClient(convex_url)
+    
+        user1 = f"user1_{int(time.time())}"
+        user2 = f"user2_{int(time.time())}"
+    
+        # Call 3 times for user1
+        for i in range(3):
+            try:
+>               client.mutation("messages:sendMessage", {"userId": user1, "text": "hello"})
+
+tests/test_final_state.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <convex.ConvexClient object at 0x7f26c7156750>
+name = 'messages:sendMessage'
+args = {'text': 'hello', 'userId': 'user1_1780253926'}
+
+    def mutation(self, name: str, args: FunctionArgs = None) -> Any:
+        """Perform the mutation `name` with `args` returning the result."""
+>       result = self.client.mutation(name, coerce_args_to_convex(args))
+E       Exception: [Request ID: 4cba2dc150091ccd] Server Error
+E       Uncaught Error: Child component ComponentName(Identifier("rateLimiter")) not found
+E           at async handler (../convex/messages.ts:22:16)
+
+usr/local/lib/python3.12/dist-packages/convex/__init__.py:216: Exception
+
+During handling of the above exception, another exception occurred:
+
+    def test_rate_limiting():
+        convex_url = os.environ.get("CONVEX_URL")
+        assert convex_url is not None, "CONVEX_URL environment variable is not set."
+    
+        client = ConvexClient(convex_url)
+    
+        user1 = f"user1_{int(time.time())}"
+        user2 = f"user2_{int(time.time())}"
+    
+        # Call 3 times for user1
+        for i in range(3):
+            try:
+                client.mutation("messages:sendMessage", {"userId": user1, "text": "hello"})
+            except Exception as e:
+>               pytest.fail(f"Expected mutation to succeed, but failed on call {i+1} for {user1}: {e}")
+E               Failed: Expected mutation to succeed, but failed on call 1 for user1_1780253926: [Request ID: 4cba2dc150091ccd] Server Error
+E               Uncaught Error: Child component ComponentName(Identifier("rateLimiter")) not found
+E                   at async handler (../convex/messages.ts:22:16)
+
+tests/test_final_state.py:24: Failed
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_deploy_log_exists
+FAILED tests/test_final_state.py::test_rate_limiting - Failed: Expected mutat...
+========================= 1 failed, 1 passed in 0.82s ==========================

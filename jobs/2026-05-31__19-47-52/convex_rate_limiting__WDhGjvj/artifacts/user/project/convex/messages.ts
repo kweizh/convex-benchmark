@@ -1,0 +1,34 @@
+import { mutation } from "./_generated/server";
+import { v } from "convex/values";
+import { RateLimiter } from "@convex-dev/rate-limiter";
+import { components } from "./_generated/api";
+
+const rateLimiter = new RateLimiter(components.rateLimiter, {
+  sendMessage: { kind: "fixed window", rate: 3, period: 10000 },
+});
+
+export const sendMessage = mutation({
+  args: {
+    userId: v.string(),
+    text: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const rawRunId = process.env.ZEALT_RUN_ID ?? "unknown";
+    const runIdForTable = rawRunId.replace(/-/g, "_");
+    const tableName = `messages_${runIdForTable}`;
+    const rateLimitKey = `${rawRunId}_${args.userId}`;
+
+    const status = await rateLimiter.limit(ctx, "sendMessage", {
+      key: rateLimitKey,
+    });
+
+    if (!status.ok) {
+      throw new Error("Rate limit exceeded");
+    }
+
+    await ctx.db.insert(tableName as any, {
+      userId: args.userId,
+      text: args.text,
+    });
+  },
+});

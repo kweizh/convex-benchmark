@@ -1,0 +1,46 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 1,
+            "failed": 1,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780253926192,
+            "stop": 1780253927015
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_deploy_log_exists",
+                "status": "passed",
+                "duration": 2,
+                "start": 1780253926249,
+                "stop": 1780253926251,
+                "retries": 0,
+                "file_path": "test_final_state.py"
+            },
+            {
+                "name": "test_final_state.py::test_rate_limiting",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 764,
+                "start": 1780253926251,
+                "stop": 1780253927015,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_rate_limiting():\n        convex_url = os.environ.get(\"CONVEX_URL\")\n        assert convex_url is not None, \"CONVEX_URL environment variable is not set.\"\n    \n        client = ConvexClient(convex_url)\n    \n        user1 = f\"user1_{int(time.time())}\"\n        user2 = f\"user2_{int(time.time())}\"\n    \n        # Call 3 times for user1\n        for i in range(3):\n            try:\n>               client.mutation(\"messages:sendMessage\", {\"userId\": user1, \"text\": \"hello\"})\n\ntests/test_final_state.py:22: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = <convex.ConvexClient object at 0x7f26c7156750>\nname = 'messages:sendMessage'\nargs = {'text': 'hello', 'userId': 'user1_1780253926'}\n\n    def mutation(self, name: str, args: FunctionArgs = None) -> Any:\n        \"\"\"Perform the mutation `name` with `args` returning the result.\"\"\"\n>       result = self.client.mutation(name, coerce_args_to_convex(args))\nE       Exception: [Request ID: 4cba2dc150091ccd] Server Error\nE       Uncaught Error: Child component ComponentName(Identifier(\"rateLimiter\")) not found\nE           at async handler (../convex/messages.ts:22:16)\n\nusr/local/lib/python3.12/dist-packages/convex/__init__.py:216: Exception\n\nDuring handling of the above exception, another exception occurred:\n\n    def test_rate_limiting():\n        convex_url = os.environ.get(\"CONVEX_URL\")\n        assert convex_url is not None, \"CONVEX_URL environment variable is not set.\"\n    \n        client = ConvexClient(convex_url)\n    \n        user1 = f\"user1_{int(time.time())}\"\n        user2 = f\"user2_{int(time.time())}\"\n    \n        # Call 3 times for user1\n        for i in range(3):\n            try:\n                client.mutation(\"messages:sendMessage\", {\"userId\": user1, \"text\": \"hello\"})\n            except Exception as e:\n>               pytest.fail(f\"Expected mutation to succeed, but failed on call {i+1} for {user1}: {e}\")\nE               Failed: Expected mutation to succeed, but failed on call 1 for user1_1780253926: [Request ID: 4cba2dc150091ccd] Server Error\nE               Uncaught Error: Child component ComponentName(Identifier(\"rateLimiter\")) not found\nE                   at async handler (../convex/messages.ts:22:16)\n\ntests/test_final_state.py:24: Failed",
+                "message": "The test failed in the call phase due to an exception"
+            }
+        ]
+    }
+}

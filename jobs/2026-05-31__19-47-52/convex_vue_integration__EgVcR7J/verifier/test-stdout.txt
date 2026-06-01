@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.4.0
+rootdir: /tests
+plugins: xprocess-1.0.2, json-ctrf-0.5.0
+collected 2 items
+
+tests/test_final_state.py F.                                             [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_browser_crud _______________________________
+
+start_app = None
+
+    def test_browser_crud(start_app):
+        reason = "The application should feature a fully functional to-do list with Convex backend. Users must be able to add, toggle, and delete items."
+        truth = (
+            "Navigate to http://localhost:5173. "
+            "Locate the input field with id `new-task-input`. "
+            "Type 'Buy groceries' into the input. "
+            "Click the button with id `add-task-btn`. "
+            "Wait for the UI to update. "
+            "Verify that an element with class `task-item` appears containing the text 'Buy groceries'. "
+            "Click the button with class `toggle-btn` inside the 'Buy groceries' task item. "
+            "Wait for the UI to update. "
+            "Click the button with class `delete-btn` inside the 'Buy groceries' task item. "
+            "Wait for the UI to update. "
+            "Verify that the 'Buy groceries' task item is removed from the list."
+        )
+    
+        verifier = PochiVerifier()
+        result = verifier.verify(
+            reason=reason,
+            truth=truth,
+            use_browser_agent=True,
+            trajectory_dir="/logs/verifier/pochi/test_browser_crud"
+        )
+>       assert result.status == "pass", f"Browser verification failed: {result.reason}"
+E       AssertionError: Browser verification failed: The verification failed because the application at http://localhost:5173 did not render any content. The agent browser reported that the frontend code contains compilation errors related to incorrect imports from the 'convex-vue' package, causing the application to fail to mount. As a result, the required input field with id 'new-task-input' could not be located, and the subsequent test steps could not be performed.
+E       assert 'fail' == 'pass'
+E         - pass
+E         + fail
+
+tests/test_final_state.py:57: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+/tests/.pytest_cache/d/.xprocess/start_app$ npm run dev
+process 'start_app' started pid=1293
+start_app process startup detected
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_final_state.py::test_schema_table_name
+FAILED tests/test_final_state.py::test_browser_crud - AssertionError: Browser...
+=================== 1 failed, 1 passed in 342.86s (0:05:42) ====================

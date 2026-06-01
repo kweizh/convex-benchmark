@@ -1,0 +1,73 @@
+- Initializing MCP connections...
+You
+# Convex Role-Based Access Control (RBAC) ## Background You need to implement Role-Based Access Control (RBAC) in a Convex backend to manage access to sensitive data. Convex provides a reactive database where queries and mutations are written in TypeScript. You will build a custom RBAC mechanism that checks a user's role before allowing them to perform specific actions. ## Requirements - Initialize a new Convex project. - Read the `run-id` from the `ZEALT_RUN_ID` environment variable. - Create a safe version of the `run-id` by replacing all hyphens (`-`) with underscores (`_`) (e.g., `zr_abc_123`), because Convex table names must be alphanumeric and underscores only. - Set the `ZEALT_RUN_ID` environment variable in the Convex deployment using the Convex CLI so it can be accessed in backend functions. - Define a Convex schema with two tables: `users_<safe_run_id>` and `documents_<safe_run_id>`. - The users table must have fields: `name` (string) and `role` (string). - The documents table must have fields: `title` (string), `content` (string), and `authorId` (ID of the users table). - Implement a mutation `api.init.seed` that creates three users and returns their IDs: - User 1: name "Admin", role "admin" - User 2: name "Editor", role "editor" - User 3: name "Viewer", role "viewer" - Returns: `{ adminId, editorId, viewerId }` - Implement RBAC-protected queries and mutations in `convex/documents.ts`: - `api.documents.get`: Query taking `{ userId: string }`. Returns all documents. - `api.documents.create`: Mutation taking `{ userId: string, title: string, content: string }`. Only users with the "admin" or "editor" role can create documents. If unauthorized, throw a `ConvexError` with the exact message `"Unauthorized"`. Otherwise, insert the document and return the document ID. - `api.documents.delete`: Mutation taking `{ userId: string, documentId: string }`. Only users with the "admin" role can delete documents. If unauthorized, throw a `ConvexError` with the exact message `"Unauthorized"`. Otherwise, delete the document. - Deploy the Convex backend to production. - Write "Deployment successful" to a log file after successful deployment. ## Implementation Hints - Use `npx convex env set` to set environment variables in the Convex cloud environment. - You can use dynamic table names in `convex/schema.ts` by reading `process.env.ZEALT_RUN_ID` and replacing hyphens with underscores. - In your functions, query the users table using the provided `userId` to determine the user's role before performing the requested action. - Use `import { ConvexError } from "convex/values";` to throw the required errors. - Deploy the backend using `npx convex deploy`. ## Acceptance Criteria - Project path: `/home/user/rbac-project` - Ensure the real action of deploying to Convex is executed. - Log file: `/home/user/rbac-project/deploy.log` - The log file must contain `Deployment successful`. - The schema must enforce table names `users_<safe_run_id>` and `documents_<safe_run_id>`. - The deployed Convex backend must expose the `api.init.seed`, `api.documents.get`, `api.documents.create`, and `api.documents.delete` functions with the specified arguments and RBAC logic.   
+
+Pochi
+💭 Thinking for 197 characters   
+📂 Listing files in /home ✔ 
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/rbac-project recursively ✔ 
+💭 Thinking for 233 characters   
+💫 Executing npx convex init ✖ "Command exited with code 1"
+💭 Thinking for 185 characters   
+💫 Executing npm init -y ✔ 
+💭 Thinking for 0 characters   
+💫 Executing npx convex init ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 150 characters   
+💫 Executing printenv ZEALT_RUN_ID ✔ 
+💭 Thinking for 142 characters   
+📖 Reading /home/user/rbac-project/convex/schema.ts ✖ "ENOENT: no such file or directory, open '/home/user/rbac-project/convex/schema.ts'"
+💭 Thinking for 0 characters   
+📂 Listing files in /home/user/rbac-project recursively ✔ 
+📂 Listing files in /home/user/rbac-project/convex recursively ✔ 
+💭 Thinking for 278 characters   
+📖 Reading /home/user/rbac-project/.env.local ✔ 
+💭 Thinking for 335 characters   
+💭 Thinking for 386 characters   
+📖 Reading /home/user/rbac-project/convex.json ✖ "ENOENT: no such file or directory, open '/home/user/rbac-project/convex.json'"
+💭 Thinking for 271 characters   
+📖 Reading /home/user/rbac-project/package.json ✔ 
+💭 Thinking for 294 characters   
+💭 Thinking for 483 characters   
+✏️  Writing /home/user/rbac-project/convex/tableNames.ts ✔ 
+✏️  Writing /home/user/rbac-project/convex/schema.ts ✔ 
+✏️  Writing /home/user/rbac-project/convex/documents.ts ✔ 
+✏️  Writing /home/user/rbac-project/convex/init.ts ✔ 
+✏️  Writing /home/user/rbac-project/convex.json ✔ 
+💭 Thinking for 259 characters   
+💭 Thinking for 284 characters   
+🔧 Applying diff to /home/user/rbac-project/convex/documents.ts ✔ 
+💭 Thinking for 220 characters   
+💫 Executing npm install convex ✔ 
+💭 Thinking for 198 characters   
+💫 Executing npx convex env set ZEALT_RUN_ID zr-tesyycm --prod ✔ 
+💭 Thinking for 276 characters   
+💭 Thinking for 287 characters   
+💫 Executing npx convex deploy --prod ✖ "Command exited with code 1"
+💭 Thinking for 280 characters   
+💫 Executing printenv CONVEX_DEPLOY_KEY ✔ 
+💭 Thinking for 361 characters   
+💭 Thinking for 295 characters   
+💫 Executing printenv CONVEX_DEPLOYMENT ✖ "Command exited with code 1"
+💭 Thinking for 329 characters   
+💭 Thinking for 119 characters   
+💫 Executing npx convex deploy ✖ "Command exited with code 1"
+💭 Thinking for 269 characters   
+💭 Thinking for 321 characters   
+🔧 Applying diff to /home/user/rbac-project/convex/schema.ts ✔ 
+💭 Thinking for 263 characters   
+💫 Executing npx convex deploy ✔ 
+💭 Thinking for 138 characters   
+✏️  Writing /home/user/rbac-project/deploy.log ✔ 
+💭 Thinking for 0 characters   
+📋 Updating todo list (3 items) ✔ 
+💭 Thinking for 227 characters   
+🎉 Task Completed
+Initialized the Convex project in /home/user/rbac-project, added the RBAC schema and functions (seed, get, create, delete), set ZEALT_RUN_ID for the deployment, deployed the backend, and wrote /home/user/rbac-project/deploy.log with "Deployment successful". The tables are named users_zr_tesyycm and documents_zr_tesyycm based on the safe run id, and documents mutations enforce the required admin/editor role checks with ConvexError("Unauthorized").   
+  

@@ -1,0 +1,49 @@
+{
+    "id": "e7f96da6-3d5c-4c20-8ec9-084c37866c34",
+    "started_at": "2026-05-31T19:47:54.070664",
+    "updated_at": "2026-05-31T20:39:42.762976",
+    "finished_at": "2026-05-31T20:39:42.762976",
+    "n_total_trials": 9,
+    "stats": {
+        "n_completed_trials": 9,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "pochi__gpt-5.2-codex__tasks": {
+                "n_trials": 9,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 0.5555555555555556
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "convex_rbac__TesyyCm",
+                            "convex_rate_limiting__WDhGjvj",
+                            "convex_soft_delete__AxwiQSq",
+                            "convex_aggregate_data__jNgCMLj",
+                            "convex_presence_indicator__e5myHcR"
+                        ],
+                        "0.0": [
+                            "convex_svelte_integration__UwZAgPG",
+                            "convex_relationships__Emi82sj",
+                            "convex_vue_integration__EgVcR7J",
+                            "convex_caching_actions__7phuKGg"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": 0,
+        "n_cache_tokens": 0,
+        "n_output_tokens": 342215,
+        "cost_usd": null
+    }
+}

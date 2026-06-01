@@ -1,0 +1,49 @@
+{
+    "results": {
+        "tool": {
+            "name": "pytest",
+            "version": "7.4.4"
+        },
+        "summary": {
+            "tests": 2,
+            "passed": 0,
+            "failed": 2,
+            "skipped": 0,
+            "pending": 0,
+            "other": 0,
+            "start": 1780260625149,
+            "stop": 1780260625704
+        },
+        "environment": {
+            "buildName": "Pytest JSON CTRF Report",
+            "buildNumber": "000",
+            "buildUrl": "https://ctrf.io"
+        },
+        "tests": [
+            {
+                "name": "test_final_state.py::test_deploy_log_exists",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 17,
+                "start": 1780260625166,
+                "stop": 1780260625183,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_deploy_log_exists():\n>       assert os.path.isfile(DEPLOY_LOG), f\"deploy.log not found at {DEPLOY_LOG}.\"\nE       AssertionError: deploy.log not found at /home/user/rbac-project/deploy.log.\nE       assert False\nE        +  where False = <function isfile at 0x7f26ae324220>('/home/user/rbac-project/deploy.log')\nE        +    where <function isfile at 0x7f26ae324220> = <module 'posixpath' (frozen)>.isfile\nE        +      where <module 'posixpath' (frozen)> = os.path\n\ntests/test_final_state.py:10: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            },
+            {
+                "name": "test_final_state.py::test_rbac_logic",
+                "status": "failed",
+                "raw_status": "call_failed",
+                "duration": 520,
+                "start": 1780260625183,
+                "stop": 1780260625703,
+                "retries": 0,
+                "file_path": "test_final_state.py",
+                "trace": "def test_rbac_logic():\n        script_path = os.path.join(PROJECT_DIR, \"verify.mjs\")\n        script_content = \"\"\"\n    import { ConvexHttpClient } from \"convex/browser\";\n    import { anyApi } from \"convex/server\";\n    \n    const url = process.env.CONVEX_URL;\n    if (!url) {\n        console.error(\"CONVEX_URL is not set\");\n        process.exit(1);\n    }\n    \n    const client = new ConvexHttpClient(url);\n    \n    async function run() {\n        try {\n            // 1. Seed\n            const result = await client.mutation(anyApi.init.seed);\n            if (!result || !result.adminId || !result.editorId || !result.viewerId) {\n                throw new Error(\"Seed did not return expected IDs: \" + JSON.stringify(result));\n            }\n            const { adminId, editorId, viewerId } = result;\n    \n            // 2. Viewer tries to create (should fail)\n            try {\n                await client.mutation(anyApi.documents.create, { userId: viewerId, title: \"Test\", content: \"Content\" });\n                throw new Error(\"Viewer created document successfully (expected failure)\");\n            } catch (e) {\n                if (!e.message.includes(\"Unauthorized\")) {\n                    throw new Error(\"Expected Unauthorized error, got: \" + e.message);\n                }\n            }\n    \n            // 3. Editor tries to create (should succeed)\n            const documentId = await client.mutation(anyApi.documents.create, { userId: editorId, title: \"Test\", content: \"Content\" });\n            if (!documentId) {\n                throw new Error(\"Editor failed to create document\");\n            }\n    \n            // 4. Viewer tries to get (should succeed)\n            const docs = await client.query(anyApi.documents.get, { userId: viewerId });\n            if (!Array.isArray(docs) || docs.length === 0 || !docs.find(d => d._id === documentId)) {\n                throw new Error(\"Viewer get returned unexpected result: \" + JSON.stringify(docs));\n            }\n    \n            // 5. Editor tries to delete (should fail)\n            try {\n                await client.mutation(anyApi.documents.delete, { userId: editorId, documentId });\n                throw new Error(\"Editor deleted document successfully (expected failure)\");\n            } catch (e) {\n                if (!e.message.includes(\"Unauthorized\")) {\n                    throw new Error(\"Expected Unauthorized error, got: \" + e.message);\n                }\n            }\n    \n            // 6. Admin tries to delete (should succeed)\n            await client.mutation(anyApi.documents.delete, { userId: adminId, documentId });\n    \n            // 7. Admin tries to get (should be empty or not contain the document)\n            const docsAfterDelete = await client.query(anyApi.documents.get, { userId: adminId });\n            if (Array.isArray(docsAfterDelete) && docsAfterDelete.find(d => d._id === documentId)) {\n                throw new Error(\"Admin get returned document after it was deleted: \" + JSON.stringify(docsAfterDelete));\n            }\n    \n            console.log(\"SUCCESS\");\n        } catch (e) {\n            console.error(e.message);\n            process.exit(1);\n        }\n    }\n    \n    run();\n    \"\"\"\n        with open(script_path, \"w\") as f:\n            f.write(script_content)\n    \n        env = os.environ.copy()\n    \n        result = subprocess.run(\n            [\"node\", \"verify.mjs\"],\n            cwd=PROJECT_DIR,\n            capture_output=True,\n            text=True,\n            env=env\n        )\n    \n>       assert result.returncode == 0, f\"RBAC verification failed: {result.stderr}\\\\n{result.stdout}\"\nE       AssertionError: RBAC verification failed: [Request ID: eccf4a83a06524dc] Server Error\nE         Could not find public function for 'init:seed'. Did you forget to run `npx convex dev`?\nE         \nE         \\n\nE       assert 1 == 0\nE        +  where 1 = CompletedProcess(args=['node', 'verify.mjs'], returncode=1, stdout='', stderr=\"[Request ID: eccf4a83a06524dc] Server Error\\nCould not find public function for 'init:seed'. Did you forget to run `npx convex dev`?\\n\\n\").returncode\n\ntests/test_final_state.py:101: AssertionError",
+                "message": "The test failed in the call phase due to an assertion error"
+            }
+        ]
+    }
+}

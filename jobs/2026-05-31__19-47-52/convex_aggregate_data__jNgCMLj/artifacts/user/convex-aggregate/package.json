@@ -1,0 +1,9 @@
+{
+  "name": "convex-aggregate",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@convex-dev/aggregate": "^0.2.1",
+    "convex": "^1.39.1"
+  }
+}
