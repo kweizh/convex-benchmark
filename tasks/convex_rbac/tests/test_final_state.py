@@ -1,0 +1,102 @@
+import os
+import subprocess
+import pytest
+import json
+
+PROJECT_DIR = "/home/user/rbac-project"
+DEPLOY_LOG = os.path.join(PROJECT_DIR, "deploy.log")
+
+def test_deploy_log_exists():
+    assert os.path.isfile(DEPLOY_LOG), f"deploy.log not found at {DEPLOY_LOG}."
+    with open(DEPLOY_LOG, "r") as f:
+        content = f.read()
+    assert "Deployment successful" in content, "deploy.log does not contain 'Deployment successful'."
+
+def test_rbac_logic():
+    script_path = os.path.join(PROJECT_DIR, "verify.mjs")
+    script_content = """
+import { ConvexHttpClient } from "convex/browser";
+import { anyApi } from "convex/server";
+
+const url = process.env.CONVEX_URL;
+if (!url) {
+    console.error("CONVEX_URL is not set");
+    process.exit(1);
+}
+
+const client = new ConvexHttpClient(url);
+
+async function run() {
+    try {
+        // 1. Seed
+        const result = await client.mutation(anyApi.init.seed);
+        if (!result || !result.adminId || !result.editorId || !result.viewerId) {
+            throw new Error("Seed did not return expected IDs: " + JSON.stringify(result));
+        }
+        const { adminId, editorId, viewerId } = result;
+
+        // 2. Viewer tries to create (should fail)
+        try {
+            await client.mutation(anyApi.documents.create, { userId: viewerId, title: "Test", content: "Content" });
+            throw new Error("Viewer created document successfully (expected failure)");
+        } catch (e) {
+            if (!e.message.includes("Unauthorized")) {
+                throw new Error("Expected Unauthorized error, got: " + e.message);
+            }
+        }
+
+        // 3. Editor tries to create (should succeed)
+        const documentId = await client.mutation(anyApi.documents.create, { userId: editorId, title: "Test", content: "Content" });
+        if (!documentId) {
+            throw new Error("Editor failed to create document");
+        }
+
+        // 4. Viewer tries to get (should succeed)
+        const docs = await client.query(anyApi.documents.get, { userId: viewerId });
+        if (!Array.isArray(docs) || docs.length === 0 || !docs.find(d => d._id === documentId)) {
+            throw new Error("Viewer get returned unexpected result: " + JSON.stringify(docs));
+        }
+
+        // 5. Editor tries to delete (should fail)
+        try {
+            await client.mutation(anyApi.documents.delete, { userId: editorId, documentId });
+            throw new Error("Editor deleted document successfully (expected failure)");
+        } catch (e) {
+            if (!e.message.includes("Unauthorized")) {
+                throw new Error("Expected Unauthorized error, got: " + e.message);
+            }
+        }
+
+        // 6. Admin tries to delete (should succeed)
+        await client.mutation(anyApi.documents.delete, { userId: adminId, documentId });
+
+        // 7. Admin tries to get (should be empty or not contain the document)
+        const docsAfterDelete = await client.query(anyApi.documents.get, { userId: adminId });
+        if (Array.isArray(docsAfterDelete) && docsAfterDelete.find(d => d._id === documentId)) {
+            throw new Error("Admin get returned document after it was deleted: " + JSON.stringify(docsAfterDelete));
+        }
+
+        console.log("SUCCESS");
+    } catch (e) {
+        console.error(e.message);
+        process.exit(1);
+    }
+}
+
+run();
+"""
+    with open(script_path, "w") as f:
+        f.write(script_content)
+
+    env = os.environ.copy()
+    
+    result = subprocess.run(
+        ["node", "verify.mjs"],
+        cwd=PROJECT_DIR,
+        capture_output=True,
+        text=True,
+        env=env
+    )
+    
+    assert result.returncode == 0, f"RBAC verification failed: {result.stderr}\\n{result.stdout}"
+    assert "SUCCESS" in result.stdout, f"RBAC verification script did not succeed: {result.stdout}\\n{result.stderr}"

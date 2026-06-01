@@ -1,0 +1,8 @@
+{
+  "task_name": "convex_table_name_limit",
+  "task_description": "# Convex Table Name Limit\n\n## Background\nYou are working on a Convex backend project. The project currently has a schema defined with a table named `my-tasks`, which violates Convex's table naming rules.\n\n## Requirements\n- Fix the table name in `convex/schema.ts` to comply with Convex's naming constraints (alphanumeric characters and underscores only, e.g., `my_tasks`).\n- Update any queries or mutations in the `convex/` directory that reference the old table name to use the new valid table name.\n- Ensure the Convex backend can be successfully deployed.\n\n## Implementation Hints\n- Convex table names must only contain alphanumeric characters and underscores.\n- You can use `npx convex deploy` to deploy and verify your fixes.\n\n## Acceptance Criteria\n- Project path: /home/user/project\n- Ensure the real schema deployment action is executed.\n- The table name must be updated to a valid format (e.g., `my_tasks`).\n- There must be a working mutation `api.tasks.add` that accepts a `text` string and inserts it into the table.\n- There must be a working query `api.tasks.get` that returns all tasks from the table.\n",
+  "task_integrations": [
+    "- Convex"
+  ],
+  "truth": "# Verification Plan\n\n## Setup\n1. cd /home/user/project\n2. npm install\n3. npx convex deploy\n\n## Verification Steps\n1. **Add Task**:\n   - Run a Node.js script that calls the `api.tasks.add` mutation with `text: \"Test task\"` using the Convex client.\n   - Expected: The mutation succeeds.\n2. **Get Tasks**:\n   - Run a Node.js script that calls the `api.tasks.get` query using the Convex client.\n   - Expected: The query returns a list containing the newly added task with `text: \"Test task\"`.\n"
+}

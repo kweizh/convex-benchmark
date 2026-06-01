@@ -1,0 +1,29 @@
+# Implement Soft Delete in Convex
+
+## Background
+In many applications, data is not permanently deleted immediately but instead marked as deleted (soft delete). You need to implement a soft delete pattern in a Convex project for a messages table.
+
+## Requirements
+- Initialize a Convex project in `/home/user/project`.
+- Read the `run-id` from the `ZEALT_RUN_ID` environment variable. Convex enforces an alphanumeric-and-underscore limit on table names. Convert the `run-id` by replacing hyphens with underscores (e.g., `zr-123` becomes `zr_123`) and use it to name your table: `messages_<converted_run_id>`.
+- Define the schema for this table in `convex/schema.ts`. It should have `text` (string) and `isDeleted` (boolean).
+- Create a file `convex/messages.ts` with the following exported functions:
+  - `send`: A mutation that takes a `text` string argument and inserts a new record with `isDeleted` set to `false`.
+  - `remove`: A mutation that takes an `id` argument (of type `v.id("messages_<converted_run_id>")`) and updates the record to set `isDeleted` to `true`.
+  - `list`: A query that returns only the records where `isDeleted` is `false`.
+- Ensure your code is valid and can be synced to Convex. You may run the dev server to test and sync your code, but you must kill the dev server before completing the task.
+
+## Implementation Hints
+- Use `npm install convex` and `npx convex dev` to initialize and sync the project.
+- Remember to replace hyphens with underscores in the table name to comply with Convex's naming rules.
+- Use `ctx.db.insert`, `ctx.db.patch`, and `ctx.db.query` in your mutations and queries.
+- You can use `.filter((q) => q.eq(q.field("isDeleted"), false))` in your query to only return non-deleted messages.
+
+## Acceptance Criteria
+- Project path: `/home/user/project`
+- Start command: `npx convex dev`
+- The schema must define the table `messages_<converted_run_id>` with the correct fields.
+- The `send` mutation must successfully insert a record.
+- The `list` query must return only records where `isDeleted` is `false`.
+- The `remove` mutation must update a record's `isDeleted` field to `true`, and subsequent `list` queries should not return it.
+
