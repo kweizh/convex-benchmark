@@ -1,8 +1,0 @@
-{
-  "task_name": "convex_rust_sdk_query",
-  "task_description": "# Query Convex with Rust SDK\n\n## Background\nYou need to create a Rust application that connects to a Convex backend and queries data from it.\n\n## Requirements\n- Initialize a Rust Cargo project named `convex_query_app` in `/home/user/project`.\n- Add the `convex` Rust client library, `tokio`, and `dotenvy` as dependencies.\n- Write a Rust program in `src/main.rs` that connects to the Convex backend using the `CONVEX_URL` environment variable.\n- The program must query the `tasks:get` API and print the results to stdout.\n- Note: Building the Rust project takes time. Start a background job to build the Rust project (`cargo build`) as early as possible while you work on other things.\n\n## Implementation Hints\n- Use `ConvexClient::new` to connect to the deployment URL.\n- Use `client.query(\"tasks:get\", BTreeMap::new()).await` to fetch the tasks.\n- Load environment variables using `dotenvy` or `std::env::var`.\n\n## Acceptance Criteria\n- Project path: /home/user/project/convex_query_app\n- Command: cargo run\n- The stdout should print the array of tasks fetched from Convex.\n",
-  "task_integrations": [
-    "Convex"
-  ],
-  "truth": "# Verification Plan\n\n## Setup\n- Skip setup for this one-off job.\n\n## Verification Steps\n1. cd /home/user/project/convex_query_app\n2. Run: cargo run\n   - Expected: The output contains the sample tasks text, e.g., \"Buy groceries\", \"Go for a swim\", \"Integrate Convex\".\n"
-}
